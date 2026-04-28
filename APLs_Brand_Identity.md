@@ -1,6 +1,6 @@
 # APLs Co., Ltd. — Brand Identity
 
-> 2025년 4월 기준 확정판 · 새 프로젝트 Prompt 0의 재료로 사용
+> 2026년 4월 기준 개편판 · 새 프로젝트 Prompt 0의 재료로 사용
 
 ---
 
@@ -21,18 +21,19 @@
 ## 2. Positioning & Slogan
 
 **한 줄 포지셔닝**
-> 데이터와 측정에 근거한 이미지 컨설팅 법인.
-> 주관적 미학을 측정 가능한 기준으로 전환한다.
+> 정체성을 설계하고, 브랜드를 완성하는 회사.
+> 내면에서 시작해, 이미지로 설계하고, 브랜드로 구현하며, 그 시스템을 전문가로 확장한다.
 
 **슬로건**
-> **Clearly Measured. Personally Set.**
+> **From Identity to Brand, and Beyond.**
 
 슬로건은 번역하지 않고 4개 언어권 공통으로 영문 원문 유지 (Nike/Apple 방식).
 
 **브랜드 약속**
-- 주관이 아닌 **측정**으로 판단한다
-- 파편이 아닌 **통합**된 이미지를 설계한다
-- 유행이 아닌 **증거**에 근거해 조언한다
+- **내면**의 정체성에서 출발한다 (Inner Identity)
+- 이미지를 **설계**한다 (Image Design)
+- 개인과 기업의 **브랜드를 구현**한다 (Brand Production)
+- 그 시스템을 **전문가로 확장**한다 (Expert Expansion)
 
 ---
 
@@ -71,17 +72,16 @@ APLs 홈페이지에서는 3개 서브브랜드를 하위 파트너처럼 노출
 
 ---
 
-## 5. The Five Integrated Practices
+## 5. OUR SYSTEM — 4단계 통합 시스템
 
-APLs의 사업 전반을 5개 카테고리로 압축. 홈페이지 메인 네비게이션 및 서비스 섹션이 이 구조를 따른다.
+APLs의 사업 전반을 4단계 시스템으로 정의. 내면에서 출발하여 브랜드를 넘어 전문가 확장까지 이어지는 흐름.
 
-| # | 카테고리 | 영문 라벨 | 설명 | 해당 서브브랜드 |
-|---|---|---|---|---|
-| 01 | 진단 | **DIAGNOSIS** | 퍼스널컬러·얼굴형·체형 진단 | APLCOLOR |
-| 02 | 자격 | **CERTIFICATION** | 전문가 양성·자격 인증 | KCFB |
-| 03 | 컨설팅 | **CONSULTING** | 기업·기관 이미지 컨설팅 | APLs 본체 |
-| 04 | 교육 | **TRAINING** | 뷰티·헤어·패션 업계 교육 | APLs + KCFB |
-| 05 | 도구·데이터 | **TOOLS & DATA** | 측색기·진단천·교재·AI 에이전트 | KimVsTiger |
+| Step | 영문 라벨 | 구성 요소 | 설명 |
+|---|---|---|---|
+| 01 | **INNER IDENTITY** | 에니어그램 · 색채심리 · TCI | 내면의 정체성을 탐색하고 정의 |
+| 02 | **IMAGE DESIGN** | 퍼스널컬러 · 얼굴형 · 체형 · 스타일링 | 외적 이미지를 설계 |
+| 03 | **BRAND PRODUCTION** | 개인·기업 브랜딩 / 컬러 · 공간 · 향 | 브랜드를 구현 |
+| 04 | **EXPERT EXPANSION** | 전문가 양성 · 강사 배치 · 시스템 확장 | 시스템을 전문가로 확장 |
 
 ---
 
@@ -91,15 +91,16 @@ APLs의 사업 전반을 5개 카테고리로 압축. 홈페이지 메인 네비
 
 | 업계 관행 | APLs 방식 |
 |---|---|
-| 컨설턴트 개인의 감각·주관에 의존 | 측색기 LAB값으로 **측정** |
-| 퍼스널컬러·스타일·메이크업이 따로 제공 | 하나의 체계로 **통합** |
-| 유행·트렌드 기반 조언 | 13,000+ 사례 데이터 기반 **증거** |
-| 자격 인증 체계 부재 | KCFB 인증 프레임워크 제공 |
+| 외모 중심의 표면적 진단 | **내면**(에니어그램·색채심리)에서 출발 |
+| 퍼스널컬러·스타일·메이크업이 따로 제공 | 내면→이미지→브랜드로 이어지는 **통합 시스템** |
+| 일회성 컨설팅으로 끝남 | 개인·기업 **브랜드로 구현**하고 지속 |
+| 자격 인증 체계 부재 | 전문가 양성·강사 배치로 **시스템 확장** |
 
 **차별화 키워드 (사이트 전반에 녹아있어야 함)**
-- **Measured** (측정된)
-- **Integrated** (통합된)
-- **Evidenced** (증명된)
+- **Identity** (정체성)
+- **Design** (설계)
+- **Brand** (브랜드)
+- **Expansion** (확장)
 
 ---
 
@@ -140,19 +141,18 @@ APLs의 사업 전반을 5개 카테고리로 압축. 홈페이지 메인 네비
 - `#EFE9DD` — Hairline (1px 경계선 기본)
 - `#D6CCBD` — Strong Line (강조된 구분선)
 
-**5개 카테고리 액센트 (메뉴 hover + 태그에만 한정 사용)**
-| 카테고리 | 색 | Hex |
+**4단계 시스템 액센트 (메뉴 hover + 태그에만 한정 사용)**
+| 단계 | 색 | Hex |
 |---|---|---|
-| Diagnosis | muted ochre | `#A8927A` |
-| Certification | muted plum | `#7D6B8A` |
-| Consulting | deep teal-gray | `#4A5A5E` |
-| Training | warm cocoa | `#8A6F5A` |
-| Tools & Data | sage | `#6B7A5E` |
+| Inner Identity | muted ochre | `#A8927A` |
+| Image Design | muted plum | `#7D6B8A` |
+| Brand Production | deep teal-gray | `#4A5A5E` |
+| Expert Expansion | warm cocoa | `#8A6F5A` |
 
 **사용 규칙**
 - 인디핑크(`#C9A9A6`)는 **주요 CTA + 활성 상태**에만. 절대 큰 면적 채우기 금지.
 - 베이지(`#C4B5A0`)는 보조 액센트·장식·헤어라인 전담.
-- 카테고리 액센트 5개는 **오직 네비게이션 hover 밑줄 + 서비스 태그 옆 6px 점**에만. 배경 채우기에 쓰면 안 됨.
+- 시스템 액센트 4개는 **오직 네비게이션 hover 밑줄 + 서비스 태그 옆 6px 점**에만. 배경 채우기에 쓰면 안 됨.
 
 ---
 
@@ -193,7 +193,7 @@ APLs의 사업 전반을 5개 카테고리로 압축. 홈페이지 메인 네비
 | **JP** | 2차 | 오사카 지점·일본 파트너용 |
 | **CN** | 2차 | 상하이 지점·중국 파트너용 |
 
-슬로건 `Clearly Measured. Personally Set.`은 번역하지 않음.
+슬로건 `From Identity to Brand, and Beyond.`은 번역하지 않음.
 
 ---
 
@@ -208,8 +208,8 @@ APLs의 사업 전반을 5개 카테고리로 압축. 홈페이지 메인 네비
 1. **Hero 배경**: 블러 처리된 루프 영상 또는 그라데이션 드리프트(30초 루프). 영상 없을 땐 CSS 폴백.
 2. **스크롤 리빌**: 섹션 진입 시 eyebrow → heading → body 순서로 fade + 8-16px translateY. `IntersectionObserver` threshold 0.15, 한 번만.
 3. **커서 패럴랙스**: Hero 배경이 마우스 반대방향으로 ±8-12px 이동. 터치 디바이스와 `prefers-reduced-motion` 감지 시 비활성화.
-4. **네비게이션 hover**: 5개 메뉴 각각에 카테고리 액센트 색으로 왼→오 밑줄 그어짐 (1px, `duration-fast` 200ms).
-5. **타일 hover**: Services 5타일 — 투명 → 흰색 채움 + 2px translateY 상승.
+4. **네비게이션 hover**: 4개 시스템 단계 각각에 액센트 색으로 왼→오 밑줄 그어짐 (1px, `duration-fast` 200ms).
+5. **타일 hover**: Services 타일 — 투명 → 흰색 채움 + 2px translateY 상승.
 6. **Reduced motion**: `prefers-reduced-motion: reduce` 감지 시 모든 움직임 비활성화 (접근성).
 
 ### 피할 것
@@ -272,17 +272,16 @@ APLs의 사업 전반을 5개 카테고리로 압축. 홈페이지 메인 네비
 
 새 프로젝트에서 참조할 홈페이지 섹션 순서.
 
-1. **Hero** — 슬로건 + CTA + 서브브랜드 스트립 + 블러 영상 배경
-2. **Service Categories (5 tiles)** — DIAGNOSIS / CERTIFICATION / CONSULTING / TRAINING / TOOLS & DATA
-3. **About** — 법인 소개 + 4개 stat 블록 + 법적 정보
-4. **Programs & Services Catalog** — 프로그램 그리드 + 필터 탭
-5. **How We Work** (킬러 섹션) — Measure → Analyze → Consult → Set Standard
+1. **Hero** — 슬로건 "From Identity to Brand, and Beyond." + OUR SYSTEM 4단계 M자 배치 + 블러 영상 배경
+2. **About** — 미션 (정체성을 설계하고, 브랜드를 완성하는 회사) + 법인 소개 + stat 블록 + 이미지 갤러리
+3. **OUR SYSTEM** (킬러 섹션) — Inner Identity → Image Design → Brand Production → Expert Expansion
+4. **Services** — 서비스 타일 그리드
+5. **Programs** — 프로그램 카드 (APLCOLOR 인텐시브 / KCFB 전문가 / 기업 컨설팅)
 6. **Experts & Partners** — KCFB 인증 전문가 그리드 + 파트너 로고 월
 7. **KCFB Community** — 협회 가입 혜택 3개 + Apply CTA
 8. **Testimonials** — 기업 고객·전문가 후기 3개
-9. **Journal / News** — 블로그·케이스 스터디 3개
-10. **FAQ** — 아코디언 Q&A 7개
-11. **Footer** — 법인 정보 + 언어 스위처 + 법적 링크
+9. **FAQ** — 아코디언 Q&A 7개
+10. **Footer** — 법인 정보 + 언어 스위처 + 법적 링크
 
 ---
 
@@ -299,4 +298,4 @@ APLs의 사업 전반을 5개 카테고리로 압축. 홈페이지 메인 네비
 
 ---
 
-*문서 버전: 2025-04 · 최종 확정판*
+*문서 버전: 2026-04 · 브랜드 아이덴티티 개편 (OUR SYSTEM 4단계)*

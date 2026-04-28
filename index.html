@@ -1,2528 +1,1353 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>APLs Co., Ltd. — Clearly Measured. Personally Set.</title>
+<title>APLs — From Identity to Brand, and Beyond</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
-   BRAND TOKENS
+   TOKENS
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Base */
-  --bg-primary:    #FCFAF6;
-  --bg-secondary:  #FFFFFF;
-  --bg-tint:       #F6F1E8;
+  --bg:       #ece0c8;
+  --bg-white: #FFFFFF;
+  --text:     #222222;
+  --text-sub: #888888;
+  --text-dim: #AAAAAA;
+  --border:   #E5E5E5;
+  --accent:   #FA5D29;
 
-  /* Text */
-  --text-primary:   #2A2A2A;
-  --text-secondary: #6B6560;
-  --text-tertiary:  #9A938B;
+  --font: "Inter", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Accents */
-  --accent-beige:    #C4B5A0;
-  --accent-indi:     #C9A9A6;
-  --accent-indi-ink: #9E7D7A;
+  --header-h: 54px;
+  --pad: clamp(20px, 4vw, 52px);
+  --max-w: 1816px;
 
-  /* Lines */
-  --line:        #EFE9DD;
-  --line-strong: #D6CCBD;
-
-  /* Category accents (nav label hover + tile tag dots only) */
-  --accent-diagnosis:     #A8927A;
-  --accent-certification: #7D6B8A;
-  --accent-consulting:    #4A5A5E;
-  --accent-training:      #8A6F5A;
-  --accent-tools:         #6B7A5E;
-
-  /* Fonts */
-  --font-serif-latin: "Cormorant Garamond", "Noto Serif KR", Georgia, serif;
-  --font-sans-latin:  "Inter", "Pretendard Variable", -apple-system, sans-serif;
-  --font-serif-kr:    "Noto Serif KR", "Cormorant Garamond", serif;
-  --font-sans-kr:     "Pretendard Variable", "Inter", -apple-system, sans-serif;
-  --font-mono:        "JetBrains Mono", ui-monospace, Menlo, monospace;
-
-  /* Motion */
-  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-fast:   200ms;
-  --duration-base:   400ms;
-  --duration-slow:   800ms;
-  --duration-reveal: 600ms;
-
-  /* Layout */
-  --content-max: 1280px;
-  --side-pad:    clamp(24px, 6vw, 80px);
+  --ease: cubic-bezier(.165, .84, .44, 1);
+  --dur: 0.5s;
+  --dur-fast: 0.3s;
 }
 
 /* ═══════════════════════════════════════════════════════════
    RESET
    ═══════════════════════════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: var(--font-sans-latin);
-  font-size: 17px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-h1, h2, h3, h4, p, ul, ol { margin: 0; padding: 0; }
-ul, ol { list-style: none; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { font-family: var(--font); font-weight: 400; color: var(--text); background: var(--bg); line-height: 1.5; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+img, video { display: block; max-width: 100%; }
+ul, ol { list-style: none; }
 
 /* ═══════════════════════════════════════════════════════════
-   NO ITALIC HEADLINES (enforced)
+   HEADER
    ═══════════════════════════════════════════════════════════ */
-h1, h2, h3, h4, .nav__label, .hero__headline, .tile__name,
-.services__title, .strip__label {
-  font-style: normal !important;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   REVEAL UTILITIES (scroll reactions)
-   ═══════════════════════════════════════════════════════════ */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity var(--duration-slow) var(--ease-soft),
-              transform var(--duration-slow) var(--ease-soft);
-  transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
-}
-.reveal--eyebrow { transform: translateY(8px); transition-duration: var(--duration-base); }
-.reveal--body    { transition-duration: var(--duration-base); --reveal-delay: 200ms; }
-.reveal--heading { --reveal-delay: 100ms; }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
-
-/* Word-by-word blur → sharp cascade */
-.reveal--words { opacity: 1; transform: none; }
-.reveal__word {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(20px);
-  filter: blur(8px);
-  transition: opacity var(--duration-reveal) var(--ease-soft),
-              transform var(--duration-reveal) var(--ease-soft),
-              filter var(--duration-reveal) var(--ease-soft);
-  transition-delay: var(--word-delay, 0ms);
-  will-change: opacity, transform, filter;
-}
-.reveal--words.is-visible .reveal__word {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-}
-
-/* Drift — moves slower than scroll */
-.reveal--drift {
-  transform: translateY(var(--drift-offset, 0));
-  will-change: transform;
-}
-
-/* Reduced motion kill-switch */
-@media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal--words, .reveal__word, .reveal--drift {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    transition: none !important;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   NAVIGATION (two-line stacked format)
-   ═══════════════════════════════════════════════════════════ */
-.nav {
+.header {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 50;
+  z-index: 100;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
   background: transparent;
-  border-bottom: 1px solid transparent;
-  transition: background var(--duration-base) var(--ease-soft),
-              border-color var(--duration-base) var(--ease-soft),
-              backdrop-filter var(--duration-base) var(--ease-soft);
-}
-.nav.is-scrolled {
-  background: color-mix(in oklab, var(--bg-primary) 88%, transparent);
-  backdrop-filter: saturate(1.1) blur(10px);
-  -webkit-backdrop-filter: saturate(1.1) blur(10px);
-  border-bottom-color: var(--line);
-}
-.nav__inner {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 32px;
-  padding: 22px var(--side-pad);
-  max-width: 100%;
+  transition: background var(--dur) var(--ease);
 }
 
-.nav__brand {
-  display: flex;
-  align-items: center;
-  padding: 8px 0 10px;
-}
-.nav__brand-mark {
-  font-family: var(--font-sans-latin);
-  font-weight: 600;
-  font-size: 25px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  line-height: 1.1;
-  color: var(--text-primary);
-}
-.nav__brand-meta {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
+.header--scrolled {
+  background: rgba(236, 224, 200, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
 }
 
-.nav__menu {
+.header__inner {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad);
   display: flex;
-  justify-content: center;
-  gap: 48px;
-}
-.nav__item {
-  position: relative;
-}
-.nav__link {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: 8px 0 10px;
-  line-height: 1.1;
-  transition: color var(--duration-fast) var(--ease-soft);
+  justify-content: space-between;
 }
-.nav__tagline {
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--text-tertiary);
-}
-.nav__label {
-  font-family: var(--font-sans-latin);
-  font-size: 25px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  transition: color var(--duration-fast) var(--ease-soft);
-}
-.nav__link::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 100%;
-  bottom: 0;
-  height: 1px;
-  background: var(--nav-accent, var(--accent-indi));
-  transition: right var(--duration-fast) var(--ease-soft);
-}
-.nav__link:hover .nav__label { color: var(--nav-accent, var(--text-primary)); }
-.nav__link:hover::after { right: 0; }
-.nav__item:nth-child(1) .nav__link { --nav-accent: var(--accent-diagnosis); }
-.nav__item:nth-child(2) .nav__link { --nav-accent: var(--accent-certification); }
-.nav__item:nth-child(3) .nav__link { --nav-accent: var(--accent-consulting); }
-.nav__item:nth-child(4) .nav__link { --nav-accent: var(--accent-training); }
-.nav__item:nth-child(5) .nav__link { --nav-accent: var(--accent-tools); }
 
-.nav__right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 24px;
-}
-.lang {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-}
-.lang a {
-  color: var(--text-tertiary);
-  transition: color var(--duration-fast) var(--ease-soft);
-}
-.lang a:hover { color: var(--text-primary); }
-.lang a.is-active { color: var(--text-primary); }
-.lang__sep { color: var(--text-tertiary); opacity: 0.5; }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-sans-latin);
-  font-size: 14px;
-  font-weight: 500;
+.header__logo {
+  font-weight: 800;
+  font-size: 18px;
   letter-spacing: 0.02em;
-  padding: 14px 24px;
-  border-radius: 2px;
-  border: 1px solid transparent;
-  transition: background var(--duration-fast) var(--ease-soft),
-              color var(--duration-fast) var(--ease-soft),
-              border-color var(--duration-fast) var(--ease-soft);
-  white-space: nowrap;
 }
-.btn--primary {
-  background: var(--accent-indi);
-  color: #fff;
-  border-color: var(--accent-indi);
-}
-.btn--primary:hover {
-  background: var(--accent-indi-ink);
-  border-color: var(--accent-indi-ink);
-}
-.btn--secondary {
-  background: transparent;
-  color: var(--text-primary);
-  border-color: var(--line-strong);
-}
-.btn--secondary:hover { border-color: var(--text-primary); }
-.btn--ghost {
-  background: transparent;
-  color: var(--text-primary);
-  border-color: transparent;
-  padding-left: 0;
-  padding-right: 0;
-}
-.btn__arrow {
-  display: inline-block;
-  transition: transform var(--duration-fast) var(--ease-soft);
-}
-.btn--ghost:hover .btn__arrow { transform: translateX(6px); }
-.btn--primary:hover .btn__arrow { transform: translateX(4px); }
 
-.nav__cta { font-size: 12px; padding: 10px 18px; }
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.header__nav a {
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.header__nav a:hover { opacity: 0.5; }
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__lang {
+  display: flex;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.header__lang a { color: var(--text-dim); transition: color var(--dur-fast); }
+.header__lang a.is-active { color: var(--text); }
+.header__lang a:hover { color: var(--text); }
+
+.header__cta {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 8px 18px;
+  border: 1.5px solid var(--text);
+  border-radius: 2px;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+
+.header__cta:hover { background: var(--text); color: var(--bg); }
+
+.header__menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 22px;
+}
+
+.header__menu-btn span {
+  display: block;
+  height: 1.5px;
+  background: var(--text);
+}
 
 /* ═══════════════════════════════════════════════════════════
-   HERO
+   HERO — Osklen-style scattered categories + huge title
    ═══════════════════════════════════════════════════════════ */
 .hero {
   position: relative;
-  height: 100vh;
-  min-height: 720px;
-  max-height: 1040px;
-  overflow: hidden;
-  isolation: isolate;
+  min-height: auto;
   display: flex;
   flex-direction: column;
-}
-
-/* Background layer — video or static fallback (NO ANIMATION) */
-.hero__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+  justify-content: flex-end;
+  padding: calc(var(--header-h) + 100px) var(--pad) 0;
   overflow: hidden;
-  pointer-events: none;
-  will-change: transform;
-  transition: transform var(--duration-slow) var(--ease-soft);
-}
-.hero__bg-fallback {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(70% 60% at 30% 30%, #F4EBDA 0%, transparent 60%),
-    radial-gradient(60% 50% at 75% 70%, #EDE0D2 0%, transparent 65%),
-    var(--bg-primary);
-}
-.hero__bg-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(22px) saturate(0.85);
-  transform: scale(1.1);
-  opacity: 0;
-  transition: opacity var(--duration-slow) var(--ease-soft);
-}
-.hero__bg-video.is-playing { opacity: 1; }
-.hero__bg-video.is-playing ~ .hero__bg-fallback { opacity: 0; }
-
-/* Wash layer — 40-50% opacity, NEVER higher */
-.hero__wash {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(180deg,
-    rgba(252, 250, 246, 0.48) 0%,
-    rgba(252, 250, 246, 0.42) 50%,
-    rgba(252, 250, 246, 0.55) 100%);
 }
 
-/* Foreground content */
-.hero__content {
-  position: relative;
+/* Hero Toolbar */
+.hero-toolbar {
+  position: absolute;
+  top: calc(var(--header-h) + 24px);
+  left: var(--pad);
+  right: var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   z-index: 2;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: var(--content-max);
-  width: 100%;
-  margin: 0 auto;
-  padding: 120px var(--side-pad) 60px;
-}
-.hero__inner {
-  max-width: 62%;
 }
 
-.hero__eyebrow {
+.hero-toolbar__left { display: flex; align-items: center; }
+
+.box-score {
   display: flex;
   align-items: center;
-  gap: 16px;
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  margin-bottom: 48px;
-}
-.hero__eyebrow::before {
-  content: "";
-  width: 36px;
-  height: 1px;
-  background: var(--accent-beige);
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 8px 16px;
+  background: rgba(236, 224, 200, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.hero__headline {
-  font-family: var(--font-serif-latin);
-  font-weight: 300;
-  font-size: clamp(56px, 6.4vw, 104px);
-  line-height: 1.02;
-  letter-spacing: -0.022em;
-  color: var(--text-primary);
-  margin-bottom: 40px;
-}
-.hero__headline-line {
-  display: block;
-  white-space: nowrap;
-}
-.hero__punct { color: var(--accent-indi); }
-
-.hero__lede {
-  font-family: var(--font-sans-latin);
-  font-size: 18px;
-  line-height: 1.65;
-  color: var(--text-secondary);
-  max-width: 46ch;
-  margin-bottom: 48px;
-}
-
-.hero__ctas {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-.hero__ctas .btn--primary { padding: 16px 28px; font-size: 14px; }
-.hero__ctas .btn--ghost { font-size: 14px; font-weight: 500; gap: 14px; }
-
-/* Instruction marker — bottom-right */
-.hero__marker {
-  position: absolute;
-  right: var(--side-pad);
-  bottom: 120px;
-  z-index: 3;
-  text-align: right;
-  font-family: var(--font-mono);
+.box-score__top strong {
+  font-weight: 700;
   font-size: 10px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
-  pointer-events: none;
-  line-height: 1.8;
-  opacity: 0.7;
-}
-.hero__marker strong {
-  font-weight: 500;
-  color: var(--text-secondary);
-  display: block;
-  margin-bottom: 4px;
+  color: var(--text-dim);
 }
 
-/* Bottom strip — 5 category labels (shareintensive style) */
-.strip {
+.box-score__bottom {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.box-score__bottom strong {
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.box-score__bottom sub {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+.hero-toolbar__right { display: flex; align-items: center; }
+
+.toolbar-bts {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.toolbar-bts li { display: flex; }
+
+.toolbar-bts__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  margin-left: -1px;
+  color: var(--text);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast);
+  background: rgba(236, 224, 200, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.toolbar-bts li:first-child .toolbar-bts__item { border-radius: 2px 0 0 2px; margin-left: 0; }
+.toolbar-bts li:last-child .toolbar-bts__item { border-radius: 0 2px 2px 0; }
+
+.toolbar-bts__item:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* Massive title */
+.hero__title {
+  font-weight: 500;
+  font-size: clamp(38px, 8.8vw, 160px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  padding-bottom: clamp(32px, 4vw, 60px);
   position: relative;
   z-index: 2;
-  border-top: 1px solid var(--line);
-  background: color-mix(in oklab, var(--bg-primary) 70%, transparent);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
-.strip__inner {
-  display: flex;
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--side-pad);
-}
-.strip__item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 28px 16px;
-  border-right: 1px solid var(--line);
-  position: relative;
-  transition: color var(--duration-fast) var(--ease-soft);
-}
-.strip__item:last-child { border-right: 0; }
-.strip__tagline {
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--text-tertiary);
-}
-.strip__label {
-  font-family: var(--font-sans-latin);
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  transition: color var(--duration-fast) var(--ease-soft);
-}
-.strip__item::after {
-  content: "";
-  position: absolute;
-  left: 50%; right: 50%;
-  bottom: 12px;
-  height: 1px;
-  background: var(--strip-accent, var(--accent-indi));
-  transition: left var(--duration-fast) var(--ease-soft),
-              right var(--duration-fast) var(--ease-soft);
-}
-.strip__item:hover::after { left: 20%; right: 20%; }
-.strip__item:hover .strip__label { color: var(--strip-accent); }
-.strip__item:nth-child(1) { --strip-accent: var(--accent-diagnosis); }
-.strip__item:nth-child(2) { --strip-accent: var(--accent-certification); }
-.strip__item:nth-child(3) { --strip-accent: var(--accent-consulting); }
-.strip__item:nth-child(4) { --strip-accent: var(--accent-training); }
-.strip__item:nth-child(5) { --strip-accent: var(--accent-tools); }
 
 /* ═══════════════════════════════════════════════════════════
-   SERVICES — Five Integrated Practices
+   SECTION COMMON
    ═══════════════════════════════════════════════════════════ */
-.services {
-  background: var(--bg-primary);
-  padding: 120px 0;
-  border-top: 1px solid var(--line);
+.section {
+  padding: clamp(60px, 10vw, 160px) 0;
 }
-.services__inner {
-  max-width: var(--content-max);
+
+.container {
+  width: 100%;
+  max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 var(--side-pad);
+  padding: 0 var(--pad);
 }
-.services__head {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: 32px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid var(--line);
-}
-.services__eyebrow {
+
+.section__eyebrow {
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 32px;
   display: flex;
   align-items: center;
   gap: 16px;
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
 }
-.services__eyebrow-num {
-  font-family: var(--font-mono);
-  color: var(--accent-indi);
-  letter-spacing: 0.1em;
-}
-.services__eyebrow-rule {
-  width: 36px;
+
+.section__eyebrow-line {
+  flex: 1;
   height: 1px;
-  background: var(--accent-beige);
-}
-.services__title {
-  font-family: var(--font-serif-latin);
-  font-weight: 400;
-  font-size: clamp(32px, 3.6vw, 48px);
-  line-height: 1.15;
-  letter-spacing: -0.012em;
-  color: var(--text-primary);
-  justify-self: end;
-  text-align: right;
-  max-width: 600px;
+  background: var(--border);
 }
 
-.services__grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  border-bottom: 1px solid var(--line);
+.section__title {
+  font-weight: 800;
+  font-size: clamp(28px, 4.5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: clamp(32px, 4vw, 64px);
 }
-.tile {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 48px;
-  padding: 48px 28px;
-  border-right: 1px solid var(--line);
-  background: transparent;
-  min-height: 380px;
-  transition: background var(--duration-base) var(--ease-soft),
-              transform var(--duration-base) var(--ease-soft);
-}
-.tile:last-child { border-right: 0; }
-.tile:hover {
-  background: var(--bg-secondary);
-  transform: translateY(-2px);
-}
-.tile__top {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.tile__tag {
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--tile-accent, var(--text-secondary));
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.tile__tag::before {
-  content: "";
-  display: inline-block;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--tile-accent, var(--accent-beige));
-}
-.tile:nth-child(1) { --tile-accent: var(--accent-diagnosis); }
-.tile:nth-child(2) { --tile-accent: var(--accent-certification); }
-.tile:nth-child(3) { --tile-accent: var(--accent-consulting); }
-.tile:nth-child(4) { --tile-accent: var(--accent-training); }
-.tile:nth-child(5) { --tile-accent: var(--accent-tools); }
-
-.tile__name {
-  font-family: var(--font-serif-latin);
-  font-weight: 500;
-  font-size: 26px;
-  line-height: 1.2;
-  letter-spacing: -0.005em;
-  color: var(--text-primary);
-}
-.tile__desc {
-  font-family: var(--font-sans-latin);
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-}
-.tile__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-sans-latin);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--text-primary);
-  align-self: flex-start;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--line-strong);
-  transition: color var(--duration-fast) var(--ease-soft),
-              border-color var(--duration-fast) var(--ease-soft);
-}
-.tile__arrow {
-  display: inline-block;
-  transition: transform var(--duration-fast) var(--ease-soft);
-}
-.tile__link:hover {
-  color: var(--accent-indi-ink);
-  border-bottom-color: var(--accent-indi);
-}
-.tile__link:hover .tile__arrow { transform: translateX(4px); }
 
 /* ═══════════════════════════════════════════════════════════
    ABOUT
    ═══════════════════════════════════════════════════════════ */
-.about {
-  background: var(--bg-primary);
-  padding: 120px 0 160px;
-  border-top: 1px solid var(--line);
-}
-.about__inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--side-pad);
-}
-.about__head {
-  padding-bottom: 48px;
-  border-bottom: 1px solid var(--line);
-}
-.about__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-.about__eyebrow-num {
-  font-family: var(--font-mono);
-  color: var(--accent-indi);
-  letter-spacing: 0.1em;
-}
-.about__eyebrow-rule {
-  width: 36px;
-  height: 1px;
-  background: var(--accent-beige);
-}
-
-/* Step Into the Standard — mission block */
-.about__mission {
-  padding: 64px 0 96px;
-  border-bottom: 1px solid var(--line);
-}
-.about__mission-title {
-  font-family: var(--font-serif-latin);
-  font-weight: 300;
-  font-size: clamp(48px, 5.6vw, 88px);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  max-width: 14ch;
-  margin: 0 0 32px;
-}
-.about__mission-sub {
-  font-family: var(--font-sans-latin);
-  font-size: clamp(16px, 1.5vw, 20px);
-  line-height: 1.6;
-  color: var(--text-secondary);
-  max-width: 54ch;
-  margin: 0;
-}
-
 .about__grid {
   display: grid;
-  grid-template-columns: 40% 60%;
-  gap: 80px;
-  padding-top: 96px;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 120px);
+  align-items: start;
 }
-.about__title {
-  font-family: var(--font-serif-latin);
-  font-weight: 400;
-  font-size: clamp(28px, 3vw, 40px);
-  line-height: 1.15;
-  letter-spacing: -0.012em;
-  color: var(--text-primary);
-  max-width: 380px;
-  margin: 0;
+
+.about__mission {
+  font-weight: 700;
+  font-size: clamp(24px, 3.5vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  position: relative;
+  cursor: default;
 }
-.about__content-col {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
+
+.about__mission .text-kr {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
 }
-.about__intro {
-  font-family: var(--font-sans-latin);
-  font-size: 18px;
-  line-height: 1.7;
-  color: var(--text-primary);
-  max-width: 56ch;
-  margin: 0;
+.about__mission .text-en { transition: opacity var(--dur-fast) var(--ease); }
+.about__mission:hover .text-en { opacity: 0; }
+.about__mission:hover .text-kr { opacity: 1; }
+
+.about__desc {
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.75;
+  color: var(--text-sub);
+  margin-bottom: 48px;
 }
 
 .about__stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  padding-top: 48px;
-  border-top: 1px solid var(--line);
+  gap: 20px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
 }
-.stat {
-  display: flex;
-  flex-direction: column;
-}
+
 .stat__num {
-  font-family: var(--font-serif-latin);
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 1;
+  font-weight: 800;
+  font-size: clamp(24px, 2.5vw, 42px);
   letter-spacing: -0.02em;
-  color: var(--text-primary);
-  margin-bottom: 12px;
+  line-height: 1;
+  margin-bottom: 6px;
 }
+
 .stat__label {
-  font-family: var(--font-sans-latin);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-primary);
-  margin-bottom: 4px;
+  color: var(--text-dim);
+  margin-bottom: 2px;
 }
+
 .stat__sub {
-  font-family: var(--font-sans-latin);
-  font-size: 12px;
-  color: var(--text-tertiary);
-  line-height: 1.5;
-}
-
-.about__legal {
-  font-family: var(--font-mono);
   font-size: 11px;
-  line-height: 1.9;
-  letter-spacing: 0.04em;
-  color: var(--text-tertiary);
-  padding-top: 32px;
-  border-top: 1px solid var(--line);
+  color: var(--text-dim);
+  line-height: 1.4;
 }
 
+/* Photos */
 .about__photos {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 120px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 6px;
+  margin-top: 80px;
 }
-.photo-ph {
-  aspect-ratio: 16/9;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      #EFE8DA 0 2px,
-      transparent 2px 14px
-    ),
-    var(--bg-tint);
-  border: 1px solid var(--line);
-  color: var(--text-tertiary);
+
+.ph {
+  overflow: hidden;
+  background: repeating-linear-gradient(135deg, #ddd 0 1px, transparent 1px 12px), #eee;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 16px;
 }
 
-@media (max-width: 1080px) {
-  .about__grid {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  .about__title { max-width: 100%; }
-  .about__stats { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-  .about__photos { grid-template-columns: 1fr; }
+.ph span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #bbb;
 }
-@media (max-width: 640px) {
-  .about { padding: 80px 0 100px; }
-  .about__mission { padding: 40px 0 64px; }
-  .about__grid { padding-top: 64px; }
-  .about__intro { font-size: 16px; }
-  .stat__num { font-size: 32px; }
-  .about__photos { margin-top: 80px; }
-}
+
+.ph--lg   { grid-column: span 7; aspect-ratio: 16/10; }
+.ph--tall { grid-column: span 5; aspect-ratio: 4/5; }
+.ph--sm   { grid-column: span 4; aspect-ratio: 3/4; }
+.ph--wide { grid-column: span 5; aspect-ratio: 16/9; }
+.ph--sq   { grid-column: span 3; aspect-ratio: 1/1; }
 
 /* ═══════════════════════════════════════════════════════════
-   RESPONSIVE
+   OUR SYSTEM
    ═══════════════════════════════════════════════════════════ */
-@media (max-width: 1080px) {
-  .nav__tagline { display: none; }
-  .nav__menu { gap: 32px; }
-  .hero__inner { max-width: 80%; }
-  .services__grid { grid-template-columns: repeat(2, 1fr); }
-  .tile { border-bottom: 1px solid var(--line); }
-  .tile:nth-child(2n) { border-right: 0; }
-  .tile:nth-last-child(-n+1) { border-bottom: 0; }
-  .strip__inner { flex-wrap: wrap; }
-  .strip__item { flex: 1 0 33.33%; }
-  .strip__item:nth-child(3) { border-right: 0; }
-  .strip__item:nth-child(4), .strip__item:nth-child(5) {
-    border-top: 1px solid var(--line);
-  }
-}
-@media (max-width: 768px) {
-  .nav__menu { display: none; }
-  .nav__inner { grid-template-columns: 1fr auto; }
-  .hero__marker { bottom: 200px; font-size: 9px; }
-  .hero__inner { max-width: 100%; }
-  .services__head { grid-template-columns: 1fr; align-items: start; }
-  .services__title { justify-self: start; text-align: left; }
-}
-@media (max-width: 640px) {
-  .hero { min-height: 600px; }
-  .hero__content { padding: 100px var(--side-pad) 40px; }
-  .hero__ctas { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .services__grid { grid-template-columns: 1fr; }
-  .tile { border-right: 0; min-height: 0; padding: 40px 0; }
-  .tile:last-child { border-bottom: 0; }
-  .strip__item { flex: 1 0 50%; padding: 20px 12px; }
-  .strip__item:nth-child(2) { border-right: 0; }
-  .strip__item:nth-child(3),
-  .strip__item:nth-child(4),
-  .strip__item:nth-child(5) {
-    border-top: 1px solid var(--line);
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   HOW WE WORK — 4-step process
-   ═══════════════════════════════════════════════════════════ */
-.process {
-  background: var(--bg-tint);
-  padding: 120px 0;
-  border-top: 1px solid var(--line);
-}
-.process__inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--side-pad);
-}
-.process__head {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: 32px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid var(--line);
-}
-.process__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-.process__eyebrow-num {
-  font-family: var(--font-mono);
-  color: var(--accent-indi);
-  letter-spacing: 0.1em;
-}
-.process__eyebrow-rule {
-  width: 36px;
-  height: 1px;
-  background: var(--accent-beige);
-}
-.process__title {
-  font-family: var(--font-serif-latin);
-  font-weight: 400;
-  font-size: clamp(32px, 3.6vw, 48px);
-  line-height: 1.15;
-  letter-spacing: -0.012em;
-  color: var(--text-primary);
-  justify-self: end;
-  text-align: right;
-  max-width: 600px;
-}
-.process__grid {
+.system__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  counter-reset: step;
-}
-.step {
-  padding: 48px 32px;
-  border-right: 1px solid var(--line);
-  position: relative;
-  counter-increment: step;
-}
-.step:last-child { border-right: 0; }
-.step__num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--accent-indi);
-  margin-bottom: 24px;
-}
-.step__name {
-  font-family: var(--font-serif-latin);
-  font-weight: 500;
-  font-size: 28px;
-  line-height: 1.15;
-  letter-spacing: -0.005em;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-}
-.step__desc {
-  font-family: var(--font-sans-latin);
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--text-secondary);
-}
-.step__connector {
-  position: absolute;
-  top: 60px;
-  right: -12px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--accent-beige);
-  z-index: 1;
-  background: var(--bg-tint);
-  padding: 4px;
+  gap: 1px;
+  background: var(--border);
 }
 
-@media (max-width: 1080px) {
-  .process__grid { grid-template-columns: repeat(2, 1fr); }
-  .step:nth-child(2n) { border-right: 0; }
-  .step:nth-child(1), .step:nth-child(2) { border-bottom: 1px solid var(--line); }
-  .step:nth-child(2n) .step__connector { display: none; }
+.system__card {
+  background: var(--bg);
+  padding: clamp(24px, 2.5vw, 44px);
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  transition: background var(--dur-fast) var(--ease);
 }
-@media (max-width: 640px) {
-  .process { padding: 80px 0; }
-  .process__head { grid-template-columns: 1fr; }
-  .process__title { justify-self: start; text-align: left; }
-  .process__grid { grid-template-columns: 1fr; }
-  .step { border-right: 0; border-bottom: 1px solid var(--line); padding: 32px 0; }
-  .step:last-child { border-bottom: 0; }
-  .step__connector { display: none; }
+
+.system__card:hover { background: var(--bg-white); }
+
+.system__card-num {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 40px;
+}
+
+.system__card-title {
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 28px);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.system__card-tags {
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.7;
+  margin-bottom: auto;
+}
+
+.system__card-arrow {
+  font-size: 22px;
+  color: var(--text-dim);
+  margin-top: 20px;
+  transition: transform var(--dur-fast) var(--ease), color var(--dur-fast);
+}
+
+.system__card:hover .system__card-arrow {
+  transform: translateX(4px);
+  color: var(--text);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PROGRAMS — Our Programs (SHARE-style large cards)
+   SERVICES
    ═══════════════════════════════════════════════════════════ */
-.programs {
-  background: var(--bg-primary);
-  padding: 120px 0;
-  border-top: 1px solid var(--line);
-}
-.programs__inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--side-pad);
-}
-.programs__head {
+.services__grid {
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: 32px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
 }
-.programs__eyebrow {
+
+.service {
+  background: var(--bg-white);
+  padding: clamp(24px, 2.5vw, 44px);
   display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
+  flex-direction: column;
+  min-height: 260px;
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.service:hover { background: #fff; }
+
+.service__tag {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-dim);
+  margin-bottom: 20px;
 }
-.programs__eyebrow-num {
-  font-family: var(--font-mono);
-  color: var(--accent-indi);
-  letter-spacing: 0.1em;
+
+.service__name {
+  font-weight: 700;
+  font-size: clamp(16px, 1.5vw, 24px);
+  margin-bottom: 10px;
 }
-.programs__eyebrow-rule {
-  width: 36px;
-  height: 1px;
-  background: var(--accent-beige);
+
+.service__desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-sub);
+  margin-bottom: auto;
 }
-.programs__title {
-  font-family: var(--font-serif-latin);
-  font-weight: 400;
-  font-size: clamp(32px, 3.6vw, 48px);
-  line-height: 1.15;
-  letter-spacing: -0.012em;
-  color: var(--text-primary);
-  justify-self: end;
-  text-align: right;
-  max-width: 600px;
+
+.service__link {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap var(--dur-fast);
 }
+
+.service:hover .service__link { gap: 10px; }
+
+/* ═══════════════════════════════════════════════════════════
+   PROGRAMS
+   ═══════════════════════════════════════════════════════════ */
 .programs__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+  gap: 20px;
 }
-.prog-card {
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  transition: background var(--duration-base) var(--ease-soft);
+
+.program {
+  border: 1px solid var(--border);
+  transition: border-color var(--dur-fast);
 }
-.prog-card:nth-child(3n) { border-right: 0; }
-.prog-card:hover { background: var(--bg-secondary); }
-.prog-card__img {
-  aspect-ratio: 16/10;
-  background:
-    repeating-linear-gradient(135deg, #EFE8DA 0 2px, transparent 2px 14px),
-    var(--bg-tint);
-  border-bottom: 1px solid var(--line);
+
+.program:hover { border-color: var(--text); }
+
+.program__img {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: repeating-linear-gradient(135deg, #ddd 0 1px, transparent 1px 12px), #eee;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  padding: 16px;
-  text-align: center;
-}
-.prog-card__body {
-  padding: 32px 28px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  flex: 1;
-}
-.prog-card__tag {
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--prog-accent, var(--text-secondary));
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.prog-card__tag::before {
-  content: "";
-  display: inline-block;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--prog-accent, var(--accent-beige));
-}
-.prog-card:nth-child(1) { --prog-accent: var(--accent-diagnosis); }
-.prog-card:nth-child(2) { --prog-accent: var(--accent-certification); }
-.prog-card:nth-child(3) { --prog-accent: var(--accent-consulting); }
-.prog-card__name {
-  font-family: var(--font-serif-latin);
-  font-weight: 500;
-  font-size: 26px;
-  line-height: 1.2;
-  letter-spacing: -0.005em;
-  color: var(--text-primary);
-}
-.prog-card__desc {
-  font-family: var(--font-sans-latin);
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--text-secondary);
-  flex: 1;
-}
-.prog-card__meta {
-  display: flex;
-  gap: 24px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--text-tertiary);
-}
-.prog-card__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-sans-latin);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--text-primary);
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--line-strong);
-  align-self: flex-start;
-  margin-top: 8px;
-  transition: color var(--duration-fast) var(--ease-soft),
-              border-color var(--duration-fast) var(--ease-soft);
-}
-.prog-card__cta:hover {
-  color: var(--accent-indi-ink);
-  border-bottom-color: var(--accent-indi);
-}
-.prog-card__cta-arrow {
-  display: inline-block;
-  transition: transform var(--duration-fast) var(--ease-soft);
-}
-.prog-card__cta:hover .prog-card__cta-arrow { transform: translateX(4px); }
-
-@media (max-width: 1080px) {
-  .programs__grid { grid-template-columns: repeat(2, 1fr); }
-  .prog-card:nth-child(3n) { border-right: 1px solid var(--line); }
-  .prog-card:nth-child(2n) { border-right: 0; }
-}
-@media (max-width: 640px) {
-  .programs { padding: 80px 0; }
-  .programs__head { grid-template-columns: 1fr; }
-  .programs__title { justify-self: start; text-align: left; }
-  .programs__grid { grid-template-columns: 1fr; }
-  .prog-card { border-right: 0; }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   COURSES — Our Courses (compact grid)
-   ═══════════════════════════════════════════════════════════ */
-.courses {
-  background: var(--bg-tint);
-  padding: 120px 0;
-  border-top: 1px solid var(--line);
-}
-.courses__inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--side-pad);
-}
-.courses__head {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: 32px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid var(--line);
-}
-.courses__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
+.program__img span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: #bbb;
 }
-.courses__eyebrow-num {
-  font-family: var(--font-mono);
-  color: var(--accent-indi);
-  letter-spacing: 0.1em;
-}
-.courses__eyebrow-rule {
-  width: 36px;
-  height: 1px;
-  background: var(--accent-beige);
-}
-.courses__title {
-  font-family: var(--font-serif-latin);
-  font-weight: 400;
-  font-size: clamp(32px, 3.6vw, 48px);
-  line-height: 1.15;
-  letter-spacing: -0.012em;
-  color: var(--text-primary);
-  justify-self: end;
-  text-align: right;
-  max-width: 600px;
-}
-.courses__tabs {
-  display: flex;
-  gap: 0;
-  padding-top: 32px;
-  border-bottom: 1px solid var(--line);
-}
-.courses__tab {
-  font-family: var(--font-sans-latin);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  padding: 16px 24px;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  transition: color var(--duration-fast) var(--ease-soft),
-              border-color var(--duration-fast) var(--ease-soft);
-}
-.courses__tab:hover { color: var(--text-primary); }
-.courses__tab.is-active {
-  color: var(--text-primary);
-  border-bottom-color: var(--accent-indi);
-}
-.courses__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-.course {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  padding: 32px 0;
-  border-bottom: 1px solid var(--line);
-  transition: background var(--duration-base) var(--ease-soft);
-}
-.course:nth-child(odd) {
-  padding-right: 32px;
-  border-right: 1px solid var(--line);
-}
-.course:nth-child(even) { padding-left: 32px; }
-.course__num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--accent-beige);
-  flex-shrink: 0;
-  padding-top: 4px;
-}
-.course__body { flex: 1; }
-.course__cat {
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: 8px;
-}
-.course__name {
-  font-family: var(--font-serif-latin);
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 1.2;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-.course__desc {
-  font-family: var(--font-sans-latin);
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin-bottom: 12px;
-}
-.course__tags {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.course__tag-item {
-  font-family: var(--font-mono);
+
+.program__body { padding: clamp(16px, 2vw, 28px); }
+
+.program__tag {
+  font-weight: 600;
   font-size: 10px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
-  padding: 4px 10px;
-  border: 1px solid var(--line);
-  border-radius: 2px;
+  color: var(--text-dim);
+  margin-bottom: 10px;
 }
 
-@media (max-width: 768px) {
-  .courses__grid { grid-template-columns: 1fr; }
-  .course:nth-child(odd) { padding-right: 0; border-right: 0; }
-  .course:nth-child(even) { padding-left: 0; }
-  .courses__tabs { flex-wrap: wrap; }
+.program__name {
+  font-weight: 700;
+  font-size: clamp(16px, 1.4vw, 22px);
+  margin-bottom: 8px;
 }
-@media (max-width: 640px) {
-  .courses { padding: 80px 0; }
-  .courses__head { grid-template-columns: 1fr; }
-  .courses__title { justify-self: start; text-align: left; }
+
+.program__desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-sub);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   EXPERTS — Workshop Leaders / Experts & Partners
+   EXPERTS
    ═══════════════════════════════════════════════════════════ */
-.experts {
-  background: var(--bg-primary);
-  padding: 120px 0;
-  border-top: 1px solid var(--line);
-}
-.experts__inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--side-pad);
-}
-.experts__head {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: 32px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid var(--line);
-}
-.experts__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-.experts__eyebrow-num {
-  font-family: var(--font-mono);
-  color: var(--accent-indi);
-  letter-spacing: 0.1em;
-}
-.experts__eyebrow-rule {
-  width: 36px;
-  height: 1px;
-  background: var(--accent-beige);
-}
-.experts__title {
-  font-family: var(--font-serif-latin);
-  font-weight: 400;
-  font-size: clamp(32px, 3.6vw, 48px);
-  line-height: 1.15;
-  letter-spacing: -0.012em;
-  color: var(--text-primary);
-  justify-self: end;
-  text-align: right;
-  max-width: 600px;
-}
 .experts__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0;
+  gap: 20px;
 }
-.expert {
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  transition: background var(--duration-base) var(--ease-soft);
-}
-.expert:nth-child(4n) { border-right: 0; }
-.expert:hover { background: var(--bg-secondary); }
+
+.expert { text-align: center; }
+
 .expert__photo {
   aspect-ratio: 3/4;
-  background:
-    repeating-linear-gradient(135deg, #EFE8DA 0 2px, transparent 2px 14px),
-    var(--bg-tint);
-  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  margin-bottom: 14px;
+  background: repeating-linear-gradient(135deg, #ddd 0 1px, transparent 1px 12px), #eee;
+  filter: grayscale(100%);
+  transition: filter 0.6s var(--ease);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  text-align: center;
-  padding: 16px;
-}
-.expert__info {
-  padding: 24px 20px 28px;
-}
-.expert__name {
-  font-family: var(--font-serif-latin);
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 1.2;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-}
-.expert__role {
-  font-family: var(--font-sans-latin);
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  margin-bottom: 8px;
-}
-.expert__cert {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-.experts__partners {
-  padding-top: 80px;
-  margin-top: 80px;
-  border-top: 1px solid var(--line);
-}
-.experts__partners-label {
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: 40px;
-}
-.experts__logos {
-  display: flex;
-  gap: 48px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.experts__logo-ph {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--text-tertiary);
-  padding: 20px 32px;
-  border: 1px solid var(--line);
 }
 
-@media (max-width: 1080px) {
-  .experts__grid { grid-template-columns: repeat(3, 1fr); }
-  .expert:nth-child(4n) { border-right: 1px solid var(--line); }
-  .expert:nth-child(3n) { border-right: 0; }
+.expert:hover .expert__photo { filter: grayscale(0%); }
+
+.expert__photo span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #bbb;
 }
-@media (max-width: 768px) {
-  .experts__grid { grid-template-columns: repeat(2, 1fr); }
-  .expert:nth-child(3n) { border-right: 1px solid var(--line); }
-  .expert:nth-child(2n) { border-right: 0; }
-  .experts__head { grid-template-columns: 1fr; }
-  .experts__title { justify-self: start; text-align: left; }
+
+.expert__name { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+.expert__role { font-size: 11px; color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════
+   COMMUNITY
+   ═══════════════════════════════════════════════════════════ */
+.community {
+  background: var(--text);
+  color: #fff;
+  text-align: center;
+  padding: clamp(80px, 12vw, 200px) var(--pad);
 }
-@media (max-width: 640px) {
-  .experts { padding: 80px 0; }
-  .experts__logos { gap: 24px; }
+
+.community__eyebrow {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 28px;
+}
+
+.community__title {
+  font-weight: 800;
+  font-size: clamp(28px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.community__sub {
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.65;
+  color: rgba(255,255,255,0.5);
+  max-width: 520px;
+  margin: 0 auto 48px;
+}
+
+.community__benefits {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  margin-bottom: 48px;
+}
+
+.benefit { max-width: 220px; }
+.benefit__num { font-weight: 600; font-size: 10px; letter-spacing: 0.12em; color: rgba(255,255,255,0.25); margin-bottom: 10px; }
+.benefit__title { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+.benefit__desc { font-size: 12px; line-height: 1.55; color: rgba(255,255,255,0.45); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1.5px solid;
+  border-radius: 2px;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+
+.btn--light { border-color: #fff; color: #fff; }
+.btn--light:hover { background: #fff; color: var(--text); }
+
+/* ═══════════════════════════════════════════════════════════
+   TESTIMONIALS
+   ═══════════════════════════════════════════════════════════ */
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.testimonial {
+  background: var(--bg);
+  padding: clamp(24px, 2.5vw, 44px);
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial__quote {
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.7;
+  color: var(--text-sub);
+  margin-bottom: auto;
+  padding-bottom: 32px;
+}
+
+.testimonial__quote::before {
+  content: '\201C';
+  display: block;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--border);
+  margin-bottom: 12px;
+}
+
+.testimonial__author { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+.testimonial__role { font-size: 11px; color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════════════════════ */
+.faq__list { max-width: 760px; }
+
+.faq__item { border-bottom: 1px solid var(--border); }
+
+.faq__q {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  font-weight: 600;
+  font-size: clamp(14px, 1.1vw, 17px);
+  text-align: left;
+  transition: opacity var(--dur-fast);
+}
+
+.faq__q:hover { opacity: 0.5; }
+
+.faq__icon {
+  font-size: 18px;
+  font-weight: 300;
+  flex-shrink: 0;
+  margin-left: 20px;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.faq__item.is-open .faq__icon { transform: rotate(45deg); }
+
+.faq__a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s var(--ease);
+}
+
+.faq__a-inner {
+  padding-bottom: 20px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-sub);
+  max-width: 600px;
 }
 
 /* ═══════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════ */
 .footer {
-  background: var(--text-primary);
-  color: rgba(255,255,255,0.7);
-  padding: 80px 0 48px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--border);
+  padding: 64px 0 48px;
 }
-.footer__inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--side-pad);
-}
-.footer__top {
+
+.footer__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 48px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 64px;
 }
-.footer__brand {
-  font-family: var(--font-serif-latin);
-  font-weight: 400;
-  font-size: 28px;
-  color: #fff;
-  margin-bottom: 16px;
-}
-.footer__slogan {
-  font-family: var(--font-serif-latin);
-  font-weight: 300;
-  font-size: 16px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.5;
-}
+
+.footer__brand { font-weight: 800; font-size: 18px; letter-spacing: 0.02em; margin-bottom: 12px; }
+.footer__slogan { font-size: 13px; line-height: 1.5; color: var(--text-sub); }
+
 .footer__col-title {
-  font-family: var(--font-sans-latin);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 20px;
+  color: var(--text-dim);
+  margin-bottom: 14px;
 }
-.footer__links {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+
+.footer__links { display: flex; flex-direction: column; gap: 8px; }
+
 .footer__link {
-  font-family: var(--font-sans-latin);
-  font-size: 14px;
-  color: rgba(255,255,255,0.7);
-  transition: color var(--duration-fast) var(--ease-soft);
+  font-size: 13px;
+  color: var(--text-sub);
+  transition: color var(--dur-fast);
 }
-.footer__link:hover { color: #fff; }
+
+.footer__link:hover { color: var(--text); }
+
 .footer__bottom {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  padding-top: 32px;
-  gap: 24px;
-  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
 }
-.footer__legal {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  line-height: 1.9;
-  color: rgba(255,255,255,0.35);
-  max-width: 60ch;
-}
-.footer__lang {
-  display: flex;
-  gap: 12px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-}
-.footer__lang a {
-  color: rgba(255,255,255,0.4);
-  transition: color var(--duration-fast) var(--ease-soft);
-}
-.footer__lang a:hover, .footer__lang a.is-active { color: #fff; }
-.footer__lang-sep { color: rgba(255,255,255,0.2); }
 
-@media (max-width: 768px) {
-  .footer__top { grid-template-columns: 1fr; gap: 40px; }
-  .footer__bottom { flex-direction: column; gap: 20px; }
-}
+.footer__legal { font-size: 11px; color: var(--text-dim); line-height: 1.6; }
+
+.footer__lang { display: flex; gap: 10px; }
+.footer__lang a { font-size: 11px; font-weight: 600; color: var(--text-dim); transition: color var(--dur-fast); }
+.footer__lang a.is-active { color: var(--text); }
+.footer__lang a:hover { color: var(--text); }
 
 /* ═══════════════════════════════════════════════════════════
-   FOCUS + SELECTION
+   SCROLL REVEAL
    ═══════════════════════════════════════════════════════════ */
-:where(a, button, [tabindex]):focus-visible {
-  outline: 2px solid var(--accent-indi);
-  outline-offset: 3px;
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
 }
-::selection { background: var(--accent-indi); color: #fff; }
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--d1 { transition-delay: 0.1s; }
+.reveal--d2 { transition-delay: 0.2s; }
+.reveal--d3 { transition-delay: 0.3s; }
+.reveal--d4 { transition-delay: 0.4s; }
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 1080px) {
+  .about__grid { grid-template-columns: 1fr; }
+  .about__stats { grid-template-columns: repeat(2, 1fr); }
+  .system__grid { grid-template-columns: repeat(2, 1fr); }
+  .experts__grid { grid-template-columns: repeat(3, 1fr); }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .header__nav { display: none; }
+  .header__cta { display: none; }
+  .header__menu-btn { display: flex; }
+
+  .services__grid { grid-template-columns: 1fr; }
+  .programs__grid { grid-template-columns: 1fr; }
+  .testimonials__grid { grid-template-columns: 1fr; }
+  .system__grid { grid-template-columns: 1fr; }
+  .system__card { min-height: auto; }
+  .experts__grid { grid-template-columns: repeat(2, 1fr); }
+
+  .about__photos { grid-template-columns: repeat(6, 1fr); }
+  .ph--lg { grid-column: span 6; }
+  .ph--tall { grid-column: span 3; }
+  .ph--sm { grid-column: span 3; }
+  .ph--wide { grid-column: span 3; }
+  .ph--sq { grid-column: span 3; }
+
+  .community__benefits { flex-direction: column; align-items: center; gap: 40px; }
+
+  .footer__grid { grid-template-columns: 1fr; }
+  .footer__bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .box-score { padding: 6px 12px; }
+  .toolbar-bts__item { width: 34px; height: 34px; }
+  .toolbar-bts__item svg { width: 15px; height: 15px; }
+  .about__stats { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════
-     NAVIGATION
-     ═══════════════════════════════════════════════════════════ -->
-<header class="nav" id="nav">
-  <div class="nav__inner">
-    <a class="nav__brand" href="#">
-      <span class="nav__brand-mark">APLs</span>
-    </a>
-
-    <nav aria-label="Primary">
-      <ul class="nav__menu">
-        <li class="nav__item">
-          <a class="nav__link" href="#diagnosis">
-            <span class="nav__tagline">Personal</span>
-            <span class="nav__label">Diagnosis</span>
-          </a>
-        </li>
-        <li class="nav__item">
-          <a class="nav__link" href="#certification">
-            <span class="nav__tagline">Professional</span>
-            <span class="nav__label">Certification</span>
-          </a>
-        </li>
-        <li class="nav__item">
-          <a class="nav__link" href="#consulting">
-            <span class="nav__tagline">Corporate</span>
-            <span class="nav__label">Consulting</span>
-          </a>
-        </li>
-        <li class="nav__item">
-          <a class="nav__link" href="#training">
-            <span class="nav__tagline">Educational</span>
-            <span class="nav__label">Training</span>
-          </a>
-        </li>
-        <li class="nav__item">
-          <a class="nav__link" href="#tools">
-            <span class="nav__tagline">Technology</span>
-            <span class="nav__label">Tools &amp; Data</span>
-          </a>
-        </li>
-      </ul>
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="#" class="header__logo">A.</a>
+    <nav class="header__nav">
+      <a href="#brand">Brand</a>
+      <a href="#personal">Personal Branding</a>
+      <a href="#group">Group Branding</a>
+      <a href="#education">Education</a>
+      <a href="#collaboration">Collaboration Proposal</a>
     </nav>
-
-    <div class="nav__right">
-      <div class="lang" role="group" aria-label="Language">
-        <a href="#" class="is-active">EN</a>
-        <span class="lang__sep">/</span>
-        <a href="#">KR</a>
-        <span class="lang__sep">/</span>
+    <div class="header__right">
+      <div class="header__lang">
+        <a href="#" class="is-active">KR</a>
+        <a href="#">EN</a>
         <a href="#">JP</a>
-        <span class="lang__sep">/</span>
         <a href="#">CN</a>
       </div>
-      <a href="#contact" class="btn btn--secondary nav__cta">Contact</a>
+      <a href="#contact" class="header__cta">Contact</a>
     </div>
+    <button class="header__menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<!-- ═══════════════════════════════════════════════════════════
-     HERO
-     ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════ HERO ═══════════ -->
 <section class="hero" id="hero">
-  <div class="hero__bg" id="heroBg">
-    <div class="hero__bg-fallback"></div>
-    <video
-      class="hero__bg-video"
-      id="heroVideo"
-      muted playsinline loop
-      preload="metadata"
-      aria-hidden="true"></video>
-  </div>
-  <div class="hero__wash" aria-hidden="true"></div>
 
-  <div class="hero__content">
-    <div class="hero__inner">
-      <div class="hero__eyebrow reveal reveal--eyebrow">
-        Image Consulting · Since 2024
+  <!-- Toolbar -->
+  <div class="hero-toolbar">
+    <div class="hero-toolbar__left">
+      <div class="box-score">
+        <div class="box-score__top"><strong>EST.</strong></div>
+        <div class="box-score__bottom">
+          <strong>2024</strong>
+          <sub>Seoul</sub>
+        </div>
       </div>
-
-      <h1 class="hero__headline reveal--words" data-words>
-        <span class="hero__headline-line">Clearly Measured<span class="hero__punct">.</span></span>
-        <span class="hero__headline-line">Personally Set<span class="hero__punct">.</span></span>
-      </h1>
-
-      <p class="hero__lede reveal reveal--body reveal--drift" data-drift>
-        Data-driven image consulting for enterprises, institutions, and
-        professionals. We turn subjective aesthetics into a measurable standard.
-      </p>
-
-      <div class="hero__ctas reveal reveal--body" style="--reveal-delay: 320ms">
-        <a href="#contact" class="btn btn--primary">
-          Request Consultation
-          <span class="btn__arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="#services" class="btn btn--ghost">
-          Explore Services
-          <span class="btn__arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
+    </div>
+    <div class="hero-toolbar__right">
+      <ul class="toolbar-bts">
+        <li>
+          <a class="toolbar-bts__item" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="toolbar-bts__item" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="toolbar-bts__item" href="mailto:contact@apls.co" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="toolbar-bts__item" href="#contact" aria-label="Contact">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 
-  <div class="hero__marker" id="heroMarker" aria-hidden="true">
-    <strong>Background Footage</strong>
-    Drop hero-loop.mp4 into /assets/<br>
-    15s loop · muted · H.264 · 1920×1080 recommended
-  </div>
+  <!-- Massive title -->
+  <h1 class="hero__title reveal">
+    APLs Branding<br>Corporation
+  </h1>
 
-  <!-- Bottom strip — 5 category labels (shareintensive composition) -->
-  <div class="strip">
-    <div class="strip__inner">
-      <a class="strip__item" href="#diagnosis">
-        <span class="strip__tagline">Personal</span>
-        <span class="strip__label">Diagnosis</span>
-      </a>
-      <a class="strip__item" href="#certification">
-        <span class="strip__tagline">Professional</span>
-        <span class="strip__label">Certification</span>
-      </a>
-      <a class="strip__item" href="#consulting">
-        <span class="strip__tagline">Corporate</span>
-        <span class="strip__label">Consulting</span>
-      </a>
-      <a class="strip__item" href="#training">
-        <span class="strip__tagline">Educational</span>
-        <span class="strip__label">Training</span>
-      </a>
-      <a class="strip__item" href="#tools">
-        <span class="strip__tagline">Technology</span>
-        <span class="strip__label">Tools &amp; Data</span>
-      </a>
-    </div>
-  </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     ABOUT — Step Into the Standard
-     ═══════════════════════════════════════════════════════════ -->
-<section class="about" id="about">
-  <div class="about__inner">
-    <header class="about__head">
-      <div class="about__eyebrow reveal reveal--eyebrow">
-        <span class="about__eyebrow-num">02</span>
-        <span class="about__eyebrow-rule" aria-hidden="true"></span>
-        <span>About APLs</span>
-      </div>
-    </header>
-
-    <!-- Mission block — large headline in shareintensive style -->
-    <div class="about__mission">
-      <h2 class="about__mission-title reveal--words" data-words>
-        Step Into the Standard
-      </h2>
-      <p class="about__mission-sub reveal reveal--body" style="--reveal-delay: 400ms">
-        Access measurable frameworks for image consulting.
-        Receive evidence-backed direction from certified practitioners
-        across Korea, Japan, and China.
-      </p>
+<!-- ═══════════ ABOUT ═══════════ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>01 &mdash; About</span>
+      <span class="section__eyebrow-line"></span>
     </div>
 
-    <!-- Detailed about block -->
     <div class="about__grid">
-      <div class="about__label-col">
-        <h3 class="about__title reveal reveal--heading">
-          A quiet standard, built deliberately.
-        </h3>
+      <div>
+        <h2 class="about__mission reveal reveal--d1">
+          <span class="text-en">From Identity<br>to Brand,<br>and Beyond</span>
+          <span class="text-kr">정체성을 설계하고<br>브랜드를<br>완성하다</span>
+        </h2>
       </div>
-
-      <div class="about__content-col">
-        <p class="about__intro reveal reveal--body">
-          APLs was founded in December 2024 as a Seoul-based corporation
-          dedicated to replacing subjective beauty judgment with measurable
-          frameworks. We operate three specialized sub-brands under one
-          governance structure. Our work spans individual diagnosis,
-          professional certification, and enterprise consulting.
+      <div>
+        <p class="about__desc reveal reveal--d2">
+          APLs는 내면의 정체성에서 출발하여 이미지를 설계하고, 개인과 기업의 브랜드를 구현하는 서울 기반의 법인입니다.
+          에니어그램, 색채심리, 퍼스널컬러, 스타일링을 아우르는 통합 시스템을 운영하며, 이를 전문가 양성과 시스템 확장으로 이어갑니다.
         </p>
-
-        <div class="about__stats reveal reveal--body" style="--reveal-delay: 300ms">
+        <div class="about__stats reveal reveal--d3">
           <div class="stat">
             <div class="stat__num">4</div>
             <div class="stat__label">Studios</div>
-            <div class="stat__sub">Busan · Seoul<br>Osaka · Shanghai</div>
+            <div class="stat__sub">부산 &middot; 서울<br>오사카 &middot; 상하이</div>
           </div>
           <div class="stat">
-            <div class="stat__num">13,000+</div>
-            <div class="stat__label">Records</div>
-            <div class="stat__sub">Diagnostic data indexed</div>
+            <div class="stat__num">13K+</div>
+            <div class="stat__label">Data</div>
+            <div class="stat__sub">진단 데이터</div>
           </div>
           <div class="stat">
             <div class="stat__num">4</div>
             <div class="stat__label">Languages</div>
-            <div class="stat__sub">KR · EN · JP · CN</div>
+            <div class="stat__sub">KR &middot; EN &middot; JP &middot; CN</div>
           </div>
           <div class="stat">
             <div class="stat__num">2024</div>
-            <div class="stat__label">Established</div>
-            <div class="stat__sub">Korean corporation</div>
+            <div class="stat__label">Founded</div>
+            <div class="stat__sub">대한민국 법인</div>
           </div>
         </div>
-
-        <div class="about__legal reveal reveal--body" style="--reveal-delay: 400ms">
-          Corporate Registration: 102-81-48099<br>
-          CEO: Lim Kyung Eun<br>
-          HQ: 11F, 428 Seolleung-ro, Gangnam-gu, Seoul, Republic of Korea
-        </div>
       </div>
     </div>
 
-    <div class="about__photos reveal reveal--body" style="--reveal-delay: 500ms">
-      <div class="photo-ph">Studio · APLCOLOR Busan · 16:9</div>
-      <div class="photo-ph">Method · Measurement Session · 16:9</div>
-      <div class="photo-ph">Teaching · KCFB Certification · 16:9</div>
+    <div class="about__photos reveal reveal--d3">
+      <div class="ph ph--lg"><span>Studio &middot; 16:10</span></div>
+      <div class="ph ph--tall"><span>Diagnosis &middot; 4:5</span></div>
+      <div class="ph ph--sm"><span>Training &middot; 3:4</span></div>
+      <div class="ph ph--wide"><span>Consulting &middot; 16:9</span></div>
+      <div class="ph ph--sq"><span>Tools &middot; 1:1</span></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SERVICES — Five Integrated Practices
-     ═══════════════════════════════════════════════════════════ -->
-<section class="services" id="services">
-  <div class="services__inner">
-    <header class="services__head">
-      <div class="services__eyebrow reveal reveal--eyebrow">
-        <span class="services__eyebrow-num">04</span>
-        <span class="services__eyebrow-rule" aria-hidden="true"></span>
-        <span>What We Do</span>
+<!-- ═══════════ OUR SYSTEM ═══════════ -->
+<section class="section" id="system" style="background: var(--bg-white);">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>02 &mdash; Our System</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">내면에서 브랜드로,<br>그리고 그 너머로</h2>
+
+    <div class="system__grid reveal reveal--d2">
+      <div class="system__card">
+        <div class="system__card-num">Step 01</div>
+        <h3 class="system__card-title">Inner<br>Identity</h3>
+        <div class="system__card-tags">에니어그램 &middot; 색채심리 &middot; TCI</div>
+        <div class="system__card-arrow">&rarr;</div>
       </div>
-      <h2 class="services__title reveal reveal--heading">
-        Five Integrated Practices
-      </h2>
-    </header>
-
-    <ol class="services__grid">
-      <li class="tile">
-        <div class="tile__top">
-          <span class="tile__tag">Personal</span>
-          <h3 class="tile__name">Diagnosis</h3>
-          <p class="tile__desc">
-            Personal color, face shape, and body analysis via calibrated
-            colorimetry and proprietary frameworks.
-          </p>
-        </div>
-        <a class="tile__link" href="#diagnosis">
-          <span>Explore APLCOLOR</span>
-          <span class="tile__arrow" aria-hidden="true">→</span>
-        </a>
-      </li>
-
-      <li class="tile">
-        <div class="tile__top">
-          <span class="tile__tag">Professional</span>
-          <h3 class="tile__name">Certification</h3>
-          <p class="tile__desc">
-            Practitioner training and formal qualifications issued by
-            KCFB, our affiliated certification body.
-          </p>
-        </div>
-        <a class="tile__link" href="#certification">
-          <span>View KCFB Programs</span>
-          <span class="tile__arrow" aria-hidden="true">→</span>
-        </a>
-      </li>
-
-      <li class="tile">
-        <div class="tile__top">
-          <span class="tile__tag">Corporate</span>
-          <h3 class="tile__name">Consulting</h3>
-          <p class="tile__desc">
-            Enterprise and institutional image consulting engagements,
-            including government and international projects.
-          </p>
-        </div>
-        <a class="tile__link" href="#consulting">
-          <span>See Engagement Types</span>
-          <span class="tile__arrow" aria-hidden="true">→</span>
-        </a>
-      </li>
-
-      <li class="tile">
-        <div class="tile__top">
-          <span class="tile__tag">Educational</span>
-          <h3 class="tile__name">Training</h3>
-          <p class="tile__desc">
-            Structured curricula for beauty, hair, and fashion industry
-            professionals to adopt the APLs method.
-          </p>
-        </div>
-        <a class="tile__link" href="#training">
-          <span>Browse Courses</span>
-          <span class="tile__arrow" aria-hidden="true">→</span>
-        </a>
-      </li>
-
-      <li class="tile">
-        <div class="tile__top">
-          <span class="tile__tag">Technology</span>
-          <h3 class="tile__name">Tools &amp; Data</h3>
-          <p class="tile__desc">
-            Diagnostic instruments, drape sets, teaching materials, and
-            AI agents built on our proprietary dataset.
-          </p>
-        </div>
-        <a class="tile__link" href="#tools">
-          <span>See Toolkit</span>
-          <span class="tile__arrow" aria-hidden="true">→</span>
-        </a>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     HOW WE WORK — Killer Section
-     ═══════════════════════════════════════════════════════════ -->
-<section class="process" id="process">
-  <div class="process__inner">
-    <header class="process__head">
-      <div class="process__eyebrow reveal reveal--eyebrow">
-        <span class="process__eyebrow-num">03</span>
-        <span class="process__eyebrow-rule" aria-hidden="true"></span>
-        <span>How We Work</span>
+      <div class="system__card">
+        <div class="system__card-num">Step 02</div>
+        <h3 class="system__card-title">Image<br>Design</h3>
+        <div class="system__card-tags">퍼스널컬러 &middot; 얼굴형 &middot; 체형 &middot; 스타일링</div>
+        <div class="system__card-arrow">&rarr;</div>
       </div>
-      <h2 class="process__title reveal reveal--heading">
-        From Observation to Standard
-      </h2>
-    </header>
-
-    <div class="process__grid">
-      <div class="step reveal reveal--body" style="--reveal-delay: 0ms">
-        <div class="step__num">Step 01</div>
-        <h3 class="step__name">Measure</h3>
-        <p class="step__desc">
-          Calibrated colorimeters capture LAB values from skin, hair, and iris.
-          No subjective judgment enters the process.
-        </p>
-        <span class="step__connector" aria-hidden="true">&rarr;</span>
+      <div class="system__card">
+        <div class="system__card-num">Step 03</div>
+        <h3 class="system__card-title">Brand<br>Production</h3>
+        <div class="system__card-tags">개인&middot;기업 브랜딩 / 컬러 &middot; 공간 &middot; 향</div>
+        <div class="system__card-arrow">&rarr;</div>
       </div>
-
-      <div class="step reveal reveal--body" style="--reveal-delay: 120ms">
-        <div class="step__num">Step 02</div>
-        <h3 class="step__name">Analyze</h3>
-        <p class="step__desc">
-          Data is mapped against our 13,000+ record database using proprietary
-          algorithms to identify patterns and classifications.
-        </p>
-        <span class="step__connector" aria-hidden="true">&rarr;</span>
-      </div>
-
-      <div class="step reveal reveal--body" style="--reveal-delay: 240ms">
-        <div class="step__num">Step 03</div>
-        <h3 class="step__name">Consult</h3>
-        <p class="step__desc">
-          KCFB-certified practitioners integrate color, face shape, and body
-          analysis into a unified image strategy.
-        </p>
-        <span class="step__connector" aria-hidden="true">&rarr;</span>
-      </div>
-
-      <div class="step reveal reveal--body" style="--reveal-delay: 360ms">
-        <div class="step__num">Step 04</div>
-        <h3 class="step__name">Set Standard</h3>
-        <p class="step__desc">
-          A personalized reference document is delivered: measurable,
-          reproducible, and independent of any single consultant.
-        </p>
+      <div class="system__card">
+        <div class="system__card-num">Step 04</div>
+        <h3 class="system__card-title">Expert<br>Expansion</h3>
+        <div class="system__card-tags">전문가 양성 &middot; 강사 배치 &middot; 시스템 확장</div>
+        <div class="system__card-arrow">&rarr;</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     PROGRAMS — Our Programs (SHARE-style large cards)
-     ═══════════════════════════════════════════════════════════ -->
-<section class="programs" id="programs">
-  <div class="programs__inner">
-    <header class="programs__head">
-      <div class="programs__eyebrow reveal reveal--eyebrow">
-        <span class="programs__eyebrow-num">04</span>
-        <span class="programs__eyebrow-rule" aria-hidden="true"></span>
-        <span>Our Programs</span>
-      </div>
-      <h2 class="programs__title reveal reveal--heading">
-        Structured Pathways for Every Level
-      </h2>
-    </header>
-
-    <div class="programs__grid">
-      <article class="prog-card reveal reveal--body" style="--reveal-delay: 0ms">
-        <div class="prog-card__img">Fig. 01 &mdash; Diagnostic Session · 16:10</div>
-        <div class="prog-card__body">
-          <span class="prog-card__tag">Diagnosis</span>
-          <h3 class="prog-card__name">APLCOLOR Intensive</h3>
-          <p class="prog-card__desc">
-            A comprehensive personal diagnostic session covering color analysis,
-            face shape mapping, and body proportion assessment. Conducted in our
-            studios with calibrated instruments.
-          </p>
-          <div class="prog-card__meta">
-            <span>2&ndash;3 Hours</span>
-            <span>In-Studio</span>
-            <span>Individual</span>
-          </div>
-          <a class="prog-card__cta" href="#">
-            <span>Learn More</span>
-            <span class="prog-card__cta-arrow" aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="prog-card reveal reveal--body" style="--reveal-delay: 120ms">
-        <div class="prog-card__img">Fig. 02 &mdash; Certification Class · 16:10</div>
-        <div class="prog-card__body">
-          <span class="prog-card__tag">Certification</span>
-          <h3 class="prog-card__name">KCFB Professional Program</h3>
-          <p class="prog-card__desc">
-            A 12-week practitioner certification covering colorimetry theory,
-            diagnostic methodology, and client consulting. Graduates receive
-            KCFB credentials with format KCFB-YYYY-NNNN.
-          </p>
-          <div class="prog-card__meta">
-            <span>12 Weeks</span>
-            <span>Hybrid</span>
-            <span>Cohort</span>
-          </div>
-          <a class="prog-card__cta" href="#">
-            <span>View Curriculum</span>
-            <span class="prog-card__cta-arrow" aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="prog-card reveal reveal--body" style="--reveal-delay: 240ms">
-        <div class="prog-card__img">Fig. 03 &mdash; Enterprise Workshop · 16:10</div>
-        <div class="prog-card__body">
-          <span class="prog-card__tag">Consulting</span>
-          <h3 class="prog-card__name">Enterprise Engagement</h3>
-          <p class="prog-card__desc">
-            Tailored consulting for corporations and institutions. Includes
-            executive image audits, team workshops, and organizational
-            image standards development.
-          </p>
-          <div class="prog-card__meta">
-            <span>Custom</span>
-            <span>On-Site / Remote</span>
-            <span>Group</span>
-          </div>
-          <a class="prog-card__cta" href="#">
-            <span>Request Proposal</span>
-            <span class="prog-card__cta-arrow" aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     COURSES — Our Courses (compact grid with filter tabs)
-     ═══════════════════════════════════════════════════════════ -->
-<section class="courses" id="courses">
-  <div class="courses__inner">
-    <header class="courses__head">
-      <div class="courses__eyebrow reveal reveal--eyebrow">
-        <span class="courses__eyebrow-num">05</span>
-        <span class="courses__eyebrow-rule" aria-hidden="true"></span>
-        <span>Our Courses</span>
-      </div>
-      <h2 class="courses__title reveal reveal--heading">
-        Explore the Catalogue
-      </h2>
-    </header>
-
-    <nav class="courses__tabs reveal reveal--body" aria-label="Course filter">
-      <button class="courses__tab is-active" data-filter="all">All</button>
-      <button class="courses__tab" data-filter="diagnosis">Diagnosis</button>
-      <button class="courses__tab" data-filter="certification">Certification</button>
-      <button class="courses__tab" data-filter="training">Training</button>
-      <button class="courses__tab" data-filter="tools">Tools</button>
-    </nav>
-
-    <div class="courses__grid">
-      <article class="course reveal reveal--body" style="--reveal-delay: 0ms" data-category="diagnosis">
-        <span class="course__num">01</span>
-        <div class="course__body">
-          <div class="course__cat">Diagnosis</div>
-          <h3 class="course__name">Personal Color Foundation</h3>
-          <p class="course__desc">
-            Learn the science behind personal color analysis. Covers LAB
-            color space, skin undertone measurement, and seasonal classification.
-          </p>
-          <div class="course__tags">
-            <span class="course__tag-item">8 Hours</span>
-            <span class="course__tag-item">Online</span>
-            <span class="course__tag-item">Beginner</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="course reveal reveal--body" style="--reveal-delay: 80ms" data-category="diagnosis">
-        <span class="course__num">02</span>
-        <div class="course__body">
-          <div class="course__cat">Diagnosis</div>
-          <h3 class="course__name">Face Shape &amp; Body Analysis</h3>
-          <p class="course__desc">
-            Systematic frameworks for face shape classification and body
-            proportion assessment using measurement-based criteria.
-          </p>
-          <div class="course__tags">
-            <span class="course__tag-item">6 Hours</span>
-            <span class="course__tag-item">In-Studio</span>
-            <span class="course__tag-item">Intermediate</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="course reveal reveal--body" style="--reveal-delay: 0ms" data-category="certification">
-        <span class="course__num">03</span>
-        <div class="course__body">
-          <div class="course__cat">Certification</div>
-          <h3 class="course__name">KCFB Level 1 Practitioner</h3>
-          <p class="course__desc">
-            Foundation-level certification. Master colorimetry basics,
-            diagnostic drape techniques, and client communication protocols.
-          </p>
-          <div class="course__tags">
-            <span class="course__tag-item">6 Weeks</span>
-            <span class="course__tag-item">Hybrid</span>
-            <span class="course__tag-item">Certification</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="course reveal reveal--body" style="--reveal-delay: 80ms" data-category="certification">
-        <span class="course__num">04</span>
-        <div class="course__body">
-          <div class="course__cat">Certification</div>
-          <h3 class="course__name">KCFB Level 2 Senior Analyst</h3>
-          <p class="course__desc">
-            Advanced certification for experienced practitioners.
-            Covers complex cases, integrated consulting, and mentorship skills.
-          </p>
-          <div class="course__tags">
-            <span class="course__tag-item">8 Weeks</span>
-            <span class="course__tag-item">In-Person</span>
-            <span class="course__tag-item">Advanced</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="course reveal reveal--body" style="--reveal-delay: 0ms" data-category="training">
-        <span class="course__num">05</span>
-        <div class="course__body">
-          <div class="course__cat">Training</div>
-          <h3 class="course__name">Beauty Industry Workshop</h3>
-          <p class="course__desc">
-            For salon owners and beauty professionals. Integrate
-            evidence-based color consulting into existing service menus.
-          </p>
-          <div class="course__tags">
-            <span class="course__tag-item">2 Days</span>
-            <span class="course__tag-item">On-Site</span>
-            <span class="course__tag-item">Professional</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="course reveal reveal--body" style="--reveal-delay: 80ms" data-category="tools">
-        <span class="course__num">06</span>
-        <div class="course__body">
-          <div class="course__cat">Tools &amp; Data</div>
-          <h3 class="course__name">Colorimeter Calibration Lab</h3>
-          <p class="course__desc">
-            Hands-on training with the LS170 colorimeter.
-            Covers setup, calibration, measurement protocols, and data entry.
-          </p>
-          <div class="course__tags">
-            <span class="course__tag-item">4 Hours</span>
-            <span class="course__tag-item">In-Studio</span>
-            <span class="course__tag-item">Technical</span>
-          </div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     EXPERTS — Workshop Leaders / Experts & Partners
-     ═══════════════════════════════════════════════════════════ -->
-<section class="experts" id="experts">
-  <div class="experts__inner">
-    <header class="experts__head">
-      <div class="experts__eyebrow reveal reveal--eyebrow">
-        <span class="experts__eyebrow-num">06</span>
-        <span class="experts__eyebrow-rule" aria-hidden="true"></span>
-        <span>Experts &amp; Partners</span>
-      </div>
-      <h2 class="experts__title reveal reveal--heading">
-        KCFB Certified Practitioners
-      </h2>
-    </header>
-
-    <div class="experts__grid">
-      <article class="expert reveal reveal--body" style="--reveal-delay: 0ms">
-        <div class="expert__photo">Fig. 01 &mdash; Portrait · 3:4</div>
-        <div class="expert__info">
-          <h3 class="expert__name">Lim Kyung Eun</h3>
-          <p class="expert__role">Founder &amp; Lead Consultant</p>
-          <span class="expert__cert">KCFB-2024-0001</span>
-        </div>
-      </article>
-
-      <article class="expert reveal reveal--body" style="--reveal-delay: 80ms">
-        <div class="expert__photo">Fig. 02 &mdash; Portrait · 3:4</div>
-        <div class="expert__info">
-          <h3 class="expert__name">Kim Soo Jin</h3>
-          <p class="expert__role">Senior Color Analyst · Seoul</p>
-          <span class="expert__cert">KCFB-2024-0012</span>
-        </div>
-      </article>
-
-      <article class="expert reveal reveal--body" style="--reveal-delay: 160ms">
-        <div class="expert__photo">Fig. 03 &mdash; Portrait · 3:4</div>
-        <div class="expert__info">
-          <h3 class="expert__name">Tanaka Yui</h3>
-          <p class="expert__role">Lead Analyst · Osaka Studio</p>
-          <span class="expert__cert">KCFB-2024-0034</span>
-        </div>
-      </article>
-
-      <article class="expert reveal reveal--body" style="--reveal-delay: 240ms">
-        <div class="expert__photo">Fig. 04 &mdash; Portrait · 3:4</div>
-        <div class="expert__info">
-          <h3 class="expert__name">Wang Li</h3>
-          <p class="expert__role">Lead Analyst · Shanghai Studio</p>
-          <span class="expert__cert">KCFB-2024-0045</span>
-        </div>
-      </article>
-
-      <article class="expert reveal reveal--body" style="--reveal-delay: 0ms">
-        <div class="expert__photo">Fig. 05 &mdash; Portrait · 3:4</div>
-        <div class="expert__info">
-          <h3 class="expert__name">Park Min Jee</h3>
-          <p class="expert__role">Body Analysis Specialist · Busan</p>
-          <span class="expert__cert">KCFB-2024-0056</span>
-        </div>
-      </article>
-
-      <article class="expert reveal reveal--body" style="--reveal-delay: 80ms">
-        <div class="expert__photo">Fig. 06 &mdash; Portrait · 3:4</div>
-        <div class="expert__info">
-          <h3 class="expert__name">Lee Hana</h3>
-          <p class="expert__role">Training Director · KCFB Academy</p>
-          <span class="expert__cert">KCFB-2024-0067</span>
-        </div>
-      </article>
-
-      <article class="expert reveal reveal--body" style="--reveal-delay: 160ms">
-        <div class="expert__photo">Fig. 07 &mdash; Portrait · 3:4</div>
-        <div class="expert__info">
-          <h3 class="expert__name">Choi Yerim</h3>
-          <p class="expert__role">Colorimetry Researcher</p>
-          <span class="expert__cert">KCFB-2025-0078</span>
-        </div>
-      </article>
-
-      <article class="expert reveal reveal--body" style="--reveal-delay: 240ms">
-        <div class="expert__photo">Fig. 08 &mdash; Portrait · 3:4</div>
-        <div class="expert__info">
-          <h3 class="expert__name">Sato Haruka</h3>
-          <p class="expert__role">Consultant · Osaka Studio</p>
-          <span class="expert__cert">KCFB-2025-0089</span>
-        </div>
-      </article>
+<!-- ═══════════ SERVICES ═══════════ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>03 &mdash; Services</span>
+      <span class="section__eyebrow-line"></span>
     </div>
 
-    <div class="experts__partners reveal reveal--body" style="--reveal-delay: 300ms">
-      <div class="experts__partners-label">Strategic Partners</div>
-      <div class="experts__logos">
-        <span class="experts__logo-ph">APLCOLOR</span>
-        <span class="experts__logo-ph">KCFB</span>
-        <span class="experts__logo-ph">KimVsTiger</span>
+    <h2 class="section__title reveal reveal--d1">서비스</h2>
+
+    <div class="services__grid reveal reveal--d2">
+      <div class="service">
+        <div class="service__tag">APLCOLOR</div>
+        <h3 class="service__name">퍼스널 진단</h3>
+        <p class="service__desc">퍼스널컬러, 얼굴형, 체형 분석을 통합한 개인 이미지 진단.</p>
+        <span class="service__link">자세히 &rarr;</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">KCFB</div>
+        <h3 class="service__name">자격 인증</h3>
+        <p class="service__desc">공인 자격 인증 및 전문가 양성을 위한 체계적 교육 과정.</p>
+        <span class="service__link">자세히 &rarr;</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">APLs</div>
+        <h3 class="service__name">기업 컨설팅</h3>
+        <p class="service__desc">기업 임직원 이미지 컨설팅, 공간 컬러 설계, 브랜드 구축.</p>
+        <span class="service__link">자세히 &rarr;</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">APLs + KCFB</div>
+        <h3 class="service__name">전문가 교육</h3>
+        <p class="service__desc">뷰티, 헤어, 패션 업계 종사자를 위한 실무 교육 및 강사 양성.</p>
+        <span class="service__link">자세히 &rarr;</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">KimVsTiger</div>
+        <h3 class="service__name">도구 &amp; 데이터</h3>
+        <p class="service__desc">측색기, 진단천, 교재, AI 기반 분석 도구.</p>
+        <span class="service__link">자세히 &rarr;</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">APLs</div>
+        <h3 class="service__name">향 &amp; 공간</h3>
+        <p class="service__desc">브랜드 정체성에 맞는 향 설계와 공간 컬러 컨설팅.</p>
+        <span class="service__link">자세히 &rarr;</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     FOOTER
-     ═══════════════════════════════════════════════════════════ -->
-<footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__top">
+<!-- ═══════════ PROGRAMS ═══════════ -->
+<section class="section" id="programs" style="background: var(--bg-white);">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>04 &mdash; Programs</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">프로그램</h2>
+
+    <div class="programs__grid reveal reveal--d2">
+      <div class="program">
+        <div class="program__img"><span>APLCOLOR Intensive &middot; 4:3</span></div>
+        <div class="program__body">
+          <div class="program__tag">APLCOLOR</div>
+          <h3 class="program__name">Personal Image Intensive</h3>
+          <p class="program__desc">퍼스널컬러, 얼굴형, 체형 진단을 하루에 집중적으로 받는 프리미엄 프로그램.</p>
+        </div>
+      </div>
+      <div class="program">
+        <div class="program__img"><span>KCFB Certification &middot; 4:3</span></div>
+        <div class="program__body">
+          <div class="program__tag">KCFB</div>
+          <h3 class="program__name">Expert Certification Course</h3>
+          <p class="program__desc">KCFB 공인 전문가 자격 취득을 위한 교육 과정. 이론과 실습 병행.</p>
+        </div>
+      </div>
+      <div class="program">
+        <div class="program__img"><span>Corporate Workshop &middot; 4:3</span></div>
+        <div class="program__body">
+          <div class="program__tag">Corporate</div>
+          <h3 class="program__name">Corporate Brand Workshop</h3>
+          <p class="program__desc">기업 임직원 대상 이미지 전략 워크샵. 브랜드와 개인 이미지의 통합.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERTS ═══════════ -->
+<section class="section" id="experts">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>05 &mdash; Experts</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">전문가</h2>
+
+    <div class="experts__grid reveal reveal--d2">
+      <div class="expert">
+        <div class="expert__photo"><span>Portrait &middot; 3:4</span></div>
+        <div class="expert__name">임경은</div>
+        <div class="expert__role">대표 &middot; Chief Consultant</div>
+      </div>
+      <div class="expert">
+        <div class="expert__photo"><span>Portrait &middot; 3:4</span></div>
+        <div class="expert__name">Expert 02</div>
+        <div class="expert__role">KCFB Certified</div>
+      </div>
+      <div class="expert">
+        <div class="expert__photo"><span>Portrait &middot; 3:4</span></div>
+        <div class="expert__name">Expert 03</div>
+        <div class="expert__role">KCFB Certified</div>
+      </div>
+      <div class="expert">
+        <div class="expert__photo"><span>Portrait &middot; 3:4</span></div>
+        <div class="expert__name">Expert 04</div>
+        <div class="expert__role">KCFB Certified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COMMUNITY ═══════════ -->
+<section class="community" id="community">
+  <div class="community__eyebrow reveal">06 &mdash; Community</div>
+  <h2 class="community__title reveal reveal--d1">KCFB<br>Community</h2>
+  <p class="community__sub reveal reveal--d2">
+    한국퍼스널컬러패션뷰티협회와 함께 전문가 네트워크에 참여하세요.
+  </p>
+  <div class="community__benefits reveal reveal--d3">
+    <div class="benefit">
+      <div class="benefit__num">01</div>
+      <div class="benefit__title">지속 교육</div>
+      <div class="benefit__desc">최신 트렌드와 기법에 대한 정기 교육 세션 및 워크샵.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit__num">02</div>
+      <div class="benefit__title">비즈니스 연결</div>
+      <div class="benefit__desc">기업 컨설팅, 강사 배치 등 비즈니스 기회 우선 연결.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit__num">03</div>
+      <div class="benefit__title">공인 자격</div>
+      <div class="benefit__desc">KCFB 고유 자격 번호 부여. 전문성 공식 인증.</div>
+    </div>
+  </div>
+  <a href="#contact" class="btn btn--light reveal reveal--d4">Apply Now</a>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>07 &mdash; Testimonials</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">고객 후기</h2>
+
+    <div class="testimonials__grid reveal reveal--d2">
+      <div class="testimonial">
+        <p class="testimonial__quote">임직원 이미지 컨설팅을 의뢰했는데, 체계적인 접근 방식에 경영진 모두가 만족했습니다.</p>
+        <div class="testimonial__author">김OO 이사</div>
+        <div class="testimonial__role">대기업 HR팀</div>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial__quote">KCFB 자격 과정을 수료한 후 전문가로서의 자신감이 완전히 달라졌습니다.</p>
+        <div class="testimonial__author">박OO</div>
+        <div class="testimonial__role">KCFB 공인 전문가</div>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial__quote">내면 분석부터 이미지 설계까지 원스톱으로 받을 수 있다는 점이 좋았습니다.</p>
+        <div class="testimonial__author">이OO</div>
+        <div class="testimonial__role">개인 컨설팅 고객</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="section" id="faq" style="background: var(--bg-white);">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>08 &mdash; FAQ</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">자주 묻는 질문</h2>
+
+    <div class="faq__list reveal reveal--d2">
+      <div class="faq__item">
+        <button class="faq__q">APLs와 APLCOLOR는 어떤 관계인가요?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">APLs는 지주 법인이며, APLCOLOR는 B2C 개인 고객 대상 진단 스튜디오 서브 브랜드입니다.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">KCFB 자격 인증은 어떻게 취득하나요?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">KCFB 공인 교육 과정 이수 후 자격 시험에 합격하면 고유 자격 번호를 부여받습니다.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">기업 컨설팅은 어떤 방식으로 진행되나요?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">기업 규모와 목적에 맞춘 맞춤형 컨설팅을 제공합니다. 사전 상담을 통해 프로젝트 범위를 정합니다.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">해외에서도 서비스를 받을 수 있나요?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">부산, 서울, 오사카, 상하이 4개 도시에 스튜디오를 운영하며, 4개 국어로 서비스를 제공합니다.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">Inner Identity란 무엇인가요?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">에니어그램, 색채심리, TCI를 활용하여 내면의 정체성을 탐색하는 과정입니다. 외적 이미지 설계의 출발점입니다.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer__grid">
       <div>
-        <div class="footer__brand">APLs</div>
-        <div class="footer__slogan">Clearly Measured.<br>Personally Set.</div>
+        <div class="footer__brand">A.</div>
+        <div class="footer__slogan">From Identity to Brand,<br>and Beyond.</div>
       </div>
       <div>
-        <div class="footer__col-title">Navigation</div>
+        <div class="footer__col-title">바로가기</div>
         <div class="footer__links">
-          <a class="footer__link" href="#about">About</a>
-          <a class="footer__link" href="#services">Services</a>
-          <a class="footer__link" href="#programs">Programs</a>
-          <a class="footer__link" href="#courses">Courses</a>
-          <a class="footer__link" href="#experts">Experts</a>
+          <a class="footer__link" href="#about">소개</a>
+          <a class="footer__link" href="#system">시스템</a>
+          <a class="footer__link" href="#services">서비스</a>
+          <a class="footer__link" href="#programs">프로그램</a>
+          <a class="footer__link" href="#experts">전문가</a>
         </div>
       </div>
       <div>
-        <div class="footer__col-title">Sub-Brands</div>
+        <div class="footer__col-title">서브 브랜드</div>
         <div class="footer__links">
-          <a class="footer__link" href="#">APLCOLOR &mdash; Diagnostic Studios</a>
-          <a class="footer__link" href="#">KCFB &mdash; Certification Body</a>
-          <a class="footer__link" href="#">KimVsTiger &mdash; Tech &amp; Data</a>
+          <a class="footer__link" href="#">APLCOLOR</a>
+          <a class="footer__link" href="#">KCFB</a>
+          <a class="footer__link" href="#">KimVsTiger</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">연락처</div>
+        <div class="footer__links">
+          <a class="footer__link" href="mailto:contact@apls.co">contact@apls.co</a>
+          <a class="footer__link" href="#">Instagram</a>
+          <a class="footer__link" href="#">LinkedIn</a>
         </div>
       </div>
     </div>
     <div class="footer__bottom">
       <div class="footer__legal">
-        APLs Co., Ltd. &middot; Registration 102-81-48099<br>
-        11F, 428 Seolleung-ro, Gangnam-gu, Seoul, Republic of Korea<br>
-        CEO Lim Kyung Eun &middot; Est. 2024
+        주식회사 에이피엘스 (APLs Co., Ltd.) &middot; 102-81-48099<br>
+        서울특별시 강남구 선릉로 428, 11층 &middot; 대표 임경은
       </div>
-      <div class="footer__lang" role="group" aria-label="Language">
-        <a href="#" class="is-active">EN</a>
-        <span class="footer__lang-sep">/</span>
-        <a href="#">KR</a>
-        <span class="footer__lang-sep">/</span>
+      <div class="footer__lang">
+        <a href="#" class="is-active">KR</a>
+        <a href="#">EN</a>
         <a href="#">JP</a>
-        <span class="footer__lang-sep">/</span>
         <a href="#">CN</a>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SCRIPTS
-     ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════ SCRIPTS ═══════════ -->
 <script>
 (function () {
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  'use strict';
 
-  /* ─── Nav scroll state ─── */
-  const nav = document.getElementById('nav');
-  const onScroll = () => {
-    if (window.scrollY > 8) nav.classList.add('is-scrolled');
-    else nav.classList.remove('is-scrolled');
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  /* Header scroll */
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('header--scrolled', window.scrollY > 40);
+  }, { passive: true });
 
-  /* ─── Language switcher ─── */
-  document.querySelectorAll('.lang a').forEach(a => {
-    a.addEventListener('click', (e) => {
+  /* Scroll reveal */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* FAQ */
+  document.querySelectorAll('.faq__q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq__item');
+      const a = item.querySelector('.faq__a');
+      const open = item.classList.contains('is-open');
+      document.querySelectorAll('.faq__item.is-open').forEach(o => {
+        if (o !== item) { o.classList.remove('is-open'); o.querySelector('.faq__a').style.maxHeight = '0'; }
+      });
+      if (open) { item.classList.remove('is-open'); a.style.maxHeight = '0'; }
+      else { item.classList.add('is-open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+
+  /* Lang switcher */
+  document.querySelectorAll('.header__lang a, .footer__lang a').forEach(a => {
+    a.addEventListener('click', e => {
       e.preventDefault();
-      document.querySelectorAll('.lang a').forEach(l => l.classList.remove('is-active'));
-      a.classList.add('is-active');
-    });
-  });
-
-  /* ─── Word-by-word splitter ─── */
-  document.querySelectorAll('[data-words]').forEach(el => {
-    // Preserve existing HTML structure, wrap each word in a span
-    const walk = (node) => {
-      const children = [...node.childNodes];
-      children.forEach(child => {
-        if (child.nodeType === Node.TEXT_NODE) {
-          const text = child.textContent;
-          if (!text.trim()) return;
-          const words = text.split(/(\s+)/);
-          const frag = document.createDocumentFragment();
-          words.forEach(w => {
-            if (/^\s+$/.test(w)) {
-              frag.appendChild(document.createTextNode(w));
-            } else if (w.length) {
-              const span = document.createElement('span');
-              span.className = 'reveal__word';
-              span.textContent = w;
-              frag.appendChild(span);
-            }
-          });
-          child.parentNode.replaceChild(frag, child);
-        } else if (child.nodeType === Node.ELEMENT_NODE) {
-          walk(child);
-        }
-      });
-    };
-    walk(el);
-
-    // Assign stagger delays
-    const words = el.querySelectorAll('.reveal__word');
-    words.forEach((w, i) => {
-      w.style.setProperty('--word-delay', `${i * 80}ms`);
-    });
-  });
-
-  /* ─── IntersectionObserver for all reveals ─── */
-  if (prefersReduced) {
-    document.querySelectorAll('.reveal, .reveal--words').forEach(el => {
-      el.classList.add('is-visible');
-    });
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-
-    document.querySelectorAll('.reveal, .reveal--words').forEach(el => {
-      io.observe(el);
-    });
-
-    // Hero items above the fold: trigger immediately
-    const heroEls = document.querySelectorAll('.hero .reveal, .hero .reveal--words');
-    heroEls.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight) {
-        requestAnimationFrame(() => {
-          setTimeout(() => el.classList.add('is-visible'), 60);
-        });
-      }
-    });
-  }
-
-  /* ─── Drift (parallax on scroll) ─── */
-  if (!prefersReduced) {
-    const driftEls = [...document.querySelectorAll('[data-drift]')];
-    const isTouch = matchMedia('(hover: none)').matches;
-
-    if (driftEls.length && !isTouch) {
-      let scrollY = window.scrollY;
-      let ticking = false;
-
-      const update = () => {
-        driftEls.forEach(el => {
-          const rect = el.getBoundingClientRect();
-          const vh = window.innerHeight;
-          // Only apply when element is near viewport
-          if (rect.top < vh * 1.5 && rect.bottom > -vh * 0.5) {
-            const center = rect.top + rect.height / 2;
-            const distance = center - vh / 2;
-            const offset = distance * -0.08; // 0.08 = subtle
-            el.style.setProperty('--drift-offset', `${offset.toFixed(2)}px`);
-          }
-        });
-        ticking = false;
-      };
-
-      window.addEventListener('scroll', () => {
-        scrollY = window.scrollY;
-        if (!ticking) {
-          requestAnimationFrame(update);
-          ticking = true;
-        }
-      }, { passive: true });
-      update();
-    }
-  }
-
-  /* ─── Course filter tabs ─── */
-  document.querySelectorAll('.courses__tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.courses__tab').forEach(t => t.classList.remove('is-active'));
-      tab.classList.add('is-active');
-      const filter = tab.dataset.filter;
-      document.querySelectorAll('.course').forEach(course => {
-        if (filter === 'all' || course.dataset.category === filter) {
-          course.style.display = '';
-        } else {
-          course.style.display = 'none';
-        }
+      const lang = a.textContent.trim();
+      document.querySelectorAll('.header__lang a, .footer__lang a').forEach(l => {
+        l.classList.toggle('is-active', l.textContent.trim() === lang);
       });
     });
   });
 
-  /* ─── Hero video load ─── */
-  const video = document.getElementById('heroVideo');
-  const marker = document.getElementById('heroMarker');
-  if (video) {
-    const VIDEO_URL = 'https://pub-11ab88f795554550b062d5ad9bda0a83.r2.dev/hero-loop.mp4';
-
-    video.addEventListener('loadeddata', () => {
-      video.classList.add('is-playing');
-      if (marker) marker.style.display = 'none';
-      video.play().catch(() => {/* autoplay blocked — ignore */});
+  /* Smooth scroll */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
+  });
 
-    video.addEventListener('error', () => {
-      /* Fallback gradient stays visible; leave marker in place */
-    });
-
-    video.src = VIDEO_URL;
-    video.load();
-  }
-
-  /* ─── Cursor parallax on hero ─── */
-  const heroBg = document.getElementById('heroBg');
-  const hero = document.getElementById('hero');
-  if (heroBg && hero && !prefersReduced && !matchMedia('(hover: none)').matches) {
-    let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
-    const MAX = 10;
-
-    const move = (e) => {
-      const r = hero.getBoundingClientRect();
-      const nx = ((e.clientX - r.left) / r.width) - 0.5;
-      const ny = ((e.clientY - r.top) / r.height) - 0.5;
-      tx = nx * MAX * -2;
-      ty = ny * MAX * -2;
-      if (!raf) raf = requestAnimationFrame(tick);
-    };
-    const tick = () => {
-      cx += (tx - cx) * 0.08;
-      cy += (ty - cy) * 0.08;
-      heroBg.style.transform = `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
-      if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
-        raf = requestAnimationFrame(tick);
-      } else raf = null;
-    };
-    hero.addEventListener('mousemove', move, { passive: true });
-    hero.addEventListener('mouseleave', () => {
-      tx = 0; ty = 0;
-      if (!raf) raf = requestAnimationFrame(tick);
-    });
-  }
 })();
 </script>
 
