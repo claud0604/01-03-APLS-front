@@ -23,9 +23,18 @@
 ## Core Pages
 - Home: https://apls.kr/
 - Professional Course: https://apls.kr/professional-course
+- Resources: https://apls.kr/resources
 - Korean: https://apls.kr/ko/
 - Japanese: https://apls.kr/ja/
 - Chinese: https://apls.kr/zh/
+
+## Featured Resources (Expert Articles)
+- LAB Colorimetry vs Drape Analysis: https://apls.kr/resources/lab-colorimetry-vs-drape-analysis
+- 14-Season Personal Color System: https://apls.kr/resources/14-season-personal-color-system
+- How to Become a Certified Color Analyst in Korea: https://apls.kr/resources/how-to-become-certified-color-analyst-korea
+
+## RSS Feed
+- https://apls.kr/rss.xml
 
 ## Sub-brands
 - **APLCOLOR:** B2C personal color diagnosis studio brand

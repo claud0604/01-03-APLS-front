@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://apls.kr/sitemap-index.xml
+RSS: https://apls.kr/rss.xml

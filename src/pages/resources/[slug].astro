@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const resources = await getCollection('resources');
+  return resources.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": entry.data.title,
+  "description": entry.data.description,
+  "datePublished": entry.data.publishDate.toISOString(),
+  "author": {
+    "@type": "Organization",
+    "name": "APL Color",
+    "url": "https://apls.kr"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "APL Color",
+    "url": "https://apls.kr"
+  },
+  "keywords": entry.data.keywords.join(', '),
+  "inLanguage": entry.data.lang,
+  "mainEntityOfPage": `https://apls.kr/resources/${entry.id}`
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://apls.kr" },
+    { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://apls.kr/resources" },
+    { "@type": "ListItem", "position": 3, "name": entry.data.title, "item": `https://apls.kr/resources/${entry.id}` }
+  ]
+};
+
+const categoryLabels: Record<string, string> = {
+  method: 'Methodology',
+  science: 'Color Science',
+  industry: 'Industry & Certification',
+  'case-study': 'Case Study',
+};
+---
+
+<BaseLayout
+  title={`${entry.data.title} | APL Color`}
+  description={entry.data.description}
+  lang={entry.data.lang}
+  schema={[articleSchema, breadcrumbSchema]}
+  canonicalURL={`https://apls.kr/resources/${entry.id}`}
+>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background: #FAF8F5; color: #1a1a1a; }
+
+    /* Navigation */
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; border-bottom: 1px solid #e8e0d8; background: #FAF8F5; position: sticky; top: 0; z-index: 100; }
+    .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: #1a1a1a; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: #555; text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; }
+    .nav-links a:hover { color: #1a1a1a; }
+
+    /* Article header */
+    .article-header { max-width: 750px; margin: 0 auto; padding: 4rem 5% 2rem; }
+    .breadcrumb { font-size: 0.75rem; color: #999; margin-bottom: 2rem; }
+    .breadcrumb a { color: #8B7355; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+    .article-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B7355; padding: 0.3rem 0.8rem; background: #f0ebe4; border-radius: 3px; }
+    .article-date { font-size: 0.8rem; color: #999; }
+    .article-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400; line-height: 1.25; margin-bottom: 1.5rem; }
+    .article-desc { font-size: 1.1rem; color: #666; line-height: 1.7; padding-bottom: 2rem; border-bottom: 1px solid #e8e0d8; }
+
+    /* Article content */
+    .article-content { max-width: 750px; margin: 0 auto; padding: 2rem 5% 4rem; }
+    .article-content :global(h1) { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 500; margin: 2.5rem 0 1rem; display: none; }
+    .article-content :global(h2) { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin: 2.5rem 0 1rem; color: #1a1a1a; }
+    .article-content :global(h3) { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 0.75rem; color: #333; }
+    .article-content :global(p) { font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.25rem; color: #333; }
+    .article-content :global(ul), .article-content :global(ol) { margin: 1rem 0 1.25rem 1.5rem; }
+    .article-content :global(li) { font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem; color: #333; }
+    .article-content :global(strong) { font-weight: 600; color: #1a1a1a; }
+    .article-content :global(a) { color: #8B7355; text-decoration: underline; }
+    .article-content :global(a:hover) { color: #1a1a1a; }
+    .article-content :global(table) { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .article-content :global(th) { text-align: left; padding: 0.75rem 1rem; background: #f0ebe4; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; border-bottom: 2px solid #e8e0d8; }
+    .article-content :global(td) { padding: 0.75rem 1rem; border-bottom: 1px solid #e8e0d8; font-size: 0.9rem; }
+    .article-content :global(hr) { border: none; border-top: 1px solid #e8e0d8; margin: 2.5rem 0; }
+    .article-content :global(em) { color: #666; }
+
+    /* Keywords */
+    .article-keywords { max-width: 750px; margin: 0 auto; padding: 0 5% 2rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .keyword { font-size: 0.7rem; padding: 0.3rem 0.8rem; background: #f0ebe4; border-radius: 12px; color: #8B7355; }
+
+    /* Related / CTA */
+    .back-link { max-width: 750px; margin: 0 auto; padding: 0 5% 4rem; }
+    .back-link a { font-size: 0.85rem; font-weight: 500; color: #8B7355; text-decoration: none; letter-spacing: 0.03em; }
+    .back-link a:hover { color: #1a1a1a; }
+
+    .cta-section { background: #1a1a1a; color: #FAF8F5; padding: 4rem 5%; text-align: center; }
+    .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; margin-bottom: 1rem; }
+    .cta-section p { font-size: 0.95rem; color: #aaa; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cta-btn { display: inline-block; padding: 1rem 2.5rem; border: 1px solid #FAF8F5; color: #FAF8F5; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; }
+    .cta-btn:hover { background: #FAF8F5; color: #1a1a1a; }
+
+    .footer { padding: 3rem 5%; text-align: center; font-size: 0.8rem; color: #999; border-top: 1px solid #e8e0d8; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .article-header h1 { font-size: 1.8rem; }
+    }
+  </style>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">APL Color</a>
+    <div class="nav-links">
+      <a href="/professional-course">Course</a>
+      <a href="/resources">Resources</a>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/resources">Resources</a> / {entry.data.title}
+    </div>
+    <div class="article-meta">
+      <span class="article-category">{categoryLabels[entry.data.category]}</span>
+      <span class="article-date">{entry.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+    </div>
+    <h1>{entry.data.title}</h1>
+    <p class="article-desc">{entry.data.description}</p>
+  </header>
+
+  <!-- Article Content -->
+  <div class="article-content">
+    <Content />
+  </div>
+
+  <!-- Keywords -->
+  <div class="article-keywords">
+    {entry.data.keywords.map((kw) => (
+      <span class="keyword">{kw}</span>
+    ))}
+  </div>
+
+  <!-- Back link -->
+  <div class="back-link">
+    <a href="/resources">← Back to All Resources</a>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Learn From the Experts</h2>
+    <p>Our 4-day Professional Course teaches these methodologies hands-on with nationally certified instructors.</p>
+    <a href="/professional-course" class="cta-btn">View Course Details</a>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 APL Color. All rights reserved.</p>
+  </footer>
+</BaseLayout>

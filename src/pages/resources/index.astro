@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allResources = await getCollection('resources');
+const resources = allResources
+  .filter((r) => r.data.lang === 'en')
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+const alternates = [
+  { lang: 'en', href: 'https://apls.kr/resources' },
+  { lang: 'ko', href: 'https://apls.kr/ko/resources' },
+  { lang: 'ja', href: 'https://apls.kr/ja/resources' },
+  { lang: 'zh', href: 'https://apls.kr/zh/resources' },
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://apls.kr" },
+    { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://apls.kr/resources" }
+  ]
+};
+
+const categoryLabels: Record<string, string> = {
+  method: 'Methodology',
+  science: 'Color Science',
+  industry: 'Industry & Certification',
+  'case-study': 'Case Study',
+};
+---
+
+<BaseLayout
+  title="Resources — Personal Color Science & Industry Insights | APL Color"
+  description="Expert articles on personal color analysis methodology, LAB colorimetry science, industry certification, and diagnostic case studies from APL Color's 13,000+ case database."
+  lang="en"
+  alternates={alternates}
+  schema={[breadcrumbSchema]}
+>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background: #FAF8F5; color: #1a1a1a; }
+
+    /* Navigation */
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; border-bottom: 1px solid #e8e0d8; background: #FAF8F5; position: sticky; top: 0; z-index: 100; }
+    .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: #1a1a1a; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: #555; text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; }
+    .nav-links a:hover { color: #1a1a1a; }
+    .lang-switch { display: flex; gap: 0.5rem; margin-left: 1.5rem; padding-left: 1.5rem; border-left: 1px solid #e8e0d8; }
+    .lang-switch a { font-size: 0.75rem; padding: 0.25rem 0.5rem; border: 1px solid #e8e0d8; border-radius: 3px; text-decoration: none; color: #888; }
+    .lang-switch a:hover, .lang-switch a.active { color: #1a1a1a; border-color: #1a1a1a; }
+
+    /* Hero */
+    .hero { padding: 5rem 5% 3rem; max-width: 900px; margin: 0 auto; text-align: center; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 400; margin-bottom: 1rem; line-height: 1.2; }
+    .hero p { font-size: 1.05rem; color: #666; line-height: 1.7; max-width: 650px; margin: 0 auto; }
+
+    /* Category filter */
+    .categories { display: flex; gap: 0.75rem; justify-content: center; padding: 0 5% 3rem; flex-wrap: wrap; }
+    .cat-btn { font-size: 0.8rem; padding: 0.5rem 1.2rem; border: 1px solid #e8e0d8; border-radius: 20px; background: transparent; color: #666; cursor: pointer; text-decoration: none; letter-spacing: 0.03em; transition: all 0.2s; }
+    .cat-btn:hover, .cat-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+    /* Articles grid */
+    .articles { max-width: 900px; margin: 0 auto; padding: 0 5% 5rem; }
+    .article-card { border-bottom: 1px solid #e8e0d8; padding: 2.5rem 0; }
+    .article-card:first-child { padding-top: 0; }
+    .article-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem; }
+    .article-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8B7355; }
+    .article-date { font-size: 0.75rem; color: #999; }
+    .article-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; margin-bottom: 0.75rem; line-height: 1.3; }
+    .article-card h2 a { color: #1a1a1a; text-decoration: none; }
+    .article-card h2 a:hover { color: #8B7355; }
+    .article-desc { font-size: 0.95rem; color: #666; line-height: 1.7; margin-bottom: 1rem; }
+    .read-more { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #8B7355; text-decoration: none; }
+    .read-more:hover { color: #1a1a1a; }
+
+    /* Keywords */
+    .keywords { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .keyword { font-size: 0.65rem; padding: 0.2rem 0.6rem; background: #f0ebe4; border-radius: 10px; color: #8B7355; }
+
+    /* CTA */
+    .cta-section { background: #1a1a1a; color: #FAF8F5; padding: 4rem 5%; text-align: center; }
+    .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; margin-bottom: 1rem; }
+    .cta-section p { font-size: 0.95rem; color: #aaa; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cta-btn { display: inline-block; padding: 1rem 2.5rem; border: 1px solid #FAF8F5; color: #FAF8F5; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; }
+    .cta-btn:hover { background: #FAF8F5; color: #1a1a1a; }
+
+    /* Footer */
+    .footer { padding: 3rem 5%; text-align: center; font-size: 0.8rem; color: #999; border-top: 1px solid #e8e0d8; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+      .article-card h2 { font-size: 1.3rem; }
+    }
+  </style>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">APL Color</a>
+    <div class="nav-links">
+      <a href="/professional-course">Course</a>
+      <a href="/resources">Resources</a>
+      <div class="lang-switch">
+        <a href="/resources" class="active">EN</a>
+        <a href="/ko/resources">KO</a>
+        <a href="/ja/resources">JA</a>
+        <a href="/zh/resources">ZH</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Resources</h1>
+    <p>Expert insights on personal color analysis methodology, color science, industry certification, and diagnostic case studies — from APL Color's team of nationally certified analysts.</p>
+  </section>
+
+  <!-- Category filter -->
+  <div class="categories">
+    <a href="/resources" class="cat-btn active">All</a>
+    {Object.entries(categoryLabels).map(([key, label]) => (
+      <a href={`/resources?cat=${key}`} class="cat-btn">{label}</a>
+    ))}
+  </div>
+
+  <!-- Articles -->
+  <section class="articles">
+    {resources.map((resource) => (
+      <article class="article-card">
+        <div class="article-meta">
+          <span class="article-category">{categoryLabels[resource.data.category]}</span>
+          <span class="article-date">{resource.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        </div>
+        <h2><a href={`/resources/${resource.id}`}>{resource.data.title}</a></h2>
+        <p class="article-desc">{resource.data.description}</p>
+        <div class="keywords">
+          {resource.data.keywords.slice(0, 4).map((kw) => (
+            <span class="keyword">{kw}</span>
+          ))}
+        </div>
+        <a href={`/resources/${resource.id}`} class="read-more">Read Article →</a>
+      </article>
+    ))}
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to Become a Professional?</h2>
+    <p>Learn these methodologies hands-on in APL's 4-day Professional Course.</p>
+    <a href="/professional-course" class="cta-btn">View Course Details</a>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 APL Color. All rights reserved.</p>
+  </footer>
+</BaseLayout>
