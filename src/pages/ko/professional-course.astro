@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const alternates = [
+  { lang: 'en', href: 'https://apls.kr/professional-course' },
+  { lang: 'ko', href: 'https://apls.kr/ko/professional-course' },
+  { lang: 'ja', href: 'https://apls.kr/ja/professional-course' },
+  { lang: 'zh', href: 'https://apls.kr/zh/professional-course' },
+];
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "APL 퍼스널컬러 전문가 자격 과정",
+  "description": "국가공인 컬러리스트기사 강사진이 운영하는 4일 집중 퍼스널컬러 전문가 자격 과정. LS170 분광측색계 LAB 측색 진단, 드레이핑 기법, 창업 실무 포함.",
+  "provider": { "@type": "Organization", "name": "APL Color", "url": "https://apls.kr" },
+  "offers": { "@type": "Offer", "price": "4500000", "priceCurrency": "KRW" },
+  "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "Onsite", "courseWorkload": "P4D", "inLanguage": ["ko","en","ja","zh"] },
+  "educationalCredentialAwarded": "KCFB 공인 퍼스널컬러 전문가 자격증"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "사전 자격이 필요한가요?", "acceptedAnswer": { "@type": "Answer", "text": "사전 자격이나 경력은 필요 없습니다. 초보자부터 경력 전문가까지 모두 수강 가능합니다. 국가공인 컬러리스트기사 자격 보유 강사진이 직접 교육합니다." } },
+    { "@type": "Question", "name": "수료 후 어떤 자격증을 받나요?", "acceptedAnswer": { "@type": "Answer", "text": "KCFB(한국퍼스널컬러패션뷰티협회) 공인 퍼스널컬러 전문가 자격증과 고유 자격 번호를 부여받습니다. 한국·일본·중국 APL 네트워크에서 인정됩니다." } },
+    { "@type": "Question", "name": "APL의 진단 방식은 무엇이 다른가요?", "acceptedAnswer": { "@type": "Answer", "text": "APL은 LS170 분광측색계를 사용한 LAB 색공간 측색 진단을 병행합니다. 주관적 드레이핑만이 아닌 기기 측정 + 시각 평가의 이중 방식으로 객관적 진단을 제공합니다." } },
+    { "@type": "Question", "name": "수료 후 창업이 가능한가요?", "acceptedAnswer": { "@type": "Answer", "text": "네. 과정에 창업 실무(스튜디오 운영, 고객 상담 플로우, 가격 전략)가 포함되어 있으며, KCFB 전문가 네트워크를 통한 지속적 지원을 받습니다." } }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://apls.kr/ko/" },
+    { "@type": "ListItem", "position": 2, "name": "전문가 과정", "item": "https://apls.kr/ko/professional-course" }
+  ]
+};
+
+const schemas = [courseSchema, faqSchema, breadcrumbSchema];
+---
+
+<BaseLayout
+  title="퍼스널컬러 전문가 자격 과정 — 4일 집중 인증 | APL Color"
+  description="국가공인 컬러리스트기사 강사진의 4일 집중 퍼스널컬러 전문가 자격 과정. LS170 분광측색계 LAB 진단, KCFB 공인 자격증. 부산·서울·오사카·상하이."
+  lang="ko"
+  alternates={alternates}
+  schema={schemas}
+>
+
+<style>
+:root {
+  --bg: #ece0c8; --bg-white: #FFFFFF; --text: #222222; --text-sub: #888888; --text-dim: #AAAAAA; --border: #E5E5E5;
+  --font: "Inter", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+  --header-h: 54px; --pad: clamp(20px, 4vw, 52px); --max-w: 1080px;
+  --ease: cubic-bezier(.165, .84, .44, 1); --dur-fast: 0.3s;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--text); background: var(--bg); line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--header-h); display: flex; align-items: center; background: rgba(236, 224, 200, 0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.header__inner { width: 100%; max-width: 1816px; margin: 0 auto; padding: 0 var(--pad); display: flex; align-items: center; justify-content: space-between; }
+.header__logo { font-weight: 800; font-size: 18px; }
+.header__right { display: flex; align-items: center; gap: 20px; }
+.header__lang { display: flex; gap: 6px; font-size: 12px; font-weight: 500; }
+.header__lang a { color: var(--text-dim); transition: color var(--dur-fast); }
+.header__lang a.is-active { color: var(--text); }
+.header__cta { font-size: 12px; font-weight: 600; padding: 8px 18px; border: 1.5px solid var(--text); border-radius: 2px; transition: background var(--dur-fast), color var(--dur-fast); }
+.header__cta:hover { background: var(--text); color: var(--bg); }
+
+.breadcrumb { padding: calc(var(--header-h) + 24px) var(--pad) 0; max-width: var(--max-w); margin: 0 auto; font-size: 12px; color: var(--text-dim); }
+.breadcrumb a:hover { color: var(--text); }
+
+.page { max-width: var(--max-w); margin: 0 auto; padding: 48px var(--pad) 120px; }
+.page__eyebrow { font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; }
+.page__title { font-weight: 800; font-size: clamp(32px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 32px; }
+.page__definition { font-size: clamp(16px, 1.3vw, 19px); line-height: 1.75; color: var(--text-sub); margin-bottom: 64px; max-width: 720px; }
+.page__definition strong { color: var(--text); }
+
+.section-block { margin-bottom: 64px; }
+.section-block__title { font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+.authority__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.authority__item { padding: 20px; background: var(--bg-white); border: 1px solid var(--border); }
+.authority__item-label { font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
+.authority__item-value { font-size: 14px; line-height: 1.6; }
+
+.spec table { width: 100%; border-collapse: collapse; }
+.spec th, .spec td { text-align: left; padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
+.spec th { font-weight: 600; font-size: 12px; letter-spacing: 0.06em; color: var(--text-dim); width: 140px; background: var(--bg-white); }
+
+.curriculum__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.curriculum__day { padding: 24px; background: var(--bg-white); border: 1px solid var(--border); }
+.curriculum__day-num { font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+.curriculum__day-title { font-weight: 700; font-size: 16px; margin-bottom: 10px; }
+.curriculum__day-list { font-size: 13px; line-height: 1.7; color: var(--text-sub); }
+
+.faq__item { border-bottom: 1px solid var(--border); }
+.faq__q { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 18px 0; font-weight: 600; font-size: 15px; text-align: left; transition: opacity var(--dur-fast); }
+.faq__q:hover { opacity: 0.5; }
+.faq__icon { font-size: 18px; font-weight: 300; flex-shrink: 0; margin-left: 16px; transition: transform var(--dur-fast) var(--ease); }
+.faq__item.is-open .faq__icon { transform: rotate(45deg); }
+.faq__a { max-height: 0; overflow: hidden; transition: max-height 0.6s var(--ease); }
+.faq__a-inner { padding-bottom: 18px; font-size: 14px; line-height: 1.7; color: var(--text-sub); }
+
+.cta-block { text-align: center; padding: 64px 0; border-top: 1px solid var(--border); }
+.cta-block__title { font-weight: 800; font-size: clamp(22px, 3vw, 36px); margin-bottom: 12px; }
+.cta-block__sub { font-size: 14px; color: var(--text-sub); margin-bottom: 28px; }
+.cta-block__btn { display: inline-flex; font-weight: 600; font-size: 13px; letter-spacing: 0.06em; padding: 14px 32px; background: var(--text); color: var(--bg); border-radius: 2px; transition: opacity var(--dur-fast); }
+.cta-block__btn:hover { opacity: 0.8; }
+
+.footer { border-top: 1px solid var(--border); padding: 48px 0; }
+.footer__inner { max-width: 1816px; margin: 0 auto; padding: 0 var(--pad); display: flex; justify-content: space-between; align-items: center; }
+.footer__legal { font-size: 11px; color: var(--text-dim); line-height: 1.6; }
+.footer__lang { display: flex; gap: 10px; }
+.footer__lang a { font-size: 11px; font-weight: 600; color: var(--text-dim); }
+.footer__lang a.is-active { color: var(--text); }
+
+@media (max-width: 768px) { .authority__grid, .curriculum__grid { grid-template-columns: 1fr; } .footer__inner { flex-direction: column; gap: 12px; align-items: flex-start; } }
+</style>
+
+<header class="header">
+  <div class="header__inner">
+    <a href="/ko/" class="header__logo">A.</a>
+    <div class="header__right">
+      <div class="header__lang">
+        <a href="/ko/professional-course" class="is-active">KR</a>
+        <a href="/professional-course">EN</a>
+        <a href="/ja/professional-course">JP</a>
+        <a href="/zh/professional-course">CN</a>
+      </div>
+      <a href="#enroll" class="header__cta">수강 신청</a>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/ko/">홈</a> / <strong>전문가 과정</strong></nav>
+
+<article class="page">
+  <div class="page__eyebrow">KCFB 공인 자격 프로그램</div>
+  <h1 class="page__title">퍼스널컬러 전문가<br>자격 인증 과정</h1>
+
+  <p class="page__definition">
+    APL은 한국 부산 기반의 퍼스널컬러 전문가 양성 프로그램입니다.
+    <strong>국가공인 컬러리스트기사</strong> 자격 보유 강사진이 운영하며,
+    <strong>부산, 서울, 오사카, 상하이</strong> 4개 도시에서 스튜디오를 운영합니다.
+    4일 집중 자격 과정은 <strong>LS170 분광측색계 기반 LAB 측색 진단</strong>과
+    전통적 드레이핑 기법을 결합하여, <strong>13,000건 이상의 진단 데이터</strong>를 바탕으로
+    과학 기반 퍼스널컬러 전문가를 양성합니다.
+  </p>
+
+  <section class="section-block">
+    <h2 class="section-block__title">APL을 선택하는 이유</h2>
+    <div class="authority__grid">
+      <div class="authority__item">
+        <div class="authority__item-label">강사 자격</div>
+        <div class="authority__item-value">전 강사진 <strong>국가공인 컬러리스트기사</strong> 자격 보유. 대한민국 정부 발행 국가자격증입니다.</div>
+      </div>
+      <div class="authority__item">
+        <div class="authority__item-label">공식 인정</div>
+        <div class="authority__item-value"><strong>KCFB(한국퍼스널컬러패션뷰티협회)</strong> 최초 공인 교육기관으로 인정받은 전문가 자격 과정입니다.</div>
+      </div>
+      <div class="authority__item">
+        <div class="authority__item-label">과학적 진단</div>
+        <div class="authority__item-value"><strong>LS170 분광측색계 LAB 측색 진단</strong> — 드레이핑만이 아닌 기기 측정 데이터 기반 객관적 진단. 13,000건 이상 축적 데이터.</div>
+      </div>
+      <div class="authority__item">
+        <div class="authority__item-label">글로벌 네트워크</div>
+        <div class="authority__item-value"><strong>4개 도시</strong>(부산·서울·오사카·상하이) 스튜디오 운영. 한국어·영어·일본어·중국어 4개 국어 수업.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block spec">
+    <h2 class="section-block__title">과정 상세</h2>
+    <table>
+      <tr><th>기간</th><td>4일 집중 과정</td></tr>
+      <tr><th>수업 언어</th><td>한국어 / 영어 / 일본어 / 중국어</td></tr>
+      <tr><th>자격증</th><td>KCFB 공인 퍼스널컬러 전문가 (고유 자격 번호 발급)</td></tr>
+      <tr><th>수강료</th><td>₩4,500,000</td></tr>
+      <tr><th>정원</th><td>소수정예 (회당 최대 6명, 실습 중심)</td></tr>
+      <tr><th>교육 장소</th><td>부산 · 서울 (한국) / 오사카 (일본) / 상하이 (중국)</td></tr>
+      <tr><th>자격 요건</th><td>없음 — 초보자·경력자 모두 수강 가능</td></tr>
+      <tr><th>포함 사항</th><td>LS170 실습, 드레이핑 키트, 교재, KCFB 자격 시험</td></tr>
+    </table>
+  </section>
+
+  <section class="section-block">
+    <h2 class="section-block__title">4일 커리큘럼</h2>
+    <div class="curriculum__grid">
+      <div class="curriculum__day">
+        <div class="curriculum__day-num">Day 01</div>
+        <h3 class="curriculum__day-title">색채과학 기초</h3>
+        <p class="curriculum__day-list">색채 이론 & LAB 색공간 · 빛과 피부 언더톤 물리학 · 먼셀 & 시즌 컬러 체계 · LS170 분광측색계 입문</p>
+      </div>
+      <div class="curriculum__day">
+        <div class="curriculum__day-num">Day 02</div>
+        <h3 class="curriculum__day-title">진단 방법론</h3>
+        <p class="curriculum__day-list">LS170 LAB 측정 실습 · 드레이핑 기법 기초 · 14시즌 분류 체계 · 라이브 모델 실습</p>
+      </div>
+      <div class="curriculum__day">
+        <div class="curriculum__day-num">Day 03</div>
+        <h3 class="curriculum__day-title">심화 응용</h3>
+        <p class="curriculum__day-list">얼굴형 & 체형 분석 · 스타일링 통합 · 고객 상담 워크플로우 · 케이스 스터디 리뷰 (13K+ 데이터)</p>
+      </div>
+      <div class="curriculum__day">
+        <div class="curriculum__day-num">Day 04</div>
+        <h3 class="curriculum__day-title">자격 인증 & 창업</h3>
+        <p class="curriculum__day-list">실기 자격 시험 · 창업 실무 & 가격 전략 · KCFB 네트워크 & 지속 교육 · 수료증 수여</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <h2 class="section-block__title">자주 묻는 질문</h2>
+    <div class="faq__item"><button class="faq__q">사전 자격이 필요한가요?<span class="faq__icon">+</span></button><div class="faq__a"><div class="faq__a-inner">사전 자격이나 경력은 필요 없습니다. 새로운 커리어를 탐색하는 초보자부터 공식 자격을 원하는 경력 뷰티/패션 전문가까지 모두 수강 가능합니다.</div></div></div>
+    <div class="faq__item"><button class="faq__q">수료 후 어떤 자격증을 받나요?<span class="faq__icon">+</span></button><div class="faq__a"><div class="faq__a-inner">KCFB(한국퍼스널컬러패션뷰티협회) 공인 퍼스널컬러 전문가 자격증과 고유 자격 번호를 부여받습니다. 한국·일본·중국 APL 네트워크에서 인정됩니다.</div></div></div>
+    <div class="faq__item"><button class="faq__q">APL의 진단 방식은 무엇이 다른가요?<span class="faq__icon">+</span></button><div class="faq__a"><div class="faq__a-inner">APL은 LS170 분광측색계로 LAB 색공간 측색 진단을 병행합니다. 주관적 드레이핑만이 아닌 기기 측정 + 시각 평가의 이중 방식으로 객관적 진단을 제공합니다.</div></div></div>
+    <div class="faq__item"><button class="faq__q">수료 후 창업이 가능한가요?<span class="faq__icon">+</span></button><div class="faq__a"><div class="faq__a-inner">네. 과정에 창업 실무(스튜디오 운영, 고객 상담 플로우, 가격 전략)가 포함되어 있으며, KCFB 전문가 네트워크를 통한 지속적 지원을 받습니다.</div></div></div>
+  </section>
+
+  <section class="cta-block" id="enroll">
+    <h2 class="cta-block__title">퍼스널컬러 전문가<br>커리어를 시작하세요</h2>
+    <p class="cta-block__sub">일정 확인 및 수강 예약은 문의해 주세요.</p>
+    <a href="mailto:contact@apls.co" class="cta-block__btn">수강 문의 →</a>
+  </section>
+</article>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__legal">주식회사 에이피엘스 · 서울특별시 강남구 선릉로 428, 11층 · 대표 임경은</div>
+    <div class="footer__lang">
+      <a href="/ko/professional-course" class="is-active">KR</a>
+      <a href="/professional-course">EN</a>
+      <a href="/ja/professional-course">JP</a>
+      <a href="/zh/professional-course">CN</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){document.querySelectorAll('.faq__q').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.closest('.faq__item');const a=item?.querySelector('.faq__a') as HTMLElement|null;if(!item||!a)return;const open=item.classList.contains('is-open');document.querySelectorAll('.faq__item.is-open').forEach(o=>{if(o!==item){o.classList.remove('is-open');const oa=o.querySelector('.faq__a') as HTMLElement|null;if(oa)oa.style.maxHeight='0';}});if(open){item.classList.remove('is-open');a.style.maxHeight='0';}else{item.classList.add('is-open');a.style.maxHeight=a.scrollHeight+'px';}});});})();
+</script>
+
+</BaseLayout>

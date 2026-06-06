@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const alternates = [
+  { lang: 'en', href: 'https://apls.kr/professional-course' },
+  { lang: 'ko', href: 'https://apls.kr/ko/professional-course' },
+  { lang: 'ja', href: 'https://apls.kr/ja/professional-course' },
+  { lang: 'zh', href: 'https://apls.kr/zh/professional-course' },
+];
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "APL专业个人色彩分析师认证课程",
+  "description": "由国家认证色彩师技师讲师授课的4天集中专业个人色彩分析师认证课程。包含LS170分光测色仪LAB测色诊断、披肩技法和创业实务。",
+  "provider": { "@type": "Organization", "name": "APL Color", "url": "https://apls.kr" },
+  "offers": { "@type": "Offer", "price": "4500000", "priceCurrency": "KRW" },
+  "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "Onsite", "courseWorkload": "P4D", "inLanguage": ["ko","en","ja","zh"] },
+  "educationalCredentialAwarded": "KCFB认证个人色彩分析师"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "需要什么前提条件吗？", "acceptedAnswer": { "@type": "Answer", "text": "无需前提条件或经验。课程面向初学者和有经验的专业人士。由持有国家认证色彩师技师资格的讲师亲自授课。" } },
+    { "@type": "Question", "name": "完成后可以获得什么资格？", "acceptedAnswer": { "@type": "Answer", "text": "毕业生将获得KCFB（韩国个人色彩时尚美容协会）认证的个人色彩分析师资格和唯一资格编号。该资格在韩国、日本、中国的APL网络中得到认可。" } },
+    { "@type": "Question", "name": "APL的诊断方法有什么不同？", "acceptedAnswer": { "@type": "Answer", "text": "APL使用LS170分光测色仪进行LAB色空间测色诊断。不仅依靠主观的披肩法，还采用仪器测量+视觉评估的双重方法提供客观诊断。" } }
+  ]
+};
+
+const schemas = [courseSchema, faqSchema];
+---
+
+<BaseLayout
+  title="专业个人色彩分析师认证课程 — 4天集中认证 | APL Color"
+  description="国家认证色彩师技师讲师团队的4天集中个人色彩专家认证课程。LS170分光测色仪LAB诊断，KCFB认证资格。釜山·首尔·大阪·上海。"
+  lang="zh"
+  alternates={alternates}
+  schema={schemas}
+>
+
+<style>
+:root {
+  --bg: #ece0c8; --bg-white: #FFFFFF; --text: #222222; --text-sub: #888888; --text-dim: #AAAAAA; --border: #E5E5E5;
+  --font: "Inter", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+  --header-h: 54px; --pad: clamp(20px, 4vw, 52px); --max-w: 1080px;
+  --ease: cubic-bezier(.165, .84, .44, 1); --dur-fast: 0.3s;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--text); background: var(--bg); line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--header-h); display: flex; align-items: center; background: rgba(236, 224, 200, 0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.header__inner { width: 100%; max-width: 1816px; margin: 0 auto; padding: 0 var(--pad); display: flex; align-items: center; justify-content: space-between; }
+.header__logo { font-weight: 800; font-size: 18px; }
+.header__right { display: flex; align-items: center; gap: 20px; }
+.header__lang { display: flex; gap: 6px; font-size: 12px; font-weight: 500; }
+.header__lang a { color: var(--text-dim); transition: color var(--dur-fast); }
+.header__lang a.is-active { color: var(--text); }
+.header__cta { font-size: 12px; font-weight: 600; padding: 8px 18px; border: 1.5px solid var(--text); border-radius: 2px; transition: background var(--dur-fast), color var(--dur-fast); }
+.header__cta:hover { background: var(--text); color: var(--bg); }
+
+.breadcrumb { padding: calc(var(--header-h) + 24px) var(--pad) 0; max-width: var(--max-w); margin: 0 auto; font-size: 12px; color: var(--text-dim); }
+.page { max-width: var(--max-w); margin: 0 auto; padding: 48px var(--pad) 120px; }
+.page__eyebrow { font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; }
+.page__title { font-weight: 800; font-size: clamp(32px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 32px; }
+.page__definition { font-size: clamp(16px, 1.3vw, 19px); line-height: 1.75; color: var(--text-sub); margin-bottom: 64px; max-width: 720px; }
+.page__definition strong { color: var(--text); }
+
+.section-block { margin-bottom: 64px; }
+.section-block__title { font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+.spec table { width: 100%; border-collapse: collapse; }
+.spec th, .spec td { text-align: left; padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
+.spec th { font-weight: 600; font-size: 12px; color: var(--text-dim); width: 140px; background: var(--bg-white); }
+
+.curriculum__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.curriculum__day { padding: 24px; background: var(--bg-white); border: 1px solid var(--border); }
+.curriculum__day-num { font-weight: 700; font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 8px; }
+.curriculum__day-title { font-weight: 700; font-size: 16px; margin-bottom: 10px; }
+.curriculum__day-list { font-size: 13px; line-height: 1.7; color: var(--text-sub); }
+
+.faq__item { border-bottom: 1px solid var(--border); }
+.faq__q { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 18px 0; font-weight: 600; font-size: 15px; text-align: left; }
+.faq__q:hover { opacity: 0.5; }
+.faq__icon { font-size: 18px; font-weight: 300; flex-shrink: 0; margin-left: 16px; transition: transform var(--dur-fast) var(--ease); }
+.faq__item.is-open .faq__icon { transform: rotate(45deg); }
+.faq__a { max-height: 0; overflow: hidden; transition: max-height 0.6s var(--ease); }
+.faq__a-inner { padding-bottom: 18px; font-size: 14px; line-height: 1.7; color: var(--text-sub); }
+
+.cta-block { text-align: center; padding: 64px 0; border-top: 1px solid var(--border); }
+.cta-block__title { font-weight: 800; font-size: clamp(22px, 3vw, 36px); margin-bottom: 12px; }
+.cta-block__sub { font-size: 14px; color: var(--text-sub); margin-bottom: 28px; }
+.cta-block__btn { display: inline-flex; font-weight: 600; font-size: 13px; padding: 14px 32px; background: var(--text); color: var(--bg); border-radius: 2px; transition: opacity var(--dur-fast); }
+.cta-block__btn:hover { opacity: 0.8; }
+
+.footer { border-top: 1px solid var(--border); padding: 48px 0; }
+.footer__inner { max-width: 1816px; margin: 0 auto; padding: 0 var(--pad); display: flex; justify-content: space-between; align-items: center; }
+.footer__legal { font-size: 11px; color: var(--text-dim); }
+.footer__lang { display: flex; gap: 10px; }
+.footer__lang a { font-size: 11px; font-weight: 600; color: var(--text-dim); }
+.footer__lang a.is-active { color: var(--text); }
+
+@media (max-width: 768px) { .curriculum__grid { grid-template-columns: 1fr; } .footer__inner { flex-direction: column; gap: 12px; align-items: flex-start; } }
+</style>
+
+<header class="header">
+  <div class="header__inner">
+    <a href="/zh/" class="header__logo">A.</a>
+    <div class="header__right">
+      <div class="header__lang">
+        <a href="/ko/professional-course">KR</a>
+        <a href="/professional-course">EN</a>
+        <a href="/ja/professional-course">JP</a>
+        <a href="/zh/professional-course" class="is-active">CN</a>
+      </div>
+      <a href="#enroll" class="header__cta">报名咨询</a>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb"><a href="/zh/">首页</a> / <strong>专业课程</strong></nav>
+
+<article class="page">
+  <div class="page__eyebrow">KCFB认证项目</div>
+  <h1 class="page__title">专业个人色彩<br>分析师认证课程</h1>
+
+  <p class="page__definition">
+    APL是韩国釜山的专业个人色彩培训项目。
+    由持有<strong>国家认证色彩师技师</strong>资格的讲师运营，
+    在<strong>釜山、首尔、大阪、上海</strong>设有工作室。
+    4天集中认证课程结合<strong>LS170分光测色仪LAB测色诊断</strong>和
+    传统披肩技法，基于<strong>13,000多件诊断数据</strong>，
+    培养科学的个人色彩分析师。
+  </p>
+
+  <section class="section-block spec">
+    <h2 class="section-block__title">课程详情</h2>
+    <table>
+      <tr><th>时长</th><td>4天集中课程</td></tr>
+      <tr><th>语言</th><td>韩语 / 英语 / 日语 / 中文</td></tr>
+      <tr><th>资格</th><td>KCFB认证个人色彩分析师（发放唯一资格编号）</td></tr>
+      <tr><th>学费</th><td>₩4,500,000（约23,000元人民币）</td></tr>
+      <tr><th>名额</th><td>小班制（每期最多6人，以实操为主）</td></tr>
+      <tr><th>地点</th><td>釜山·首尔（韩国）/ 大阪（日本）/ 上海（中国）</td></tr>
+      <tr><th>前提条件</th><td>无 — 初学者和有经验的专业人士均可报名</td></tr>
+    </table>
+  </section>
+
+  <section class="section-block">
+    <h2 class="section-block__title">4天课程安排</h2>
+    <div class="curriculum__grid">
+      <div class="curriculum__day"><div class="curriculum__day-num">Day 01</div><h3 class="curriculum__day-title">色彩科学基础</h3><p class="curriculum__day-list">色彩理论 & LAB色空间 · 光与肤色底色 · 孟塞尔 & 季节色彩体系 · LS170入门</p></div>
+      <div class="curriculum__day"><div class="curriculum__day-num">Day 02</div><h3 class="curriculum__day-title">诊断方法论</h3><p class="curriculum__day-list">LS170 LAB测量实操 · 披肩技法基础 · 14季节分类体系 · 真人模特实操</p></div>
+      <div class="curriculum__day"><div class="curriculum__day-num">Day 03</div><h3 class="curriculum__day-title">高级应用</h3><p class="curriculum__day-list">脸型 & 体型分析 · 造型整合 · 客户咨询流程 · 案例研究</p></div>
+      <div class="curriculum__day"><div class="curriculum__day-num">Day 04</div><h3 class="curriculum__day-title">资格认证 & 创业</h3><p class="curriculum__day-list">实操资格考试 · 创业实务 & 定价策略 · KCFB网络 · 结业证书颁发</p></div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <h2 class="section-block__title">常见问题</h2>
+    <div class="faq__item"><button class="faq__q">需要什么前提条件吗？<span class="faq__icon">+</span></button><div class="faq__a"><div class="faq__a-inner">无需前提条件或经验。课程面向初学者和有经验的专业人士。由持有国家认证色彩师技师资格的讲师亲自授课。</div></div></div>
+    <div class="faq__item"><button class="faq__q">完成后可以获得什么资格？<span class="faq__icon">+</span></button><div class="faq__a"><div class="faq__a-inner">毕业生将获得KCFB认证的个人色彩分析师资格和唯一资格编号。该资格在韩国、日本、中国的APL网络中得到认可。</div></div></div>
+    <div class="faq__item"><button class="faq__q">APL的诊断方法有什么不同？<span class="faq__icon">+</span></button><div class="faq__a"><div class="faq__a-inner">APL使用LS170分光测色仪进行LAB色空间测色诊断。不仅依靠主观的披肩法，还采用仪器测量+视觉评估的双重方法提供客观诊断。</div></div></div>
+  </section>
+
+  <section class="cta-block" id="enroll">
+    <h2 class="cta-block__title">开启您的<br>个人色彩专业之路</h2>
+    <p class="cta-block__sub">请联系我们确认日程并预约名额。</p>
+    <a href="mailto:contact@apls.co" class="cta-block__btn">报名咨询 →</a>
+  </section>
+</article>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__legal">APLs Co., Ltd. · 首尔特别市江南区宣陵路428, 11F · CEO 林京恩</div>
+    <div class="footer__lang"><a href="/ko/professional-course">KR</a><a href="/professional-course">EN</a><a href="/ja/professional-course">JP</a><a href="/zh/professional-course" class="is-active">CN</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){document.querySelectorAll('.faq__q').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.closest('.faq__item');const a=item?.querySelector('.faq__a') as HTMLElement|null;if(!item||!a)return;const open=item.classList.contains('is-open');document.querySelectorAll('.faq__item.is-open').forEach(o=>{if(o!==item){o.classList.remove('is-open');const oa=o.querySelector('.faq__a') as HTMLElement|null;if(oa)oa.style.maxHeight='0';}});if(open){item.classList.remove('is-open');a.style.maxHeight='0';}else{item.classList.add('is-open');a.style.maxHeight=a.scrollHeight+'px';}});});})();
+</script>
+
+</BaseLayout>

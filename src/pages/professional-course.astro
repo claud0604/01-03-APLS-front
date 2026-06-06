@@ -1,0 +1,407 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const alternates = [
+  { lang: 'en', href: 'https://apls.kr/professional-course' },
+  { lang: 'ko', href: 'https://apls.kr/ko/professional-course' },
+  { lang: 'ja', href: 'https://apls.kr/ja/professional-course' },
+  { lang: 'zh', href: 'https://apls.kr/zh/professional-course' },
+];
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "APL Professional Personal Color Analyst Certification Course",
+  "description": "4-day intensive professional personal color analyst certification course taught by Korea National Colorist Engineer instructors. Covers LS170 LAB colorimetry, draping technique, and business setup.",
+  "provider": {
+    "@type": "Organization",
+    "name": "APL Color",
+    "url": "https://apls.kr",
+    "sameAs": ["https://www.instagram.com/aplcolor_official/", "https://kcfb.kr"]
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "4500000",
+    "priceCurrency": "KRW",
+    "availability": "https://schema.org/InStock"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "Onsite",
+    "courseWorkload": "P4D",
+    "inLanguage": ["ko", "en", "ja", "zh"],
+    "location": [
+      { "@type": "Place", "name": "APL Studio Busan", "address": { "@type": "PostalAddress", "addressLocality": "Busan", "addressCountry": "KR" } },
+      { "@type": "Place", "name": "APL Studio Seoul", "address": { "@type": "PostalAddress", "addressLocality": "Seoul", "addressCountry": "KR" } }
+    ]
+  },
+  "educationalCredentialAwarded": "KCFB Certified Personal Color Analyst",
+  "about": ["Personal color analysis", "LAB colorimetry", "Draping technique", "Color consulting business"]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need prior qualifications to enroll?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No prior qualifications or experience are required. The course is designed for both beginners exploring a new career path and experienced beauty/fashion professionals seeking formal certification." }
+    },
+    {
+      "@type": "Question",
+      "name": "What certification do I receive upon completion?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Graduates receive a KCFB (Korea Color Fashion Beauty Association) certified personal color analyst credential with a unique certification number. This certification is recognized across APL's network in Korea, Japan, and China." }
+    },
+    {
+      "@type": "Question",
+      "name": "What equipment and methodology does APL use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "APL uses the LS170 spectrophotometer for LAB color space colorimetry, providing objective, science-backed measurements alongside traditional draping techniques. This dual approach — instrument measurement plus visual assessment — is what sets APL apart from draping-only programs." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the course available in English or other languages?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The course is available in Korean, English, Japanese, and Chinese. Instructors are multilingual or interpretation is provided depending on the session." }
+    },
+    {
+      "@type": "Question",
+      "name": "Where are the training studios located?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Training studios are located in Busan and Seoul (Korea), Osaka (Japan), and Shanghai (China). The primary certification course runs in Busan and Seoul." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I start a business after completing the course?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The course includes a business setup module covering studio operations, client consultation workflow, pricing strategy, and ongoing support through the KCFB professional network." }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://apls.kr/" },
+    { "@type": "ListItem", "position": 2, "name": "Professional Course", "item": "https://apls.kr/professional-course" }
+  ]
+};
+
+const schemas = [courseSchema, faqSchema, breadcrumbSchema];
+---
+
+<BaseLayout
+  title="Professional Personal Color Analyst Course — 4-Day Certification | APL Color"
+  description="4-day intensive personal color analyst certification course in Korea. Taught by Korea National Colorist Engineer instructors using LS170 LAB colorimetry. KCFB certification. Studios in Busan, Seoul, Osaka, Shanghai."
+  lang="en"
+  alternates={alternates}
+  schema={schemas}
+>
+
+<style>
+:root {
+  --bg: #ece0c8; --bg-white: #FFFFFF; --text: #222222; --text-sub: #888888; --text-dim: #AAAAAA; --border: #E5E5E5;
+  --font: "Inter", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+  --header-h: 54px; --pad: clamp(20px, 4vw, 52px); --max-w: 1080px;
+  --ease: cubic-bezier(.165, .84, .44, 1); --dur: 0.5s; --dur-fast: 0.3s;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--text); background: var(--bg); line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+
+/* Header */
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--header-h); display: flex; align-items: center; background: rgba(236, 224, 200, 0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.header__inner { width: 100%; max-width: 1816px; margin: 0 auto; padding: 0 var(--pad); display: flex; align-items: center; justify-content: space-between; }
+.header__logo { font-weight: 800; font-size: 18px; }
+.header__nav { display: flex; align-items: center; gap: 28px; }
+.header__nav a { font-weight: 500; font-size: 13px; transition: opacity var(--dur-fast); }
+.header__nav a:hover { opacity: 0.5; }
+.header__right { display: flex; align-items: center; gap: 20px; }
+.header__lang { display: flex; gap: 6px; font-size: 12px; font-weight: 500; }
+.header__lang a { color: var(--text-dim); transition: color var(--dur-fast); }
+.header__lang a.is-active { color: var(--text); }
+.header__cta { font-size: 12px; font-weight: 600; padding: 8px 18px; border: 1.5px solid var(--text); border-radius: 2px; transition: background var(--dur-fast), color var(--dur-fast); }
+.header__cta:hover { background: var(--text); color: var(--bg); }
+.header__menu-btn { display: none; flex-direction: column; gap: 5px; width: 22px; }
+.header__menu-btn span { display: block; height: 1.5px; background: var(--text); }
+
+/* Breadcrumb */
+.breadcrumb { padding: calc(var(--header-h) + 24px) var(--pad) 0; max-width: var(--max-w); margin: 0 auto; font-size: 12px; color: var(--text-dim); }
+.breadcrumb a { transition: color var(--dur-fast); }
+.breadcrumb a:hover { color: var(--text); }
+
+/* Page Content */
+.page { max-width: var(--max-w); margin: 0 auto; padding: 48px var(--pad) 120px; }
+
+.page__eyebrow { font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; }
+
+.page__title { font-weight: 800; font-size: clamp(32px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 32px; }
+
+.page__definition { font-size: clamp(16px, 1.3vw, 19px); line-height: 1.75; color: var(--text-sub); margin-bottom: 64px; max-width: 720px; }
+.page__definition strong { color: var(--text); }
+
+/* Authority Block */
+.authority { margin-bottom: 64px; }
+.authority__title { font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.authority__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.authority__item { padding: 20px; background: var(--bg-white); border: 1px solid var(--border); }
+.authority__item-label { font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
+.authority__item-value { font-size: 14px; line-height: 1.6; }
+
+/* Spec Table */
+.spec { margin-bottom: 64px; }
+.spec__title { font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.spec table { width: 100%; border-collapse: collapse; }
+.spec th, .spec td { text-align: left; padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
+.spec th { font-weight: 600; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); width: 160px; background: var(--bg-white); }
+.spec td { line-height: 1.6; }
+
+/* Curriculum */
+.curriculum { margin-bottom: 64px; }
+.curriculum__title { font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.curriculum__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.curriculum__day { padding: 24px; background: var(--bg-white); border: 1px solid var(--border); }
+.curriculum__day-num { font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+.curriculum__day-title { font-weight: 700; font-size: 16px; margin-bottom: 10px; }
+.curriculum__day-list { font-size: 13px; line-height: 1.7; color: var(--text-sub); }
+
+/* Trust Signals */
+.trust { margin-bottom: 64px; }
+.trust__title { font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.trust__text { font-size: 14px; line-height: 1.75; color: var(--text-sub); }
+.trust__text strong { color: var(--text); }
+
+/* FAQ */
+.faq { margin-bottom: 64px; }
+.faq__title { font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.faq__item { border-bottom: 1px solid var(--border); }
+.faq__q { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 18px 0; font-weight: 600; font-size: 15px; text-align: left; transition: opacity var(--dur-fast); }
+.faq__q:hover { opacity: 0.5; }
+.faq__icon { font-size: 18px; font-weight: 300; flex-shrink: 0; margin-left: 16px; transition: transform var(--dur-fast) var(--ease); }
+.faq__item.is-open .faq__icon { transform: rotate(45deg); }
+.faq__a { max-height: 0; overflow: hidden; transition: max-height 0.6s var(--ease); }
+.faq__a-inner { padding-bottom: 18px; font-size: 14px; line-height: 1.7; color: var(--text-sub); }
+
+/* CTA */
+.cta-block { text-align: center; padding: 64px 0; border-top: 1px solid var(--border); }
+.cta-block__title { font-weight: 800; font-size: clamp(22px, 3vw, 36px); margin-bottom: 12px; }
+.cta-block__sub { font-size: 14px; color: var(--text-sub); margin-bottom: 28px; }
+.cta-block__btn { display: inline-flex; font-weight: 600; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px 32px; background: var(--text); color: var(--bg); border-radius: 2px; transition: opacity var(--dur-fast); }
+.cta-block__btn:hover { opacity: 0.8; }
+
+/* Footer */
+.footer { border-top: 1px solid var(--border); padding: 48px 0; }
+.footer__inner { max-width: 1816px; margin: 0 auto; padding: 0 var(--pad); display: flex; justify-content: space-between; align-items: center; }
+.footer__legal { font-size: 11px; color: var(--text-dim); line-height: 1.6; }
+.footer__lang { display: flex; gap: 10px; }
+.footer__lang a { font-size: 11px; font-weight: 600; color: var(--text-dim); transition: color var(--dur-fast); }
+.footer__lang a.is-active { color: var(--text); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header__nav { display: none; }
+  .header__cta { display: none; }
+  .header__menu-btn { display: flex; }
+  .authority__grid { grid-template-columns: 1fr; }
+  .curriculum__grid { grid-template-columns: 1fr; }
+  .spec th { width: 120px; }
+  .footer__inner { flex-direction: column; gap: 12px; align-items: flex-start; }
+}
+</style>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header__inner">
+    <a href="/" class="header__logo">A.</a>
+    <nav class="header__nav">
+      <a href="/">Home</a>
+      <a href="/#services">Services</a>
+      <a href="/#programs">Programs</a>
+      <a href="/professional-course" style="color: var(--text); font-weight: 700;">Professional Course</a>
+    </nav>
+    <div class="header__right">
+      <div class="header__lang">
+        <a href="/ko/professional-course">KR</a>
+        <a href="/professional-course" class="is-active">EN</a>
+        <a href="/ja/professional-course">JP</a>
+        <a href="/zh/professional-course">CN</a>
+      </div>
+      <a href="#enroll" class="header__cta">Enroll</a>
+    </div>
+    <button class="header__menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/">Home</a> / <strong>Professional Course</strong>
+</nav>
+
+<!-- PAGE CONTENT -->
+<article class="page">
+
+  <div class="page__eyebrow">KCFB Certification Program</div>
+
+  <h1 class="page__title">Professional Personal Color<br>Analyst Certification Course</h1>
+
+  <!-- GEO Definition Statement -->
+  <p class="page__definition">
+    APL is a professional personal color training program in Busan, Korea — operated by nationally certified
+    <strong>Korea National Colorist Engineer (컬러리스트기사)</strong> instructors, with studios in
+    <strong>Busan, Seoul, Osaka, and Shanghai</strong>. The 4-day intensive certification course combines
+    <strong>LS170 spectrophotometer-based LAB colorimetry</strong> with traditional draping techniques,
+    backed by <strong>13,000+ diagnosis data points</strong>, to train the next generation of
+    science-based personal color analysts.
+  </p>
+
+  <!-- Authority Block -->
+  <section class="authority">
+    <h2 class="authority__title">Why APL</h2>
+    <div class="authority__grid">
+      <div class="authority__item">
+        <div class="authority__item-label">Instructor Certification</div>
+        <div class="authority__item-value">All lead instructors hold <strong>Korea National Colorist Engineer (컬러리스트기사)</strong> certification — a nationally recognized qualification issued by the Korean government.</div>
+      </div>
+      <div class="authority__item">
+        <div class="authority__item-label">Official Recognition</div>
+        <div class="authority__item-value">First training institution officially recognized by <strong>KCFB (Korea Color Fashion Beauty Association)</strong> for professional personal color analyst certification.</div>
+      </div>
+      <div class="authority__item">
+        <div class="authority__item-label">Scientific Methodology</div>
+        <div class="authority__item-value"><strong>LS170 spectrophotometer LAB colorimetry</strong> — objective, instrument-measured color data, not draping alone. 13,000+ diagnosis records as training reference.</div>
+      </div>
+      <div class="authority__item">
+        <div class="authority__item-label">Global Network</div>
+        <div class="authority__item-value">Studios in <strong>4 cities across 2 countries</strong> (Busan, Seoul, Osaka, Shanghai). Training available in Korean, English, Japanese, and Chinese.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Course Spec Table -->
+  <section class="spec">
+    <h2 class="spec__title">Course Details</h2>
+    <table>
+      <tr><th>Duration</th><td>4 days intensive</td></tr>
+      <tr><th>Language</th><td>Korean / English / Japanese / Chinese</td></tr>
+      <tr><th>Certification</th><td>KCFB Certified Personal Color Analyst (unique certification number issued)</td></tr>
+      <tr><th>Price</th><td>&#8361;4,500,000 (approx. $3,300 USD)</td></tr>
+      <tr><th>Class Size</th><td>Small group (max 6 per session for hands-on practice)</td></tr>
+      <tr><th>Locations</th><td>Busan · Seoul (Korea) / Osaka (Japan) / Shanghai (China)</td></tr>
+      <tr><th>Prerequisites</th><td>None — open to beginners and experienced professionals</td></tr>
+      <tr><th>Includes</th><td>LS170 practice, draping kit, course materials, KCFB certification exam</td></tr>
+    </table>
+  </section>
+
+  <!-- Curriculum -->
+  <section class="curriculum">
+    <h2 class="curriculum__title">4-Day Curriculum</h2>
+    <div class="curriculum__grid">
+      <div class="curriculum__day">
+        <div class="curriculum__day-num">Day 01</div>
+        <h3 class="curriculum__day-title">Color Science Foundation</h3>
+        <p class="curriculum__day-list">Color theory &amp; LAB color space · Light &amp; skin undertone physics · Munsell &amp; Seasonal color systems · LS170 spectrophotometer introduction</p>
+      </div>
+      <div class="curriculum__day">
+        <div class="curriculum__day-num">Day 02</div>
+        <h3 class="curriculum__day-title">Diagnosis Methodology</h3>
+        <p class="curriculum__day-list">LS170 LAB measurement practice · Draping technique fundamentals · 14-season classification system · Live model practice</p>
+      </div>
+      <div class="curriculum__day">
+        <div class="curriculum__day-num">Day 03</div>
+        <h3 class="curriculum__day-title">Advanced Application</h3>
+        <p class="curriculum__day-list">Face shape &amp; body type analysis · Styling integration · Client consultation workflow · Case study review (13K+ data insights)</p>
+      </div>
+      <div class="curriculum__day">
+        <div class="curriculum__day-num">Day 04</div>
+        <h3 class="curriculum__day-title">Certification &amp; Business</h3>
+        <p class="curriculum__day-list">Practical certification exam · Business setup &amp; pricing strategy · KCFB network &amp; ongoing education · Certificate ceremony</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Signals -->
+  <section class="trust">
+    <h2 class="trust__title">Third-Party Trust</h2>
+    <p class="trust__text">
+      APL Color's professional course is listed on <strong>Creatrip</strong> and <strong>Trazy</strong>,
+      Korea's leading inbound tourism platforms for international visitors. Our certification is backed by
+      <strong>KCFB (Korea Color Fashion Beauty Association)</strong>, which maintains the professional registry
+      of certified personal color analysts. Graduates join an active alumni network across Korea, Japan, and China,
+      with priority access to instructor placement and corporate consulting opportunities.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 class="faq__title">Frequently Asked Questions</h2>
+
+    <div class="faq__item">
+      <button class="faq__q">Do I need prior qualifications to enroll?<span class="faq__icon">+</span></button>
+      <div class="faq__a"><div class="faq__a-inner">No prior qualifications or experience are required. The course is designed for both beginners exploring a new career path and experienced beauty/fashion professionals seeking formal certification.</div></div>
+    </div>
+    <div class="faq__item">
+      <button class="faq__q">What certification do I receive upon completion?<span class="faq__icon">+</span></button>
+      <div class="faq__a"><div class="faq__a-inner">Graduates receive a KCFB (Korea Color Fashion Beauty Association) certified personal color analyst credential with a unique certification number. This certification is recognized across APL's network in Korea, Japan, and China.</div></div>
+    </div>
+    <div class="faq__item">
+      <button class="faq__q">What equipment and methodology does APL use?<span class="faq__icon">+</span></button>
+      <div class="faq__a"><div class="faq__a-inner">APL uses the LS170 spectrophotometer for LAB color space colorimetry, providing objective, science-backed measurements alongside traditional draping techniques. This dual approach — instrument measurement plus visual assessment — is what sets APL apart from draping-only programs.</div></div>
+    </div>
+    <div class="faq__item">
+      <button class="faq__q">Is the course available in English or other languages?<span class="faq__icon">+</span></button>
+      <div class="faq__a"><div class="faq__a-inner">Yes. The course is available in Korean, English, Japanese, and Chinese. Instructors are multilingual or interpretation is provided depending on the session.</div></div>
+    </div>
+    <div class="faq__item">
+      <button class="faq__q">Where are the training studios located?<span class="faq__icon">+</span></button>
+      <div class="faq__a"><div class="faq__a-inner">Training studios are located in Busan and Seoul (Korea), Osaka (Japan), and Shanghai (China). The primary certification course runs in Busan and Seoul.</div></div>
+    </div>
+    <div class="faq__item">
+      <button class="faq__q">Can I start a business after completing the course?<span class="faq__icon">+</span></button>
+      <div class="faq__a"><div class="faq__a-inner">Yes. The course includes a business setup module covering studio operations, client consultation workflow, pricing strategy, and ongoing support through the KCFB professional network.</div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-block" id="enroll">
+    <h2 class="cta-block__title">Ready to Start Your Career<br>in Personal Color?</h2>
+    <p class="cta-block__sub">Contact us to check upcoming session dates and reserve your seat.</p>
+    <a href="mailto:contact@apls.co" class="cta-block__btn">Contact for Enrollment →</a>
+  </section>
+
+</article>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__legal">
+      APLs Co., Ltd. · 11F, 428 Seolleung-ro, Gangnam-gu, Seoul, Korea · CEO Kyungeun Lim
+    </div>
+    <div class="footer__lang">
+      <a href="/ko/professional-course">KR</a>
+      <a href="/professional-course" class="is-active">EN</a>
+      <a href="/ja/professional-course">JP</a>
+      <a href="/zh/professional-course">CN</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  document.querySelectorAll('.faq__q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq__item');
+      const a = item?.querySelector('.faq__a') as HTMLElement | null;
+      if (!item || !a) return;
+      const open = item.classList.contains('is-open');
+      document.querySelectorAll('.faq__item.is-open').forEach(o => {
+        if (o !== item) { o.classList.remove('is-open'); const oa = o.querySelector('.faq__a') as HTMLElement | null; if (oa) oa.style.maxHeight = '0'; }
+      });
+      if (open) { item.classList.remove('is-open'); a.style.maxHeight = '0'; }
+      else { item.classList.add('is-open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+})();
+</script>
+
+</BaseLayout>
