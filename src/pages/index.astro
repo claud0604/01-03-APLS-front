@@ -1,0 +1,1385 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const alternates = [
+  { lang: 'en', href: 'https://apls.kr/' },
+  { lang: 'ko', href: 'https://apls.kr/ko/' },
+  { lang: 'ja', href: 'https://apls.kr/ja/' },
+  { lang: 'zh', href: 'https://apls.kr/zh/' },
+];
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "APL Color",
+  "alternateName": ["APLs", "APLCOLOR", "에이피엘컬러"],
+  "url": "https://apls.kr",
+  "logo": "https://apls.kr/images/APLCOLOR_logo_nobg.png",
+  "description": "Professional personal color analysis & training company based in Busan, Korea. Operated by nationally certified Colorist Engineers, with studios in Busan, Seoul, Osaka, and Shanghai.",
+  "foundingDate": "2024",
+  "founder": {
+    "@type": "Person",
+    "name": "Kyungeun Lim",
+    "alternateName": "임경은"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "선릉로 428, 11층",
+    "addressLocality": "Seoul",
+    "addressRegion": "Gangnam-gu",
+    "addressCountry": "KR"
+  },
+  "sameAs": [
+    "https://www.instagram.com/aplcolor_official/",
+    "https://kcfb.kr"
+  ],
+  "areaServed": [
+    { "@type": "City", "name": "Busan" },
+    { "@type": "City", "name": "Seoul" },
+    { "@type": "City", "name": "Osaka" },
+    { "@type": "City", "name": "Shanghai" }
+  ],
+  "knowsLanguage": ["ko", "en", "ja", "zh"]
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "APL Color",
+  "url": "https://apls.kr",
+  "inLanguage": ["en", "ko", "ja", "zh"]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is APL Color?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "APL Color is a professional personal color analysis and branding company headquartered in Seoul, Korea. We specialize in personal color diagnosis using LS170 spectrophotometer LAB colorimetry, with studios in Busan, Seoul, Osaka, and Shanghai."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need prior qualifications to take the professional course?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No prior qualifications are required. Our 4-day intensive professional course is designed for both beginners and experienced professionals. The course is taught by nationally certified Korea National Colorist Engineers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes APL different from other personal color programs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "APL uses LS170 spectrophotometer-based LAB colorimetry instead of subjective draping alone. Our instructors hold Korea National Colorist Engineer certifications, and we operate across 4 countries (Korea, Japan, China) with 13,000+ diagnosis data points."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the service available outside Korea?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We operate studios in Busan, Seoul, Osaka, and Shanghai, providing services in Korean, English, Japanese, and Chinese."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the relationship between APLs and APLCOLOR?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "APLs is the parent corporation, while APLCOLOR is the B2C personal color diagnosis studio sub-brand serving individual clients."
+      }
+    }
+  ]
+};
+
+const schemas = [organizationSchema, websiteSchema, faqSchema];
+---
+
+<BaseLayout
+  title="APL Color — Professional Personal Color Analysis & Training | Korea"
+  description="APL Color is a professional personal color training program in Busan, Korea. Operated by nationally certified Colorist Engineers with LS170 LAB colorimetry. Studios in Busan, Seoul, Osaka, Shanghai."
+  lang="en"
+  alternates={alternates}
+  schema={schemas}
+>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   TOKENS
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --bg:       #ece0c8;
+  --bg-white: #FFFFFF;
+  --text:     #222222;
+  --text-sub: #888888;
+  --text-dim: #AAAAAA;
+  --border:   #E5E5E5;
+  --accent:   #FA5D29;
+
+  --font: "Inter", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+
+  --header-h: 54px;
+  --pad: clamp(20px, 4vw, 52px);
+  --max-w: 1816px;
+
+  --ease: cubic-bezier(.165, .84, .44, 1);
+  --dur: 0.5s;
+  --dur-fast: 0.3s;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESET
+   ═══════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { font-family: var(--font); font-weight: 400; color: var(--text); background: var(--bg); line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+img, video { display: block; max-width: 100%; }
+ul, ol { list-style: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════ */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: background var(--dur) var(--ease);
+}
+
+.header--scrolled {
+  background: rgba(236, 224, 200, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header__inner {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.header__nav a {
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.header__nav a:hover { opacity: 0.5; }
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__lang {
+  display: flex;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.header__lang a { color: var(--text-dim); transition: color var(--dur-fast); }
+.header__lang a.is-active { color: var(--text); }
+.header__lang a:hover { color: var(--text); }
+
+.header__cta {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 8px 18px;
+  border: 1.5px solid var(--text);
+  border-radius: 2px;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+
+.header__cta:hover { background: var(--text); color: var(--bg); }
+
+.header__menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 22px;
+}
+
+.header__menu-btn span {
+  display: block;
+  height: 1.5px;
+  background: var(--text);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: calc(var(--header-h) + 100px) var(--pad) 0;
+  overflow: hidden;
+}
+
+.hero-toolbar {
+  position: absolute;
+  top: calc(var(--header-h) + 24px);
+  left: var(--pad);
+  right: var(--pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.hero-toolbar__left { display: flex; align-items: center; }
+
+.box-score {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 8px 16px;
+  background: rgba(236, 224, 200, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.box-score__top strong {
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.box-score__bottom {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.box-score__bottom strong {
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.box-score__bottom sub {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+.hero-toolbar__right { display: flex; align-items: center; }
+
+.toolbar-bts {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.toolbar-bts li { display: flex; }
+
+.toolbar-bts__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  margin-left: -1px;
+  color: var(--text);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast);
+  background: rgba(236, 224, 200, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.toolbar-bts li:first-child .toolbar-bts__item { border-radius: 2px 0 0 2px; margin-left: 0; }
+.toolbar-bts li:last-child .toolbar-bts__item { border-radius: 0 2px 2px 0; }
+
+.toolbar-bts__item:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.hero__title {
+  font-weight: 500;
+  font-size: clamp(38px, 8.8vw, 160px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  padding-bottom: clamp(32px, 4vw, 60px);
+  position: relative;
+  z-index: 2;
+}
+
+/* GEO: Definition statement - visible to crawlers */
+.hero__definition {
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.7;
+  color: var(--text-sub);
+  max-width: 720px;
+  padding: 0 var(--pad) clamp(40px, 6vw, 80px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION COMMON
+   ═══════════════════════════════════════════════════════════ */
+.section {
+  padding: clamp(60px, 10vw, 160px) 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.section__eyebrow {
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section__eyebrow-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.section__title {
+  font-weight: 800;
+  font-size: clamp(28px, 4.5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: clamp(32px, 4vw, 64px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ABOUT
+   ═══════════════════════════════════════════════════════════ */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 120px);
+  align-items: start;
+}
+
+.about__mission {
+  font-weight: 700;
+  font-size: clamp(24px, 3.5vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.about__desc {
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.75;
+  color: var(--text-sub);
+  margin-bottom: 48px;
+}
+
+.about__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.stat__num {
+  font-weight: 800;
+  font-size: clamp(24px, 2.5vw, 42px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat__label {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 2px;
+}
+
+.stat__sub {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OUR SYSTEM
+   ═══════════════════════════════════════════════════════════ */
+.system__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.system__card {
+  background: var(--bg);
+  padding: clamp(24px, 2.5vw, 44px);
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.system__card:hover { background: var(--bg-white); }
+
+.system__card-num {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 40px;
+}
+
+.system__card-title {
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 28px);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.system__card-tags {
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.7;
+  margin-bottom: auto;
+}
+
+.system__card-arrow {
+  font-size: 22px;
+  color: var(--text-dim);
+  margin-top: 20px;
+  transition: transform var(--dur-fast) var(--ease), color var(--dur-fast);
+}
+
+.system__card:hover .system__card-arrow {
+  transform: translateX(4px);
+  color: var(--text);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SERVICES
+   ═══════════════════════════════════════════════════════════ */
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.service {
+  background: var(--bg-white);
+  padding: clamp(24px, 2.5vw, 44px);
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.service:hover { background: #fff; }
+
+.service__tag {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+
+.service__name {
+  font-weight: 700;
+  font-size: clamp(16px, 1.5vw, 24px);
+  margin-bottom: 10px;
+}
+
+.service__desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-sub);
+  margin-bottom: auto;
+}
+
+.service__link {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap var(--dur-fast);
+}
+
+.service:hover .service__link { gap: 10px; }
+
+/* ═══════════════════════════════════════════════════════════
+   PROGRAMS
+   ═══════════════════════════════════════════════════════════ */
+.programs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.program {
+  border: 1px solid var(--border);
+  transition: border-color var(--dur-fast);
+}
+
+.program:hover { border-color: var(--text); }
+
+.program__img {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: repeating-linear-gradient(135deg, #ddd 0 1px, transparent 1px 12px), #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.program__img span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #bbb;
+}
+
+.program__body { padding: clamp(16px, 2vw, 28px); }
+
+.program__tag {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+
+.program__name {
+  font-weight: 700;
+  font-size: clamp(16px, 1.4vw, 22px);
+  margin-bottom: 8px;
+}
+
+.program__desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-sub);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EXPERTS
+   ═══════════════════════════════════════════════════════════ */
+.experts__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.expert { text-align: center; }
+
+.expert__photo {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  margin-bottom: 14px;
+  background: repeating-linear-gradient(135deg, #ddd 0 1px, transparent 1px 12px), #eee;
+  filter: grayscale(100%);
+  transition: filter 0.6s var(--ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expert:hover .expert__photo { filter: grayscale(0%); }
+
+.expert__photo span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #bbb;
+}
+
+.expert__name { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+.expert__role { font-size: 11px; color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════
+   COMMUNITY
+   ═══════════════════════════════════════════════════════════ */
+.community {
+  background: var(--text);
+  color: #fff;
+  text-align: center;
+  padding: clamp(80px, 12vw, 200px) var(--pad);
+}
+
+.community__eyebrow {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 28px;
+}
+
+.community__title {
+  font-weight: 800;
+  font-size: clamp(28px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.community__sub {
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.65;
+  color: rgba(255,255,255,0.5);
+  max-width: 520px;
+  margin: 0 auto 48px;
+}
+
+.community__benefits {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  margin-bottom: 48px;
+}
+
+.benefit { max-width: 220px; }
+.benefit__num { font-weight: 600; font-size: 10px; letter-spacing: 0.12em; color: rgba(255,255,255,0.25); margin-bottom: 10px; }
+.benefit__title { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+.benefit__desc { font-size: 12px; line-height: 1.55; color: rgba(255,255,255,0.45); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1.5px solid;
+  border-radius: 2px;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+
+.btn--light { border-color: #fff; color: #fff; }
+.btn--light:hover { background: #fff; color: var(--text); }
+
+/* ═══════════════════════════════════════════════════════════
+   TESTIMONIALS
+   ═══════════════════════════════════════════════════════════ */
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.testimonial {
+  background: var(--bg);
+  padding: clamp(24px, 2.5vw, 44px);
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial__quote {
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.7;
+  color: var(--text-sub);
+  margin-bottom: auto;
+  padding-bottom: 32px;
+}
+
+.testimonial__quote::before {
+  content: '\201C';
+  display: block;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--border);
+  margin-bottom: 12px;
+}
+
+.testimonial__author { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+.testimonial__role { font-size: 11px; color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════════════════════ */
+.faq__list { max-width: 760px; }
+
+.faq__item { border-bottom: 1px solid var(--border); }
+
+.faq__q {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  font-weight: 600;
+  font-size: clamp(14px, 1.1vw, 17px);
+  text-align: left;
+  transition: opacity var(--dur-fast);
+}
+
+.faq__q:hover { opacity: 0.5; }
+
+.faq__icon {
+  font-size: 18px;
+  font-weight: 300;
+  flex-shrink: 0;
+  margin-left: 20px;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.faq__item.is-open .faq__icon { transform: rotate(45deg); }
+
+.faq__a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s var(--ease);
+}
+
+.faq__a-inner {
+  padding-bottom: 20px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-sub);
+  max-width: 600px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 64px 0 48px;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 64px;
+}
+
+.footer__brand { font-weight: 800; font-size: 18px; letter-spacing: 0.02em; margin-bottom: 12px; }
+.footer__slogan { font-size: 13px; line-height: 1.5; color: var(--text-sub); }
+
+.footer__col-title {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+.footer__links { display: flex; flex-direction: column; gap: 8px; }
+
+.footer__link {
+  font-size: 13px;
+  color: var(--text-sub);
+  transition: color var(--dur-fast);
+}
+
+.footer__link:hover { color: var(--text); }
+
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.footer__legal { font-size: 11px; color: var(--text-dim); line-height: 1.6; }
+
+.footer__lang { display: flex; gap: 10px; }
+.footer__lang a { font-size: 11px; font-weight: 600; color: var(--text-dim); transition: color var(--dur-fast); }
+.footer__lang a.is-active { color: var(--text); }
+.footer__lang a:hover { color: var(--text); }
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--d1 { transition-delay: 0.1s; }
+.reveal--d2 { transition-delay: 0.2s; }
+.reveal--d3 { transition-delay: 0.3s; }
+.reveal--d4 { transition-delay: 0.4s; }
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 1080px) {
+  .about__grid { grid-template-columns: 1fr; }
+  .about__stats { grid-template-columns: repeat(2, 1fr); }
+  .system__grid { grid-template-columns: repeat(2, 1fr); }
+  .experts__grid { grid-template-columns: repeat(3, 1fr); }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .header__nav { display: none; }
+  .header__cta { display: none; }
+  .header__menu-btn { display: flex; }
+
+  .services__grid { grid-template-columns: 1fr; }
+  .programs__grid { grid-template-columns: 1fr; }
+  .testimonials__grid { grid-template-columns: 1fr; }
+  .system__grid { grid-template-columns: 1fr; }
+  .system__card { min-height: auto; }
+  .experts__grid { grid-template-columns: repeat(2, 1fr); }
+
+  .community__benefits { flex-direction: column; align-items: center; gap: 40px; }
+
+  .footer__grid { grid-template-columns: 1fr; }
+  .footer__bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .box-score { padding: 6px 12px; }
+  .toolbar-bts__item { width: 34px; height: 34px; }
+  .toolbar-bts__item svg { width: 15px; height: 15px; }
+  .about__stats { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="/" class="header__logo">A.</a>
+    <nav class="header__nav">
+      <a href="#about">About</a>
+      <a href="#system">Our System</a>
+      <a href="#services">Services</a>
+      <a href="#programs">Programs</a>
+      <a href="/professional-course">Professional Course</a>
+    </nav>
+    <div class="header__right">
+      <div class="header__lang">
+        <a href="/ko/">KR</a>
+        <a href="/" class="is-active">EN</a>
+        <a href="/ja/">JP</a>
+        <a href="/zh/">CN</a>
+      </div>
+      <a href="#contact" class="header__cta">Contact</a>
+    </div>
+    <button class="header__menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-toolbar">
+    <div class="hero-toolbar__left">
+      <div class="box-score">
+        <div class="box-score__top"><strong>EST.</strong></div>
+        <div class="box-score__bottom">
+          <strong>2024</strong>
+          <sub>Seoul</sub>
+        </div>
+      </div>
+    </div>
+    <div class="hero-toolbar__right">
+      <ul class="toolbar-bts">
+        <li>
+          <a class="toolbar-bts__item" href="https://www.instagram.com/aplcolor_official/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="toolbar-bts__item" href="mailto:contact@apls.co" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h1 class="hero__title reveal">
+    APL Color<br>Professional Training
+  </h1>
+
+  <!-- GEO: Definition statement — crawlers read this as the first authoritative description -->
+  <p class="hero__definition reveal reveal--d1">
+    APL is a professional personal color training program in Busan, Korea — operated by nationally certified
+    <strong>Korea National Colorist Engineer (컬러리스트기사)</strong> instructors, with studios in
+    <strong>Busan, Seoul, Osaka, and Shanghai</strong>. Using LS170 spectrophotometer-based LAB colorimetry
+    and 13,000+ diagnosis data points, APL delivers science-backed personal color analysis and expert certification.
+  </p>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>01 — About</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <div class="about__grid">
+      <div>
+        <h2 class="about__mission reveal reveal--d1">
+          From Identity<br>to Brand,<br>and Beyond
+        </h2>
+      </div>
+      <div>
+        <p class="about__desc reveal reveal--d2">
+          APL Color is a Seoul-based corporation that designs image from inner identity
+          and builds personal and corporate brands. We operate an integrated system
+          spanning enneagram, color psychology, personal color analysis, and styling —
+          extending into expert training and system expansion across 4 countries.
+        </p>
+        <div class="about__stats reveal reveal--d3">
+          <div class="stat">
+            <div class="stat__num">4</div>
+            <div class="stat__label">Studios</div>
+            <div class="stat__sub">Busan · Seoul<br>Osaka · Shanghai</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">13K+</div>
+            <div class="stat__label">Data</div>
+            <div class="stat__sub">Diagnosis records</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">4</div>
+            <div class="stat__label">Languages</div>
+            <div class="stat__sub">KR · EN · JP · CN</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">2024</div>
+            <div class="stat__label">Founded</div>
+            <div class="stat__sub">Korea corporation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ OUR SYSTEM ═══════════ -->
+<section class="section" id="system" style="background: var(--bg-white);">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>02 — Our System</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">From Identity to Brand,<br>and Beyond</h2>
+
+    <div class="system__grid reveal reveal--d2">
+      <div class="system__card">
+        <div class="system__card-num">Step 01</div>
+        <h3 class="system__card-title">Inner<br>Identity</h3>
+        <p class="system__card-tags">Enneagram · Color Psychology · TCI personality assessment</p>
+        <div class="system__card-arrow">→</div>
+      </div>
+      <div class="system__card">
+        <div class="system__card-num">Step 02</div>
+        <h3 class="system__card-title">Image<br>Design</h3>
+        <p class="system__card-tags">Personal Color · Face Shape · Body Type · Styling with LS170 LAB colorimetry</p>
+        <div class="system__card-arrow">→</div>
+      </div>
+      <div class="system__card">
+        <div class="system__card-num">Step 03</div>
+        <h3 class="system__card-title">Brand<br>Production</h3>
+        <p class="system__card-tags">Personal & Corporate Branding · Color · Space · Fragrance consulting</p>
+        <div class="system__card-arrow">→</div>
+      </div>
+      <div class="system__card">
+        <div class="system__card-num">Step 04</div>
+        <h3 class="system__card-title">Expert<br>Expansion</h3>
+        <p class="system__card-tags">Expert Training · Instructor Placement · System Licensing across 4 countries</p>
+        <div class="system__card-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>03 — Services</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">Services</h2>
+
+    <div class="services__grid reveal reveal--d2">
+      <div class="service">
+        <div class="service__tag">APLCOLOR</div>
+        <h3 class="service__name">Personal Color Diagnosis</h3>
+        <p class="service__desc">Integrated personal image diagnosis combining personal color analysis, face shape, and body type assessment using LS170 spectrophotometer.</p>
+        <span class="service__link">Learn More →</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">KCFB</div>
+        <h3 class="service__name">Certification</h3>
+        <p class="service__desc">Systematic education programs for official certification and expert training, recognized by Korea Color Fashion Beauty Association.</p>
+        <span class="service__link">Learn More →</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">APLs</div>
+        <h3 class="service__name">Corporate Consulting</h3>
+        <p class="service__desc">Corporate image consulting, space color design, and brand identity building for companies and organizations.</p>
+        <span class="service__link">Learn More →</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">APLs + KCFB</div>
+        <h3 class="service__name">Professional Training</h3>
+        <p class="service__desc">Hands-on training and instructor certification for beauty, hair, and fashion industry professionals.</p>
+        <span class="service__link">Learn More →</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">KimVsTiger</div>
+        <h3 class="service__name">Tools & Data</h3>
+        <p class="service__desc">Spectrophotometers, draping fabrics, textbooks, and AI-powered analysis tools for professionals.</p>
+        <span class="service__link">Learn More →</span>
+      </div>
+      <div class="service">
+        <div class="service__tag">APLs</div>
+        <h3 class="service__name">Fragrance & Space</h3>
+        <p class="service__desc">Brand-aligned fragrance design and space color consulting for a complete identity experience.</p>
+        <span class="service__link">Learn More →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROGRAMS ═══════════ -->
+<section class="section" id="programs" style="background: var(--bg-white);">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>04 — Programs</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">Programs</h2>
+
+    <div class="programs__grid reveal reveal--d2">
+      <div class="program">
+        <div class="program__img"><span>APLCOLOR Intensive · 4:3</span></div>
+        <div class="program__body">
+          <div class="program__tag">APLCOLOR</div>
+          <h3 class="program__name">Personal Image Intensive</h3>
+          <p class="program__desc">Premium one-day intensive program combining personal color, face shape, and body type diagnosis.</p>
+        </div>
+      </div>
+      <div class="program">
+        <div class="program__img"><span>KCFB Certification · 4:3</span></div>
+        <div class="program__body">
+          <div class="program__tag">KCFB</div>
+          <h3 class="program__name">Expert Certification Course</h3>
+          <p class="program__desc">4-day professional course for KCFB-certified personal color analyst qualification. Theory and hands-on practice.</p>
+        </div>
+      </div>
+      <div class="program">
+        <div class="program__img"><span>Corporate Workshop · 4:3</span></div>
+        <div class="program__body">
+          <div class="program__tag">Corporate</div>
+          <h3 class="program__name">Corporate Brand Workshop</h3>
+          <p class="program__desc">Image strategy workshops for corporate teams. Integration of brand identity and personal image.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERTS ═══════════ -->
+<section class="section" id="experts">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>05 — Experts</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">Our Experts</h2>
+
+    <div class="experts__grid reveal reveal--d2">
+      <div class="expert">
+        <div class="expert__photo"><span>Portrait · 3:4</span></div>
+        <p class="expert__name">Kyungeun Lim</p>
+        <p class="expert__role">CEO · Chief Consultant · Korea National Colorist Engineer</p>
+      </div>
+      <div class="expert">
+        <div class="expert__photo"><span>Portrait · 3:4</span></div>
+        <p class="expert__name">Expert 02</p>
+        <p class="expert__role">KCFB Certified Analyst</p>
+      </div>
+      <div class="expert">
+        <div class="expert__photo"><span>Portrait · 3:4</span></div>
+        <p class="expert__name">Expert 03</p>
+        <p class="expert__role">KCFB Certified Analyst</p>
+      </div>
+      <div class="expert">
+        <div class="expert__photo"><span>Portrait · 3:4</span></div>
+        <p class="expert__name">Expert 04</p>
+        <p class="expert__role">KCFB Certified Analyst</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COMMUNITY ═══════════ -->
+<section class="community" id="community">
+  <div class="community__eyebrow reveal">06 — Community</div>
+  <h2 class="community__title reveal reveal--d1">KCFB<br>Community</h2>
+  <p class="community__sub reveal reveal--d2">
+    Join the Korea Color Fashion Beauty Association (KCFB) professional network
+    for ongoing education, business opportunities, and official certification.
+  </p>
+  <div class="community__benefits reveal reveal--d3">
+    <div class="benefit">
+      <div class="benefit__num">01</div>
+      <div class="benefit__title">Continuing Education</div>
+      <div class="benefit__desc">Regular training sessions and workshops on the latest trends and techniques.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit__num">02</div>
+      <div class="benefit__title">Business Network</div>
+      <div class="benefit__desc">Priority access to corporate consulting, instructor placement, and partnership opportunities.</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit__num">03</div>
+      <div class="benefit__title">Official Certification</div>
+      <div class="benefit__desc">KCFB-issued unique certification number. Officially recognized professional credentials.</div>
+    </div>
+  </div>
+  <a href="#contact" class="btn btn--light reveal reveal--d4">Apply Now</a>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>07 — Testimonials</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">Client Reviews</h2>
+
+    <div class="testimonials__grid reveal reveal--d2">
+      <div class="testimonial">
+        <p class="testimonial__quote">The systematic approach to corporate image consulting impressed our entire executive team.</p>
+        <p class="testimonial__author">Director Kim</p>
+        <p class="testimonial__role">HR Team, Major Corporation</p>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial__quote">After completing the KCFB certification course, my confidence as a professional completely transformed.</p>
+        <p class="testimonial__author">Park</p>
+        <p class="testimonial__role">KCFB Certified Expert</p>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial__quote">Having everything from inner analysis to image design in one place was exactly what I needed.</p>
+        <p class="testimonial__author">Lee</p>
+        <p class="testimonial__role">Personal Consulting Client</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="section" id="faq" style="background: var(--bg-white);">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>08 — FAQ</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+
+    <h2 class="section__title reveal reveal--d1">Frequently Asked Questions</h2>
+
+    <div class="faq__list reveal reveal--d2">
+      <div class="faq__item">
+        <button class="faq__q">What is the relationship between APLs and APLCOLOR?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">APLs is the parent corporation, while APLCOLOR is the B2C personal color diagnosis studio sub-brand serving individual clients.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">Do I need prior qualifications to take the professional course?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">No prior qualifications are required. Our 4-day intensive professional course is designed for both beginners and experienced professionals. The course is taught by nationally certified Korea National Colorist Engineers.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">What makes APL different from other personal color programs?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">APL uses LS170 spectrophotometer-based LAB colorimetry instead of subjective draping alone. Our instructors hold Korea National Colorist Engineer certifications, and we operate across 4 countries with 13,000+ diagnosis data points.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">Is the service available outside Korea?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">Yes. We operate studios in Busan, Seoul, Osaka, and Shanghai, providing services in Korean, English, Japanese, and Chinese.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">What is Inner Identity?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">Inner Identity is the process of exploring your inner self through Enneagram, Color Psychology, and TCI assessment. It serves as the starting point for designing your external image authentically.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">APL Color</div>
+        <div class="footer__slogan">From Identity to Brand,<br>and Beyond.</div>
+      </div>
+      <div>
+        <div class="footer__col-title">Navigation</div>
+        <div class="footer__links">
+          <a class="footer__link" href="#about">About</a>
+          <a class="footer__link" href="#system">Our System</a>
+          <a class="footer__link" href="#services">Services</a>
+          <a class="footer__link" href="#programs">Programs</a>
+          <a class="footer__link" href="/professional-course">Professional Course</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Brands</div>
+        <div class="footer__links">
+          <a class="footer__link" href="#">APLCOLOR</a>
+          <a class="footer__link" href="https://kcfb.kr" target="_blank" rel="noopener">KCFB</a>
+          <a class="footer__link" href="#">KimVsTiger</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Contact</div>
+        <div class="footer__links">
+          <a class="footer__link" href="mailto:contact@apls.co">contact@apls.co</a>
+          <a class="footer__link" href="https://www.instagram.com/aplcolor_official/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__legal">
+        APLs Co., Ltd. (주식회사 에이피엘스) · 102-81-48099<br>
+        11F, 428 Seolleung-ro, Gangnam-gu, Seoul, Korea · CEO Kyungeun Lim
+      </div>
+      <div class="footer__lang">
+        <a href="/ko/">KR</a>
+        <a href="/" class="is-active">EN</a>
+        <a href="/ja/">JP</a>
+        <a href="/zh/">CN</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+(function () {
+  'use strict';
+
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header?.classList.toggle('header--scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  document.querySelectorAll('.faq__q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq__item');
+      const a = item?.querySelector('.faq__a') as HTMLElement | null;
+      if (!item || !a) return;
+      const open = item.classList.contains('is-open');
+      document.querySelectorAll('.faq__item.is-open').forEach(o => {
+        if (o !== item) {
+          o.classList.remove('is-open');
+          const oa = o.querySelector('.faq__a') as HTMLElement | null;
+          if (oa) oa.style.maxHeight = '0';
+        }
+      });
+      if (open) { item.classList.remove('is-open'); a.style.maxHeight = '0'; }
+      else { item.classList.add('is-open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href') || '');
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+})();
+</script>
+
+</BaseLayout>

@@ -1,0 +1,425 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const alternates = [
+  { lang: 'en', href: 'https://apls.kr/' },
+  { lang: 'ko', href: 'https://apls.kr/ko/' },
+  { lang: 'ja', href: 'https://apls.kr/ja/' },
+  { lang: 'zh', href: 'https://apls.kr/zh/' },
+];
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "APL Color",
+  "alternateName": ["APLs", "APLCOLOR", "에이피엘컬러", "에이피엘스"],
+  "url": "https://apls.kr",
+  "logo": "https://apls.kr/images/APLCOLOR_logo_nobg.png",
+  "description": "한국 부산 기반 퍼스널컬러 전문가 양성 및 진단 기업. 국가공인 컬러리스트기사 자격 보유 강사진, 부산·서울·오사카·상하이 4개국 스튜디오 운영.",
+  "foundingDate": "2024",
+  "founder": {
+    "@type": "Person",
+    "name": "임경은",
+    "alternateName": "Kyungeun Lim"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "선릉로 428, 11층",
+    "addressLocality": "서울",
+    "addressRegion": "강남구",
+    "addressCountry": "KR"
+  },
+  "sameAs": [
+    "https://www.instagram.com/aplcolor_official/",
+    "https://kcfb.kr"
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "APLs와 APLCOLOR는 어떤 관계인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "APLs는 지주 법인이며, APLCOLOR는 B2C 개인 고객 대상 진단 스튜디오 서브 브랜드입니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "KCFB 자격 인증은 어떻게 취득하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "KCFB 공인 교육 과정(4일 집중 과정) 이수 후 자격 시험에 합격하면 고유 자격 번호를 부여받습니다. 국가공인 컬러리스트기사 자격 보유 강사진이 직접 교육합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "해외에서도 서비스를 받을 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "부산, 서울, 오사카, 상하이 4개 도시에 스튜디오를 운영하며, 한국어·영어·일본어·중국어 4개 국어로 서비스를 제공합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "APL 진단의 차별점은 무엇인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "APL은 LS170 분광측색계 기반 LAB 색공간 측색 진단을 사용합니다. 주관적 드레이핑만이 아닌 과학적 데이터(13,000건 이상)에 근거한 객관적 진단을 제공합니다."
+      }
+    }
+  ]
+};
+
+const schemas = [organizationSchema, faqSchema];
+---
+
+<BaseLayout
+  title="APL Color — 퍼스널컬러 전문가 양성 & 진단 | 한국 부산"
+  description="APL Color는 한국 부산 기반 퍼스널컬러 전문가 양성 프로그램입니다. 국가공인 컬러리스트기사 강사진, LS170 분광측색계 LAB 진단, 부산·서울·오사카·상하이 4개국 운영."
+  lang="ko"
+  alternates={alternates}
+  schema={schemas}
+>
+
+<style>
+:root {
+  --bg:       #ece0c8;
+  --bg-white: #FFFFFF;
+  --text:     #222222;
+  --text-sub: #888888;
+  --text-dim: #AAAAAA;
+  --border:   #E5E5E5;
+  --accent:   #FA5D29;
+  --font: "Inter", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --header-h: 54px;
+  --pad: clamp(20px, 4vw, 52px);
+  --max-w: 1816px;
+  --ease: cubic-bezier(.165, .84, .44, 1);
+  --dur: 0.5s;
+  --dur-fast: 0.3s;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { font-family: var(--font); font-weight: 400; color: var(--text); background: var(--bg); line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+img, video { display: block; max-width: 100%; }
+ul, ol { list-style: none; }
+
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--header-h); display: flex; align-items: center; background: transparent; transition: background var(--dur) var(--ease); }
+.header--scrolled { background: rgba(236, 224, 200, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.header__inner { width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad); display: flex; align-items: center; justify-content: space-between; }
+.header__logo { font-weight: 800; font-size: 18px; letter-spacing: 0.02em; }
+.header__nav { display: flex; align-items: center; gap: 28px; }
+.header__nav a { font-weight: 500; font-size: 13px; letter-spacing: 0.02em; transition: opacity var(--dur-fast) var(--ease); }
+.header__nav a:hover { opacity: 0.5; }
+.header__right { display: flex; align-items: center; gap: 20px; }
+.header__lang { display: flex; gap: 6px; font-size: 12px; font-weight: 500; }
+.header__lang a { color: var(--text-dim); transition: color var(--dur-fast); }
+.header__lang a.is-active { color: var(--text); }
+.header__lang a:hover { color: var(--text); }
+.header__cta { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 8px 18px; border: 1.5px solid var(--text); border-radius: 2px; transition: background var(--dur-fast), color var(--dur-fast); }
+.header__cta:hover { background: var(--text); color: var(--bg); }
+.header__menu-btn { display: none; flex-direction: column; gap: 5px; width: 22px; }
+.header__menu-btn span { display: block; height: 1.5px; background: var(--text); }
+
+.hero { position: relative; min-height: auto; display: flex; flex-direction: column; justify-content: flex-end; padding: calc(var(--header-h) + 100px) var(--pad) 0; overflow: hidden; }
+.hero__title { font-weight: 500; font-size: clamp(38px, 8.8vw, 160px); line-height: 0.9; letter-spacing: -0.04em; text-transform: uppercase; padding-bottom: clamp(32px, 4vw, 60px); position: relative; z-index: 2; }
+.hero__definition { font-size: clamp(15px, 1.2vw, 18px); line-height: 1.7; color: var(--text-sub); max-width: 720px; padding: 0 var(--pad) clamp(40px, 6vw, 80px); }
+
+.section { padding: clamp(60px, 10vw, 160px) 0; }
+.container { width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad); }
+.section__eyebrow { font-weight: 500; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 32px; display: flex; align-items: center; gap: 16px; }
+.section__eyebrow-line { flex: 1; height: 1px; background: var(--border); }
+.section__title { font-weight: 800; font-size: clamp(28px, 4.5vw, 64px); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: clamp(32px, 4vw, 64px); }
+
+.about__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 120px); align-items: start; }
+.about__mission { font-weight: 700; font-size: clamp(24px, 3.5vw, 52px); line-height: 1.1; letter-spacing: -0.02em; }
+.about__desc { font-size: clamp(14px, 1.1vw, 17px); line-height: 1.75; color: var(--text-sub); margin-bottom: 48px; }
+.about__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-top: 40px; border-top: 1px solid var(--border); }
+.stat__num { font-weight: 800; font-size: clamp(24px, 2.5vw, 42px); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; }
+.stat__label { font-weight: 600; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 2px; }
+.stat__sub { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+
+.system__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+.system__card { background: var(--bg); padding: clamp(24px, 2.5vw, 44px); display: flex; flex-direction: column; min-height: 300px; transition: background var(--dur-fast) var(--ease); }
+.system__card:hover { background: var(--bg-white); }
+.system__card-num { font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 40px; }
+.system__card-title { font-weight: 800; font-size: clamp(18px, 1.8vw, 28px); letter-spacing: -0.01em; text-transform: uppercase; margin-bottom: 12px; line-height: 1.15; }
+.system__card-tags { font-size: 12px; color: var(--text-sub); line-height: 1.7; margin-bottom: auto; }
+.system__card-arrow { font-size: 22px; color: var(--text-dim); margin-top: 20px; transition: transform var(--dur-fast) var(--ease), color var(--dur-fast); }
+.system__card:hover .system__card-arrow { transform: translateX(4px); color: var(--text); }
+
+.faq__list { max-width: 760px; }
+.faq__item { border-bottom: 1px solid var(--border); }
+.faq__q { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; font-weight: 600; font-size: clamp(14px, 1.1vw, 17px); text-align: left; transition: opacity var(--dur-fast); }
+.faq__q:hover { opacity: 0.5; }
+.faq__icon { font-size: 18px; font-weight: 300; flex-shrink: 0; margin-left: 20px; transition: transform var(--dur-fast) var(--ease); }
+.faq__item.is-open .faq__icon { transform: rotate(45deg); }
+.faq__a { max-height: 0; overflow: hidden; transition: max-height 0.6s var(--ease); }
+.faq__a-inner { padding-bottom: 20px; font-size: 13px; line-height: 1.7; color: var(--text-sub); max-width: 600px; }
+
+.footer { border-top: 1px solid var(--border); padding: 64px 0 48px; }
+.footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
+.footer__brand { font-weight: 800; font-size: 18px; letter-spacing: 0.02em; margin-bottom: 12px; }
+.footer__slogan { font-size: 13px; line-height: 1.5; color: var(--text-sub); }
+.footer__col-title { font-weight: 600; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; }
+.footer__links { display: flex; flex-direction: column; gap: 8px; }
+.footer__link { font-size: 13px; color: var(--text-sub); transition: color var(--dur-fast); }
+.footer__link:hover { color: var(--text); }
+.footer__bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 40px; border-top: 1px solid var(--border); }
+.footer__legal { font-size: 11px; color: var(--text-dim); line-height: 1.6; }
+.footer__lang { display: flex; gap: 10px; }
+.footer__lang a { font-size: 11px; font-weight: 600; color: var(--text-dim); transition: color var(--dur-fast); }
+.footer__lang a.is-active { color: var(--text); }
+.footer__lang a:hover { color: var(--text); }
+
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal--d1 { transition-delay: 0.1s; }
+.reveal--d2 { transition-delay: 0.2s; }
+.reveal--d3 { transition-delay: 0.3s; }
+
+@media (max-width: 1080px) { .about__grid { grid-template-columns: 1fr; } .about__stats { grid-template-columns: repeat(2, 1fr); } .system__grid { grid-template-columns: repeat(2, 1fr); } .footer__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 768px) { .header__nav { display: none; } .header__cta { display: none; } .header__menu-btn { display: flex; } .system__grid { grid-template-columns: 1fr; } .system__card { min-height: auto; } .footer__grid { grid-template-columns: 1fr; } .footer__bottom { flex-direction: column; gap: 12px; align-items: flex-start; } }
+@media (max-width: 480px) { .about__stats { grid-template-columns: 1fr 1fr; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } .reveal { opacity: 1; transform: none; } }
+</style>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="/ko/" class="header__logo">A.</a>
+    <nav class="header__nav">
+      <a href="#about">소개</a>
+      <a href="#system">시스템</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="header__right">
+      <div class="header__lang">
+        <a href="/ko/" class="is-active">KR</a>
+        <a href="/">EN</a>
+        <a href="/ja/">JP</a>
+        <a href="/zh/">CN</a>
+      </div>
+      <a href="#contact" class="header__cta">문의하기</a>
+    </div>
+    <button class="header__menu-btn" aria-label="메뉴"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <h1 class="hero__title reveal">
+    APL Color<br>전문가 양성
+  </h1>
+  <p class="hero__definition reveal reveal--d1">
+    APL은 한국 부산 기반의 퍼스널컬러 전문가 양성 프로그램입니다.
+    <strong>국가공인 컬러리스트기사</strong> 자격 보유 강사진이 운영하며,
+    <strong>부산, 서울, 오사카, 상하이</strong> 4개 도시에서 스튜디오를 운영합니다.
+    LS170 분광측색계 기반 LAB 색공간 측색 진단과 13,000건 이상의 진단 데이터를 바탕으로
+    과학적 퍼스널컬러 분석과 전문가 인증을 제공합니다.
+  </p>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>01 — 소개</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+    <div class="about__grid">
+      <div>
+        <h2 class="about__mission reveal reveal--d1">정체성에서<br>브랜드로,<br>그리고 그 너머로</h2>
+      </div>
+      <div>
+        <p class="about__desc reveal reveal--d2">
+          APL Color(에이피엘컬러)는 내면의 정체성에서 출발하여 이미지를 설계하고,
+          개인과 기업의 브랜드를 구현하는 서울 기반의 법인입니다.
+          에니어그램, 색채심리, 퍼스널컬러, 스타일링을 아우르는 통합 시스템을 운영하며,
+          이를 전문가 양성과 시스템 확장으로 이어갑니다.
+        </p>
+        <div class="about__stats reveal reveal--d3">
+          <div class="stat">
+            <div class="stat__num">4</div>
+            <div class="stat__label">Studios</div>
+            <div class="stat__sub">부산 · 서울<br>오사카 · 상하이</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">13K+</div>
+            <div class="stat__label">Data</div>
+            <div class="stat__sub">진단 데이터</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">4</div>
+            <div class="stat__label">Languages</div>
+            <div class="stat__sub">KR · EN · JP · CN</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">2024</div>
+            <div class="stat__label">Founded</div>
+            <div class="stat__sub">대한민국 법인</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR SYSTEM -->
+<section class="section" id="system" style="background: var(--bg-white);">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>02 — 시스템</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+    <h2 class="section__title reveal reveal--d1">내면에서 브랜드로,<br>그리고 그 너머로</h2>
+    <div class="system__grid reveal reveal--d2">
+      <div class="system__card">
+        <div class="system__card-num">Step 01</div>
+        <h3 class="system__card-title">Inner<br>Identity</h3>
+        <p class="system__card-tags">에니어그램 · 색채심리 · TCI 성격평가</p>
+        <div class="system__card-arrow">→</div>
+      </div>
+      <div class="system__card">
+        <div class="system__card-num">Step 02</div>
+        <h3 class="system__card-title">Image<br>Design</h3>
+        <p class="system__card-tags">퍼스널컬러 · 얼굴형 · 체형 · LS170 LAB 측색 진단</p>
+        <div class="system__card-arrow">→</div>
+      </div>
+      <div class="system__card">
+        <div class="system__card-num">Step 03</div>
+        <h3 class="system__card-title">Brand<br>Production</h3>
+        <p class="system__card-tags">개인 · 기업 브랜딩 · 컬러 · 공간 · 향 컨설팅</p>
+        <div class="system__card-arrow">→</div>
+      </div>
+      <div class="system__card">
+        <div class="system__card-num">Step 04</div>
+        <h3 class="system__card-title">Expert<br>Expansion</h3>
+        <p class="system__card-tags">전문가 양성 · 강사 배치 · 4개국 시스템 확장</p>
+        <div class="system__card-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" style="background: var(--bg-white);">
+  <div class="container">
+    <div class="section__eyebrow reveal">
+      <span>03 — FAQ</span>
+      <span class="section__eyebrow-line"></span>
+    </div>
+    <h2 class="section__title reveal reveal--d1">자주 묻는 질문</h2>
+    <div class="faq__list reveal reveal--d2">
+      <div class="faq__item">
+        <button class="faq__q">APLs와 APLCOLOR는 어떤 관계인가요?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">APLs는 지주 법인이며, APLCOLOR는 B2C 개인 고객 대상 진단 스튜디오 서브 브랜드입니다.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">KCFB 자격 인증은 어떻게 취득하나요?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">KCFB 공인 교육 과정(4일 집중 과정) 이수 후 자격 시험에 합격하면 고유 자격 번호를 부여받습니다. 국가공인 컬러리스트기사 자격 보유 강사진이 직접 교육합니다.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">APL 진단의 차별점은 무엇인가요?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">APL은 LS170 분광측색계 기반 LAB 색공간 측색 진단을 사용합니다. 주관적 드레이핑만이 아닌 과학적 데이터(13,000건 이상)에 근거한 객관적 진단을 제공합니다.</div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">해외에서도 서비스를 받을 수 있나요?<span class="faq__icon">+</span></button>
+        <div class="faq__a"><div class="faq__a-inner">부산, 서울, 오사카, 상하이 4개 도시에 스튜디오를 운영하며, 한국어·영어·일본어·중국어 4개 국어로 서비스를 제공합니다.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">APL Color</div>
+        <div class="footer__slogan">정체성에서 브랜드로,<br>그리고 그 너머로.</div>
+      </div>
+      <div>
+        <div class="footer__col-title">바로가기</div>
+        <div class="footer__links">
+          <a class="footer__link" href="#about">소개</a>
+          <a class="footer__link" href="#system">시스템</a>
+          <a class="footer__link" href="#faq">FAQ</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">서브 브랜드</div>
+        <div class="footer__links">
+          <a class="footer__link" href="#">APLCOLOR</a>
+          <a class="footer__link" href="https://kcfb.kr" target="_blank" rel="noopener">KCFB</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">연락처</div>
+        <div class="footer__links">
+          <a class="footer__link" href="mailto:contact@apls.co">contact@apls.co</a>
+          <a class="footer__link" href="https://www.instagram.com/aplcolor_official/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__legal">
+        주식회사 에이피엘스 (APLs Co., Ltd.) · 102-81-48099<br>
+        서울특별시 강남구 선릉로 428, 11층 · 대표 임경은
+      </div>
+      <div class="footer__lang">
+        <a href="/ko/" class="is-active">KR</a>
+        <a href="/">EN</a>
+        <a href="/ja/">JP</a>
+        <a href="/zh/">CN</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header?.classList.toggle('header--scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  document.querySelectorAll('.faq__q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq__item');
+      const a = item?.querySelector('.faq__a') as HTMLElement | null;
+      if (!item || !a) return;
+      const open = item.classList.contains('is-open');
+      document.querySelectorAll('.faq__item.is-open').forEach(o => {
+        if (o !== item) { o.classList.remove('is-open'); const oa = o.querySelector('.faq__a') as HTMLElement | null; if (oa) oa.style.maxHeight = '0'; }
+      });
+      if (open) { item.classList.remove('is-open'); a.style.maxHeight = '0'; }
+      else { item.classList.add('is-open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href') || '');
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+})();
+</script>
+
+</BaseLayout>
